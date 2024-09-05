@@ -1,0 +1,9 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# local env files
+.env
