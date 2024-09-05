@@ -10,3 +10,7 @@ npm install bootstrap@4.6
 npm install jquery popper.js
 
 ng g c components/sidebar
+
+ng g c components/nav-login
+
+ng g c components/nav-main
