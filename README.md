@@ -1,2 +1,10 @@
 # Project-AW
 Final Project : Advance Web Application
+
+# Setup Project
+## Frontend
+ng new --no-standalone frontend
+
+npm install bootstrap@4.6
+
+npm install jquery popper.js
