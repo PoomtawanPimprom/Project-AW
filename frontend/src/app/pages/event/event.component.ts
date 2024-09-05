@@ -8,16 +8,20 @@ import { Component, OnInit } from '@angular/core';
 export class EventComponent implements OnInit {
 
   event: any = [
-    {"id":"1", "image":"https://t3.ftcdn.net/jpg/00/72/98/56/360_F_72985661_LU1Xk0YQiPBwOuesuuJgwTn0NPlwP8ob.jpg", "name":"นัดเย็ด", "location":"อ่างห้วยยาง", "date_time":"05/09/2024 19:00 น."},
-    {"id":"2", "image":"https://www.signupgenius.com/cms/socialMediaImages/5-Sign-Ups-for-School-Activities-1260x630.png", "name":"กินข้าว", "location":"ป.1/2", "date_time":"06/09/2024 20:00 น."},
-    {"id":"3", "image":"https://kidz-village.ac.th/wp-content/uploads/2020/09/Hand-on-activity-min.jpg", "name":"ลงอ่าง", "location":"ป้อมยาม ปต.4", "date_time":"07/09/2024 21:00 น."},
-    {"id":"4", "image":"https://www.21kschool.com/us/wp-content/uploads/sites/37/2022/09/10-Fun-Educational-Activities-to-Do-at-Home.png", "name":"แทงสนุ๊ก", "location":"บ้านพี่พูมตา", "date_time":"08/09/2024 22:00 น."},
+    {"id":"1", "image":"https://www.hfocus.org/sites/default/files/styles/hfocus_super_cover/public/2023-03/xxkkalangkay.png?itok=Humh0up8", "name":"ออกกำลังกาย", "location":"สระสามแสน", "date_time":"05/09/2024 16:00 น."},
+    {"id":"2", "image":"https://www.amarinbabyandkids.com/app/uploads/2021/03/benefits-of-eating-together-with-family-feature-1024x538.jpg", "name":"กินข้าว", "location":"ป.1/2", "date_time":"06/09/2024 17:00 น."},
+    {"id":"3", "image":"https://promotions.co.th/wp-content/uploads/2018/11/major-cineplex.jpg", "name":"ดูหนัง", "location":"The Mall Korat", "date_time":"07/09/2024 19:00 น."},
+    {"id":"4", "image":"https://static.thairath.co.th/media/dFQROr7oWzulq5Fa5BWCKVeaXmVds6InyaIHka3CpOoBGMJFPBuCg1R98iYZ0dy8ixu.jpg", "name":"ตกปลา", "location":"อ่างห้วยยาง", "date_time":"08/09/2024 20:00 น."},
   ]
 
   constructor() { }
 
   ngOnInit(): void {
       
+  }
+
+  onJoinEvent(eventId: string): void {
+    console.log("EventID = ", eventId)
   }
 
 }
