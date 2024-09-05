@@ -16,3 +16,9 @@ npm install express
 npm install dotenv
 npm install mongoose
 ```
+
+ng g c components/navbar
+
+ng g c pages/main
+
+ng g c pages/event

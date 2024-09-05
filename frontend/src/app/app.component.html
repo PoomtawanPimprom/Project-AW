@@ -1,8 +1,4 @@
-<app-navbar />
-<div class="container-fluid">
-  <div class="row">
-    <app-sidebar />
-  </div>
-</div>
-
-<router-outlet />
+<ng-container *ngIf="showNavbar">
+    <app-navbar></app-navbar>
+</ng-container>
+<router-outlet></router-outlet>

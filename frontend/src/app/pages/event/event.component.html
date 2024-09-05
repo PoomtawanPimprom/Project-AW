@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2" style="padding-left: 0">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-sm-10" style="padding-left: 0">
+            <h2 style="margin-top: 10px;">หากิจกรรม</h2>
+
+            <div class="card-deck">
+                <div class="card" *ngFor="let item of event" style="margin: 15px; flex-basis: calc(33.3333% - 30px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <img class="card-img-top" [src]="item.image" alt="Event image" style="max-height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">กิจกรรม{{item.name}}</h5>
+                        <p class="card-text">สถานที่ {{item.location}}</p>
+                        <p class="card-text"><small class="text-muted">เวลา {{item.date_time}}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+.gradient-custom {
+    /* Fallback for old browsers */
+    background-color: #79acee;
+  
+    /* Linear gradient */
+    background: linear-gradient(to top, rgba(121, 172, 238, 0), rgba(129, 206, 222, 0));
+    
+    /* Bootstrap utility for background size, if needed */
+    background-size: cover;
+  }
+
+.border-container {
+    border-radius: 30px;
+}
