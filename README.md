@@ -12,3 +12,7 @@ npm install jquery popper.js
 ng g c components/sidebar
 
 ng g c components/navbar
+
+ng g c pages/main
+
+ng g c pages/event
