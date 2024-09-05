@@ -24,4 +24,8 @@ export class EventComponent implements OnInit {
     console.log("EventID = ", eventId)
   }
 
+  onAddEvent(): void {
+    console.log("Add Event Working!")
+  }
+
 }
