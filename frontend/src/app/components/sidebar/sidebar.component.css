@@ -1,3 +1,7 @@
 .nav-link:hover {
     color: #cccccc !important;
 }
+
+.nav-link {
+    font-size: 14px;
+}
