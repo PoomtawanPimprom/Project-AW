@@ -8,3 +8,5 @@ ng new --no-standalone frontend
 npm install bootstrap@4.6
 
 npm install jquery popper.js
+
+ng g c components/sidebar
