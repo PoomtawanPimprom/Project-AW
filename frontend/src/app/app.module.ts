@@ -29,7 +29,7 @@ import { EventComponent } from './pages/event/event.component';
     AppRoutingModule
   ],
   providers: [
-    provideClientHydration()
+    // provideClientHydration()
   ],
   bootstrap: [AppComponent]
 })
