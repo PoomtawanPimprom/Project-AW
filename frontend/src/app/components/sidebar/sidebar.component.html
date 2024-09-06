@@ -5,50 +5,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
-<div class="d-flex flex-column vh-100 bg-light" id="sidebar">
-    <ul class="nav flex-column p-3">
+<div class="d-flex flex-column" id="sidebar" style="height: 100vh; min-height: 100%; background-color: #194d7a">
+    <ul class="nav flex-column">
+        <a style="font-size: 26px; color: white; padding-left: 30px; padding-top: 14px; margin-bottom: 6px">เลือกสำนักวิชา</a>
+        <hr style="border-top: 1px solid white; margin: 0 30px; margin-bottom: 6px">
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาวิทยาศาสตร์')">
                 <i class="bi bi-thermometer"></i> สำนักวิชาวิทยาศาสตร์
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาเทคโนโลยีสังคม')">
                 <i class="bi bi-people"></i> สำนักวิชาเทคโนโลยีสังคม
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาเทคโนโลยีการเกษตร')">
                 <i class="bi bi-tree"></i> สำนักวิชาเทคโนโลยีการเกษตร
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาวิศวกรรมศาสตร์')">
                 <i class="bi bi-gear"></i> สำนักวิชาวิศวกรรมศาสตร์
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาแพทยศาสตร์')">
                 <i class="bi bi-heart-pulse"></i> สำนักวิชาแพทยศาสตร์
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาพยาบาลศาสตร์')">
                 <i class="bi bi-hospital"></i> สำนักวิชาพยาบาลศาสตร์
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาทันตแพทยศาสตร์')">
                 <i class="bi bi-journal-medical"></i> สำนักวิชาทันตแพทยศาสตร์
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาสาธารณสุขศาสตร์')">
                 <i class="bi bi-shield-plus"></i> สำนักวิชาสาธารณสุขศาสตร์
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาศาสตร์และศิลป์ดิจิทัล')">
                 <i class="bi bi-laptop"></i> สำนักวิชาศาสตร์และศิลป์ดิจิทัล
             </a>
         </li>

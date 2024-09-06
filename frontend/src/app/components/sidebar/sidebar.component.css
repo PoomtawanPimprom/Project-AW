@@ -1,7 +1,18 @@
 .nav-link:hover {
-    color: #cccccc !important;
+    color: black !important;
+    transition: 0.5s;
 }
 
 .nav-link {
     font-size: 12.8px;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    background-color: #79ACEE;
+    transition: 0.5s;
+}
+
+.nav-item {
+    padding-left: 14px;
 }

@@ -7,16 +7,22 @@ import { LoginRegisterComponent } from './components/login-register/login-regist
 import { MainComponent } from './pages/main/main.component';
 import { EventComponent } from './pages/event/event.component';
 import { FriendComponent } from './pages/friend/friend.component';
+import { EventMyeventComponent } from './pages/event-myevent/event-myevent.component';
+import { EventCreateComponent } from './pages/event-create/event-create.component';
+import { EventEditComponent } from './pages/event-edit/event-edit.component';
 
 const routes: Routes = [
-  { path: 'routing1', component: TestRoutingPageComponent },
-  { path: 'routing2', component: Routing2Component },
-  { path: 'routing/:id', component: DynamicRoutingComponent },
-  { path: 'login', component: LoginRegisterComponent},
-  { path: 'main', component: MainComponent},
-  { path: 'event', component: EventComponent},
-  { path: 'friend', component: FriendComponent},
-];
+ { path: 'routing1', component: TestRoutingPageComponent },
+ { path: 'routing2', component: Routing2Component },
+ { path: 'routing/:id', component: DynamicRoutingComponent },
+ { path: 'login', component: LoginRegisterComponent},
+ { path: 'main', component: MainComponent},
+ { path: 'event', component: EventComponent},
+ { path: 'event/myevent', component: EventMyeventComponent},
+ { path: 'event/create', component: EventCreateComponent},
+ { path: 'event/edit/:id', component: EventEditComponent},
+ { path: 'friend', component: FriendComponent},
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
