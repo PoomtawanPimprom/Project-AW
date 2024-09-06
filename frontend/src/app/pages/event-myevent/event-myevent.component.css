@@ -9,7 +9,24 @@
     margin-bottom: 20px;
 }
 
+.card-title {
+    margin-bottom: 6px;
+}
+
+.card-text {
+    margin-bottom: 6px;
+}
+
 .card-img-top {
     width: 100%;
     height: auto;
+}
+
+.main-content {
+    width: 100%;
+    min-height: 100vh;
+    background-color: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(132, 139, 200, 0.18);
 }
