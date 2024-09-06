@@ -36,7 +36,7 @@ import { EventInfoComponent } from './pages/event-info/event-info.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     // provideClientHydration()
