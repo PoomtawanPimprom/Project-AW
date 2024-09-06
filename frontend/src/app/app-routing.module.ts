@@ -6,14 +6,16 @@ import { DynamicRoutingComponent } from './routing/dynamic-routing/dynamic-routi
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { MainComponent } from './pages/main/main.component';
 import { EventComponent } from './pages/event/event.component';
+import { FriendComponent } from './pages/friend/friend.component';
 
 const routes: Routes = [
- { path: 'routing1', component: TestRoutingPageComponent },
- { path: 'routing2', component: Routing2Component },
- { path: 'routing/:id', component: DynamicRoutingComponent },
- { path: 'login', component: LoginRegisterComponent},
- { path: 'main', component: MainComponent},
- { path: 'event', component: EventComponent},
+  { path: 'routing1', component: TestRoutingPageComponent },
+  { path: 'routing2', component: Routing2Component },
+  { path: 'routing/:id', component: DynamicRoutingComponent },
+  { path: 'login', component: LoginRegisterComponent},
+  { path: 'main', component: MainComponent},
+  { path: 'event', component: EventComponent},
+  { path: 'friend', component: FriendComponent},
 ];
 
 @NgModule({
