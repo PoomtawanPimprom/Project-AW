@@ -6,13 +6,15 @@
                     <h2 style="margin-bottom: 0;">หากิจกรรม</h2>
                     <div class="d-flex">
                         <input type="text" class="form-control" placeholder="ค้นหากิจกรรม"
-                            style="border-radius: 100px; margin-right: 10px" />
+                            style="border-radius: 100px; margin-right: 10px" 
+                            [(ngModel)]="searchTerm" (input)="onSearchEvent()"
+                            />
                         <button type="button" class="btn btn-primary" (click)="onMyEvent()"
                             style="width: 200px; border-radius: 100px;">กิจกรรมของฉัน</button>
                     </div>
                 </div>
                 <div class="card-deck">
-                    <div class="card" *ngFor="let item of event"
+                    <div class="card" *ngFor="let item of filteredEvents"
                         style="margin: 15px; flex-basis: calc(33.3333% - 30px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                         <img class="card-img-top" [src]="item.image" alt="Event image"
                             style="max-height: 200px; object-fit: cover;">
@@ -22,7 +24,7 @@
                             <p class="card-text"><small class="text-muted">เวลา {{item.date_time}}</small></p>
                         </div>
                         <div class="card-footer text-right">
-                            <button type="button" class="btn btn-dark" (click)="onEventInfo(item.id)">
+                            <button type="button" class="btn btn-dark" (click)="onEventInfo(item.id.toString())">
                                 ดูข้อมูลเพิ่มเติม
                             </button>
                         </div>
