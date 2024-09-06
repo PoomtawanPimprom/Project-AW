@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-interface Event {
-  id: number;
-  image: string;
-  name: string;
-  location: string;
-  date_time: string;
-}
+import { Event } from '../../interfaces/event.model';
 
 @Component({
   selector: 'app-event-myevent',
