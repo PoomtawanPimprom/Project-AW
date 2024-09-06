@@ -19,7 +19,7 @@
                 <a class="nav-link mx-4" [routerLink]="['/main']">หน้าหลัก</a>
             </li>
             <li class="nav-item mx-4">
-                <a class="nav-link" [routerLink]="['/']">หาเพื่อน</a>
+                <a class="nav-link" [routerLink]="['/friend']">หาเพื่อน</a>
             </li>
             <li class="nav-item mx-4">
                 <a class="nav-link" [routerLink]="['/event']">หากิจกรรม</a>
@@ -31,7 +31,7 @@
                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
                     style="background-color: #79ACEE; color: white; display: flex; align-items: center; justify-content: center; padding: 8px 16px;">
                     <i class="bi bi-person-circle" style="color: white; margin-right: 10px"></i>
-                    <span style="margin-right: 10px">Username</span>
+                    <span style="margin-right: 10px">{{ username || 'NULL' }}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#">แก้ไขโปรไฟล์</a>

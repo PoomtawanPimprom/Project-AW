@@ -6,6 +6,7 @@ import { DynamicRoutingComponent } from './routing/dynamic-routing/dynamic-routi
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { MainComponent } from './pages/main/main.component';
 import { EventComponent } from './pages/event/event.component';
+import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { FriendComponent } from './pages/friend/friend.component';
 import { EventMyeventComponent } from './pages/event-myevent/event-myevent.component';
 import { EventCreateComponent } from './pages/event-create/event-create.component';
@@ -17,12 +18,13 @@ const routes: Routes = [
  { path: 'routing/:id', component: DynamicRoutingComponent },
  { path: 'login', component: LoginRegisterComponent},
  { path: 'main', component: MainComponent},
- { path: 'event', component: EventComponent},
- { path: 'event/myevent', component: EventMyeventComponent},
- { path: 'event/create', component: EventCreateComponent},
- { path: 'event/edit/:id', component: EventEditComponent},
  { path: 'friend', component: FriendComponent},
-]
+ { path: 'event', component: EventComponent},
+ { path: 'event/info/:id', component: EventInfoComponent},
+ { path: 'event/myevent', component: EventMyeventComponent},
+ { path: 'event/myevent/create', component: EventCreateComponent},
+ { path: 'event/myevent/edit/:id', component: EventEditComponent},
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

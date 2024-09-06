@@ -8,6 +8,7 @@
                 <h2 style="margin-bottom: 0;">กิจกรรมของฉัน</h2>
                 <button type="button" class="btn btn-primary" (click)="onAddEvent()">เพิ่มกิจกรรม</button>
             </div>
+            <hr style="border-top: 1px solid black; margin-top: 12px; margin-bottom: 2px">
             <div class="card-deck">
                 <div class="card" *ngFor="let item of event" style="margin: 15px; flex-basis: calc(33.3333% - 30px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                     <img class="card-img-top" [src]="item.image" alt="Event image" style="max-height: 200px; object-fit: cover;">

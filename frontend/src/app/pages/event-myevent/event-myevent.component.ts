@@ -20,12 +20,12 @@ export class EventMyeventComponent implements OnInit {
   }
 
   onAddEvent(): void {
-    this.router.navigate(['/event/create']);
+    this.router.navigate(['/event/myevent/create']);
     console.log("Add Event Working!")
   }
 
   onEditEvent(eventId: number): void {
-    this.router.navigate([`/event/edit/${eventId}`]);
+    this.router.navigate([`/event/myevent/edit/${eventId}`]);
     console.log("Edit Event Working! By ID = ", eventId)
   }
 
