@@ -1,5 +1,6 @@
 .nav-link:hover {
     color: black !important;
+    transition: 0.5s;
 }
 
 .nav-link {
@@ -9,6 +10,7 @@
 
 .nav-item:hover {
     background-color: #79ACEE;
+    transition: 0.5s;
 }
 
 .nav-item {

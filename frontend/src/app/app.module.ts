@@ -11,6 +11,9 @@ import { DynamicRoutingComponent } from './routing/dynamic-routing/dynamic-routi
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MainComponent } from './pages/main/main.component';
 import { EventComponent } from './pages/event/event.component';
+import { EventCreateComponent } from './pages/event-create/event-create.component';
+import { EventMyeventComponent } from './pages/event-myevent/event-myevent.component';
+import { EventEditComponent } from './pages/event-edit/event-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { EventComponent } from './pages/event/event.component';
     DynamicRoutingComponent,
     MainComponent,
     EventComponent,
+    EventCreateComponent,
+    EventMyeventComponent,
+    EventEditComponent,
   ],
   imports: [
     BrowserModule,

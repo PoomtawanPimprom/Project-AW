@@ -6,6 +6,9 @@ import { DynamicRoutingComponent } from './routing/dynamic-routing/dynamic-routi
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { MainComponent } from './pages/main/main.component';
 import { EventComponent } from './pages/event/event.component';
+import { EventMyeventComponent } from './pages/event-myevent/event-myevent.component';
+import { EventCreateComponent } from './pages/event-create/event-create.component';
+import { EventEditComponent } from './pages/event-edit/event-edit.component';
 
 const routes: Routes = [
  { path: 'routing1', component: TestRoutingPageComponent },
@@ -14,6 +17,9 @@ const routes: Routes = [
  { path: 'login', component: LoginRegisterComponent},
  { path: 'main', component: MainComponent},
  { path: 'event', component: EventComponent},
+ { path: 'event/myevent', component: EventMyeventComponent},
+ { path: 'event/create', component: EventCreateComponent},
+ { path: 'event/edit/:id', component: EventEditComponent},
 ];
 
 @NgModule({

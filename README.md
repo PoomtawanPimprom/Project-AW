@@ -11,6 +11,9 @@ ng g c components/sidebar
 ng g c components/navbar
 ng g c pages/main
 ng g c pages/event
+ng g c pages/event-myevent
+ng g c pages/event-create
+ng g c pages/event-edit
 ```
 ## Backend
 ```
