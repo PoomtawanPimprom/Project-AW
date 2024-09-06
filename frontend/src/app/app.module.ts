@@ -11,6 +11,7 @@ import { DynamicRoutingComponent } from './routing/dynamic-routing/dynamic-routi
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MainComponent } from './pages/main/main.component';
 import { EventComponent } from './pages/event/event.component';
+import { FriendComponent } from './pages/friend/friend.component';
 import { EventCreateComponent } from './pages/event-create/event-create.component';
 import { EventMyeventComponent } from './pages/event-myevent/event-myevent.component';
 import { EventEditComponent } from './pages/event-edit/event-edit.component';
@@ -27,6 +28,7 @@ import { EventInfoComponent } from './pages/event-info/event-info.component';
     DynamicRoutingComponent,
     MainComponent,
     EventComponent,
+    FriendComponent,
     EventCreateComponent,
     EventMyeventComponent,
     EventEditComponent,
