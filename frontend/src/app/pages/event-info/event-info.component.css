@@ -13,6 +13,10 @@
     animation: floatUp 0.8s ease-out;
 }
 
+.card-img-top {
+    border-radius: calc(.25rem - 1px);
+}
+
 @keyframes floatUp {
     0% {
         opacity: 0;
