@@ -15,4 +15,5 @@ ng g c pages/name
 npm install express
 npm install dotenv
 npm install mongoose
+npm install cors
 ```
