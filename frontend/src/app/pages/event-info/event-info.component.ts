@@ -16,6 +16,7 @@ export class EventInfoComponent implements OnInit {
 
   event: Event[] = [];
   selectedEvent?: Event;
+  isJoined: boolean = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private datePipe: DatePipe) { }
 
@@ -54,6 +55,7 @@ export class EventInfoComponent implements OnInit {
   }
 
   onJoinEvent(): void {
+    this.isJoined = !this.isJoined;
     console.log("Join Event Working!")
   }
 
