@@ -30,6 +30,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="d-flex justify-content-between mt-4" style="align-items: center;">
+                    <button class="btn btn-secondary" (click)="prevPage()" [disabled]="currentPage === 1">
+                        หน้าก่อน
+                    </button>
+                    <span>หน้า {{currentPage}}</span>
+                    <button class="btn btn-secondary" (click)="nextPage()" 
+                        [disabled]="(currentPage * itemsPerPage) >= event.length">
+                        หน้าถัดไป
+                    </button>
+                </div>
             </div>
         </div>
     </div>
