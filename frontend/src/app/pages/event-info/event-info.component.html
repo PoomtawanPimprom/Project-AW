@@ -20,6 +20,7 @@
                                 <p class="card-text mb-2">ผู้จัด : {{selectedEvent.creator.toUpperCase()}}</p>
                                 <p class="card-text mb-2">สถานที่ : {{selectedEvent.location}}</p>
                                 <p class="card-text mb-2">จัดวันที่ {{formatDate(selectedEvent.date_time)}}</p>
+                                <p class="card-text mb-2">จำนวนผู้เข้าร่วม 0 คน</p>
                                 <button 
                                   type="button"
                                   class="btn btn-success"
@@ -34,14 +35,14 @@
                             <app-comment />
                         </div>
                     </div>
-                    <div class="col-sm-6"></div>
+                    <!-- <div class="col-sm-6"></div>
                     <div class="col-sm-6 my-3">
                         <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <div style="margin: 16px;">
                                 ความคิดเห็น
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>               
             </div>
         </div>

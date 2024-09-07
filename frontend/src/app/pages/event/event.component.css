@@ -4,6 +4,23 @@
     /* justify-content: space-between; */
 }
 
+.card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    animation: floatUp 0.8s ease-out;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .card {
     flex: 0 1 calc(33.3333% - 30px);
     margin-bottom: 20px;
