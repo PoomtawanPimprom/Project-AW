@@ -34,13 +34,42 @@ router.get("/creator/:username", async (req, res) => {
   }
 });
 
-// POST CreateEvent -> ยังไม่สามารถป้องกันการสร้าง ID ซ้ำกันได้
+// // POST CreateEvent
+// router.post("/", async (req, res) => {
+//   const { eventId, image, name, location, date_time, description, creator } = req.body;
+//   try {
+//     const newEvent = new Event({ eventId, image, name, location, date_time, description, creator }); 
+//     // = insert into events (eventId, image, name, location, date_time, description, creator) values (eventId, image, name, location, date_time, description, creator);
+//     await newEvent.save();
+//     return res.status(201).json(newEvent);
+//   } catch (err) {
+//     return res.status(400).json(err);
+//   }
+// });
+
+// POST CreateEvent
 router.post("/", async (req, res) => {
-  const { eventId, image, name, location, date_time, description, creator } = req.body;
+  const { image, name, location, date_time, description, creator } = req.body;
+
   try {
-    const newEvent = new Event({ eventId, image, name, location, date_time, description, creator }); 
-    // = insert into events (eventId, image, name, location, date_time, description, creator) values (eventId, image, name, location, date_time, description, creator);
+    const latestEvent = await Event.findOne().sort({ eventId: -1 });
+    let newEventId = 1;
+    if (latestEvent) {
+      newEventId = parseInt(latestEvent.eventId, 10) + 1;
+    }
+
+    const newEvent = new Event({
+      eventId: newEventId,
+      image,
+      name,
+      location,
+      date_time,
+      description,
+      creator
+    });
+
     await newEvent.save();
+
     return res.status(201).json(newEvent);
   } catch (err) {
     return res.status(400).json(err);
@@ -95,6 +124,19 @@ router.delete("/:eventId", async (req, res) => {
     return res.status(200).json("delete complete!");
   } catch (err) {
     return res.status(400).json(err);
+  }
+});
+
+// GET GetLatestEventId
+router.get("/latest/eventId", async (req, res) => {
+  try {
+    const latestEvent = await Event.findOne().sort({ eventId: -1 });
+    if (!latestEvent) {
+      return res.status(404).json({ message: "No events found" });
+    }
+    return res.status(200).json({ latestEventId: latestEvent.eventId });
+  } catch (err) {
+    return res.status(500).json(err);
   }
 });
 

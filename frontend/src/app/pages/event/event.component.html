@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h5 class="card-title">กิจกรรม{{item.name}}</h5>
                             <p class="card-text">สถานที่ {{item.location}}</p>
-                            <p class="card-text"><small class="text-muted">จัดวันที่ {{item.date_time}}</small></p>
+                            <p class="card-text"><small class="text-muted">จัดวันที่ {{formatDate(item.date_time)}}</small></p>
                         </div>
                         <div class="card-footer text-right">
                             <button type="button" class="btn btn-mean" (click)="onEventInfo(item.eventId.toString())">
