@@ -20,7 +20,7 @@
                                 <p class="card-text mb-2">ผู้จัด : {{selectedEvent.creator}}</p>
                                 <p class="card-text mb-2">สถานที่ : {{selectedEvent.location}}</p>
                                 <p class="card-text mb-2">จัดวันที่ : {{selectedEvent.date_time}}</p>
-                                <button type="button" class="btn btn-success">เข้าร่วมกิจกรรม</button>
+                                <button type="button" class="btn btn-success" (click)="onJoinEvent()">เข้าร่วมกิจกรรม</button>
                             </div>
                         </div>
                         <div class="mt-auto">

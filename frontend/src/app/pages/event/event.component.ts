@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-event',
@@ -28,7 +29,7 @@ export class EventComponent implements OnInit {
   totalPages: number = 0;
   maxVisiblePages: number = 4;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.filteredEvents = this.event;

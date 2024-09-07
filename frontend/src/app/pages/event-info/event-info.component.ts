@@ -27,4 +27,9 @@ export class EventInfoComponent implements OnInit {
     this.selectedEvent = this.event.find(e => e.id === eventId);
       
   }
+
+  onJoinEvent(): void {
+    console.log("Join Event Working!")
+  }
+
 }
