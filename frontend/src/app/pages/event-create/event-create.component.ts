@@ -99,8 +99,11 @@ export class EventCreateComponent implements OnInit {
 
       this.http.post('http://localhost:3000/event', eventData).subscribe({
         next: (response) => {
-          console.log('Event created successfully:', response);
-          this.router.navigate(['/event']);
+          // console.log('Event created successfully:', response);
+          alert('เพิ่มกิจกรรมสำเร็จ');
+          setTimeout(() => {
+            this.router.navigate(['/event']);
+          }, 1000);
         },
         error: (error) => {
           console.error('Error creating event:', error);

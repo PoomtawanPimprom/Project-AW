@@ -1,8 +1,38 @@
 <div class="container-fluid" style="background: #f4f9fb;">
-    <div class="row">
-        <div class="col-sm-12 my-3">
-            <div class="main-content">
-                <p>Hello, Event-Edit!</p>
+    <div class="main-content my-3">
+        <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+                <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="name">ชื่อกิจกรรม</label>
+                        <input id="name" class="form-control" formControlName="name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">สถานที่</label>
+                        <input id="location" class="form-control" formControlName="location" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date_time">วัน/เวลา</label>
+                        <input id="date_time" type="datetime-local" class="form-control" formControlName="date_time"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">รายละเอียดกิจกรรม</label>
+                        <textarea id="description" class="form-control" formControlName="description" rows="2"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">รูปภาพกิจกรรม</label>
+                        <input type="file" class="form-control" (change)="onFileChange($event)" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">บันทึกข้อมูล</button>
+                </form>
             </div>
         </div>
     </div>
