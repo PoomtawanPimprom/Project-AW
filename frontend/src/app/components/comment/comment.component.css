@@ -1,0 +1,8 @@
+.btn-mean {
+    background-color: #194d7a;
+    color: white;
+}
+
+.btn-mean:hover {
+    background-color: #123f66 !important;
+}

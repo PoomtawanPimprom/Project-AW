@@ -30,3 +30,12 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(132, 139, 200, 0.18);
 }
+
+.btn-mean {
+    background-color: #194d7a;
+    color: white;
+}
+
+.btn-mean:hover {
+    background-color: #123f66 !important;
+}

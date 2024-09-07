@@ -5,7 +5,7 @@ const config = { autoIndex: true, };
 const url = "mongodb://localhost:27017/project_AW"
 
 //import router
-const commmentRouter = require("./router/comment.routes")
+const commentRouter = require("./router/comment.routes")
 
 app.use(express.json());
 //middleware
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 })
 
 //router 
-app.use("/comment", commmentRouter)
+app.use("/comment", commentRouter)
 
 
 const port = 3000;

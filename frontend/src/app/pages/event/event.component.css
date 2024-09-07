@@ -31,6 +31,15 @@
     box-shadow: 0 2px 4px rgba(132, 139, 200, 0.18);
 }
 
+.btn-mean {
+    background-color: #194d7a;
+    color: white;
+}
+
+.btn-mean:hover {
+    background-color: #123f66 !important;
+}
+
 /* @media (max-width: 768px) {
     .card {
         flex: 0 1 calc(50% - 30px);

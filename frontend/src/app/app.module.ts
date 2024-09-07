@@ -19,6 +19,7 @@ import { EventEditComponent } from './pages/event-edit/event-edit.component';
 import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { FriendInfoComponent } from './pages/friend-info/friend-info.component';
 import { FriendRequestComponent } from './pages/friend-request/friend-request.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FriendRequestComponent } from './pages/friend-request/friend-request.co
     EventInfoComponent,
     FriendInfoComponent,
     FriendRequestComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,
