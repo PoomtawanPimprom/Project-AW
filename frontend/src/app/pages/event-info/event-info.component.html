@@ -2,21 +2,30 @@
     <div class="row">
         <div class="col-sm-12 my-3">
             <div class="main-content">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2 style="margin-bottom: 0;">กิจกรรมตกปลา (ตัวอย่าง)</h2>
+                <div class="d-flex justify-content-between align-items-center" *ngIf="selectedEvent">
+                    <h2 style="margin-bottom: 10px;">กิจกรรม{{selectedEvent.name}}</h2>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6" style="background-color: black;">
-                        <div class="card">
-                            <div class="card" *ngFor="let item of event"
+                <div class="row" *ngIf="selectedEvent">
+                    <div class="col-sm-6">
+                        <div class="card d-flex align-items-center justify-content-center" style="height: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <div class="card"
                                 style="margin: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                                <img class="card-img-top" [src]="item.image" alt="Event image"
+                                <img class="card-img-top" [src]="selectedEvent.image" alt="Event image"
                                     style="object-fit: cover;">
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6" style="background-color: red;">
-
+                    <div class="col-sm-6">
+                        <div class="card" style="margin-bottom: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <div style="margin: 16px;">
+                                <p class="card-text">รายละเอียด : {{selectedEvent.description}}</p>
+                                <p class="card-text mb-2">ผู้จัด : {{selectedEvent.creator}}</p>
+                                <p class="card-text mb-2">สถานที่ : {{selectedEvent.location}}</p>
+                                <p class="card-text mb-2">จัดวันที่ : {{selectedEvent.date_time}}</p>
+                                <button type="button" class="btn btn-success">เข้าร่วมกิจกรรม</button>
+                            </div>
+                        </div>
+                        <app-comment />
                     </div>
                 </div>
             </div>

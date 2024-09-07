@@ -4,4 +4,6 @@ export interface Event {
     name: string;
     location: string;
     date_time: string;
+    description: string;
+    creator: string;
 }

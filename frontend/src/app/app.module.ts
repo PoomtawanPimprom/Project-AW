@@ -17,6 +17,7 @@ import { EventCreateComponent } from './pages/event-create/event-create.componen
 import { EventMyeventComponent } from './pages/event-myevent/event-myevent.component';
 import { EventEditComponent } from './pages/event-edit/event-edit.component';
 import { EventInfoComponent } from './pages/event-info/event-info.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { EventInfoComponent } from './pages/event-info/event-info.component';
     EventMyeventComponent,
     EventEditComponent,
     EventInfoComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,
