@@ -5,7 +5,7 @@ const Event = require("../models/event");
 // GET GetEvent
 router.get("/", async (req, res) => {
   try {
-    const data = await Event.find(); // select * from events
+    const data = await Event.find().sort({ eventId: -1 });; // select * from events and sort by eventId descending
     return res.json(data);
   } catch (err) {
     return res.status(500).json(err);
@@ -25,9 +25,9 @@ router.get("/:eventId", async (req, res) => {
 
 // GET GetEventByCreator
 router.get("/creator/:username", async (req, res) => {
-  const { username } = req.params; // รับ username จาก URL
+  const { username } = req.params;
   try {
-    const data = await Event.find({ creator: username }); // select * from events where creator = username
+    const data = await Event.find({ creator: username }).sort({ eventId: -1 }); // select * from events where creator = username and sort by eventId descending
     return res.json(data);
   } catch (err) {
     return res.status(500).json(err);
