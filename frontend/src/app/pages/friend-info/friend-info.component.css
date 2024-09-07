@@ -1,9 +1,7 @@
 .sidebar {
     height: 100%;
-    background-color: #ffffff;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(132, 139, 200, 0.18);
 }
 
 .profile-card {
@@ -31,7 +29,6 @@
     box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
     padding: 15px;
     margin-bottom: 20px;
-    margin-top: -20px;
 }
 .friend-card img {
     width: 100%;

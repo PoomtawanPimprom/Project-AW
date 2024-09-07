@@ -11,6 +11,8 @@ import { FriendComponent } from './pages/friend/friend.component';
 import { EventMyeventComponent } from './pages/event-myevent/event-myevent.component';
 import { EventCreateComponent } from './pages/event-create/event-create.component';
 import { EventEditComponent } from './pages/event-edit/event-edit.component';
+import { FriendInfoComponent } from './pages/friend-info/friend-info.component';
+import { FriendRequestComponent } from './pages/friend-request/friend-request.component';
 
 const routes: Routes = [
  { path: 'routing1', component: TestRoutingPageComponent },
@@ -24,6 +26,10 @@ const routes: Routes = [
  { path: 'event/myevent', component: EventMyeventComponent},
  { path: 'event/myevent/create', component: EventCreateComponent},
  { path: 'event/myevent/edit/:id', component: EventEditComponent},
+ { path: 'friendInfo', component: FriendInfoComponent},
+ { path: 'friendRequest', component: FriendRequestComponent},
+
+
 ];
 
 @NgModule({

@@ -1,15 +1,23 @@
+.d-flex{
+    background: #194d7a;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+}
+
 .nav-link:nth-child(1){
     margin-top: 5px;
 }
 .nav-link {
-    color: #194d7a !important;
+    color: #f8f9fa !important;
     padding: 8px 10px;
     margin-bottom: 6px;
 }
 .nav-link:hover {
+    border-radius: 10px;
     transition: 0.5s;
-    background-color: #f8f9fa;
-    color: #194d7a;
+    background-color: #ffffff95;
+    color: #072540 !important;
 }
 
 .bi{
@@ -19,8 +27,8 @@
 
 .active {
     border-radius: 10px;
-    color: #f8f9fa !important;
-    background-color: #194d7a !important; /* สีพื้นหลังที่ต้องการ */
+    color: #072540 !important;
+    background-color: #ffffffa3 !important; /* สีพื้นหลังที่ต้องการ */
     transition: 0.5s;
 }
 
