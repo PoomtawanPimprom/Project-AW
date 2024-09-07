@@ -24,10 +24,10 @@
                             <p class="card-text"><small class="text-muted">จัดวันที่ {{item.date_time}}</small></p>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <button type="button" class="btn btn-mean flex-grow-1 mx-1" (click)="onEventInfo(item.id.toString())">
+                            <button type="button" class="btn btn-mean flex-grow-1 mx-1" (click)="onEventInfo(item.eventId.toString())">
                                 ดูข้อมูลเพิ่มเติม
                             </button>
-                            <button type="button" class="btn btn-dark flex-grow-1 mx-1" (click)="onEditEvent(item.id)">
+                            <button type="button" class="btn btn-dark flex-grow-1 mx-1" (click)="onEditEvent(item.eventId)">
                                 แก้ไข
                             </button>
                             <button type="button" class="btn btn-danger flex-grow-1 mx-1" (click)="onDeleteEvent()">

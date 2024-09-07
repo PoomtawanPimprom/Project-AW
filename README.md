@@ -7,15 +7,8 @@ Final Project : Advance Web Application
 ng new --no-standalone frontend
 npm install bootstrap@4.6
 npm install jquery popper.js
-ng g c components/sidebar
-ng g c components/navbar
-ng g c components/comment
-ng g c pages/main
-ng g c pages/event
-ng g c pages/event-info
-ng g c pages/event-myevent
-ng g c pages/event-create
-ng g c pages/event-edit
+ng g c components/name
+ng g c pages/name
 ```
 ## Backend
 ```

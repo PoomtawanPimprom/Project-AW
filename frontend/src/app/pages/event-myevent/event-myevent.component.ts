@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 
@@ -9,12 +10,8 @@ import { Event } from '../../interfaces/event.model';
 })
 export class EventMyeventComponent implements OnInit {
 
-  // GetEventByUsername
-  event: Event[] = [
-    {"id": 1, "image":"https://www.hfocus.org/sites/default/files/styles/hfocus_super_cover/public/2023-03/xxkkalangkay.png?itok=Humh0up8", "name":"ออกกำลังกาย", "location":"สระสามแสน", "date_time":"05/09/2024 16:00 น.", "description":"สวัสดีฮาฟฟู่ว", "creator":"siriphobmean"},
-    {"id": 4, "image":"https://static.thairath.co.th/media/dFQROr7oWzulq5Fa5BWCKVeaXmVds6InyaIHka3CpOoBGMJFPBuCg1R98iYZ0dy8ixu.jpg", "name":"ตกปลา", "location":"อ่างห้วยยาง", "date_time":"08/09/2024 20:00 น.", "description":"สวัสดีฮาฟฟู่ว", "creator":"siriphobmean"},
-  ]
-
+  // GetEventByCreator
+  event: Event[] = []
   filteredEvents: Event[] = [];
   searchTerm: string = '';
   currentPage: number = 1;
@@ -22,12 +19,31 @@ export class EventMyeventComponent implements OnInit {
   totalPages: number = 0;
   maxVisiblePages: number = 4;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
+
+  // ngOnInit(): void {
+  //   this.filteredEvents = this.event;
+  //   this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+  //   this.updatePaginatedEvents();
+  // }
 
   ngOnInit(): void {
-    this.filteredEvents = this.event;
-    this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
-    this.updatePaginatedEvents();
+    const username = localStorage.getItem('username');
+    
+    if (username) {
+      this.http.get<Event[]>(`http://localhost:3000/event/creator/${username}`).subscribe({
+        next: (data) => {
+          this.event = data;
+          this.filteredEvents = this.event;
+          this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+          this.updatePaginatedEvents();
+          // console.log('Events data:', this.event);
+        },
+        error: (err) => {
+          console.error('Error fetching events by creator:', err);
+        }
+      });
+    }
   }
 
   // onSearchEvent(): void {

@@ -16,7 +16,18 @@ router.get("/", async (req, res) => {
 router.get("/:eventId", async (req, res) => {
   const { eventId } = req.params;
   try {
-    const data = await Event.find({ eventId: eventId }); // select * from events where eventId = eventId
+    const data = await Event.findOne({ eventId: eventId }); // select * from events where eventId = eventId
+    return res.json(data);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+// GET GetEventByCreator
+router.get("/creator/:username", async (req, res) => {
+  const { username } = req.params; // รับ username จาก URL
+  try {
+    const data = await Event.find({ creator: username }); // select * from events where creator = username
     return res.json(data);
   } catch (err) {
     return res.status(500).json(err);
