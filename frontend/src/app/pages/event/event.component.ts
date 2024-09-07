@@ -36,13 +36,26 @@ export class EventComponent implements OnInit {
     this.updatePaginatedEvents();
   }
 
+  // onSearchEvent(): void {
+  //   this.filteredEvents = this.event.filter((f: Event) => {
+  //     return f.name.includes(this.searchTerm);
+  //   });
+  //   this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+  //   this.currentPage = 1;
+  // }
   onSearchEvent(): void {
     this.filteredEvents = this.event.filter((f: Event) => {
       return f.name.includes(this.searchTerm);
     });
-    this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+    
+    if (this.filteredEvents.length >= this.itemsPerPage) {
+      this.totalPages = 1;
+    } else {
+      this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+    }
+    
     this.currentPage = 1;
-  }
+  }  
 
   updatePaginatedEvents(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
