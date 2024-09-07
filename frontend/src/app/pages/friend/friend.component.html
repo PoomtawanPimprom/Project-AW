@@ -25,69 +25,24 @@
                     </div>
                 </div>
                 <hr class="my-4" style="border: 2px solid #f5f5ff;">
-                <h6 class="mb-3" style="color: #082540;">เลือกสำนักวิชา</h6>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('เพื่อนทั้งหมด')">
-                            <i class="bi bi-grid"></i> เพื่อนทั้งหมด
-                        </a>
-                    </li>
-                    <hr style="border-top: 1px solid white; margin: 0 30px; margin-bottom: 6px">
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาวิทยาศาสตร์')">
-                            <i class="bi bi-thermometer"></i> สำนักวิชาวิทยาศาสตร์
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาเทคโนโลยีสังคม')">
-                            <i class="bi bi-people"></i> สำนักวิชาเทคโนโลยีสังคม
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาเทคโนโลยีการเกษตร')">
-                            <i class="bi bi-tree"></i> สำนักวิชาเทคโนโลยีการเกษตร
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาวิศวกรรมศาสตร์')">
-                            <i class="bi bi-gear"></i> สำนักวิชาวิศวกรรมศาสตร์
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาแพทยศาสตร์')">
-                            <i class="bi bi-heart-pulse"></i> สำนักวิชาแพทยศาสตร์
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาพยาบาลศาสตร์')">
-                            <i class="bi bi-hospital"></i> สำนักวิชาพยาบาลศาสตร์
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาทันตแพทยศาสตร์')">
-                            <i class="bi bi-journal-medical"></i> สำนักวิชาทันตแพทยศาสตร์
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาสาธารณสุขศาสตร์')">
-                            <i class="bi bi-shield-plus"></i> สำนักวิชาสาธารณสุขศาสตร์
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" (click)="onFilterInstitute('สำนักวิชาศาสตร์และศิลป์ดิจิทัล')">
-                            <i class="bi bi-laptop"></i> สำนักวิชาศาสตร์และศิลป์ดิจิทัล
-                        </a>
-                    </li>
-                </ul>
+                <app-sidebar (filterInstitute)="onFilterInstitute($event)"></app-sidebar>
             </div>
         </div>
         <div class="col-md-9 my-3">
             <div class="main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 style="color: #082540;">My Friends</h2>
+                    <h2 style="color: #082540;">เพื่อนของฉัน</h2>
                     <div class="d-flex">
-                        <input type="text" class="form-control search-bar me-2" style="color: #082540; border: 1px solid #082540;" 
-                        placeholder="Search" [(ngModel)]="search">
+                        <input 
+                        type="text" 
+                        class="form-control search-bar me-2" 
+                        style="color: #082540; border: 1px solid #082540;" 
+                        placeholder="ค้นหาเพื่อนของคุณ" 
+                        [(ngModel)]="search" 
+                        (ngModelChange)="onSearchFriend()"
+                    >
+                    <button type="button" class="btn"
+                    style="width: 200px; border-radius: 10px; color: #082540; border: none;">คำขอเป็นเพื่อน</button>
                     </div>
                 </div>
                 <div class="friends-container">
@@ -98,11 +53,14 @@
                                 <h5 style="color: #082540;">{{item.name}}</h5>
                                 <p class="text-muted">{{item.faculty}}</p>
                             </div>
-                            <button class="btn btn-secondary btn-sm w-100" style="background: #79ACEE; border: none;">ลบเพื่อน</button>
+                            <button class="btn btn-secondary btn-sm w-100" 
+                                    style="background: #79ACEE; border: none;">
+                                ลบเพื่อน
+                            </button>
                         </div>
                     </div>
-                </div>                
-            </div>
+                </div>
+            </div>                
         </div>
     </div>
 </div>

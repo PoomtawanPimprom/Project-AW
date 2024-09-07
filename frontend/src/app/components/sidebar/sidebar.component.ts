@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+  styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
-  institute!: string;
+  selectedMenu: string = 'เพื่อนทั้งหมด';
 
-  constructor() {}
+  @Output() filterInstitute = new EventEmitter<string>();
 
-  ngOnInit(): void {
+  onFilterInstitute(faculty: string): void {
+    this.selectedMenu = faculty; // เก็บเมนูที่ถูกเลือก
+    this.filterInstitute.emit(faculty); // ส่งค่า faculty เป็น string
   }
 
-  onFilterInstitute(receiver: string): void {
-    this.institute = receiver;
-    console.log("Filter: ", this.institute)
+  isActiveMenu(faculty: string): boolean {
+    return this.selectedMenu === faculty;
   }
-
 }
