@@ -25,41 +25,48 @@ export class EventComponent implements OnInit {
   searchTerm: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 6;
+  totalPages: number = 0;
+  maxVisiblePages: number = 4;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.filteredEvents = this.event;
-    this.paginate();
+    this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+    this.updatePaginatedEvents();
   }
 
-  paginate(): void {
+  onSearchEvent(): void {
+    this.filteredEvents = this.event.filter((f: Event) => {
+      return f.name.includes(this.searchTerm);
+    });
+    this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+    this.currentPage = 1;
+  }
+
+  updatePaginatedEvents(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.filteredEvents = this.event.slice(startIndex, endIndex);
   }
 
-  nextPage(): void {
-    if ((this.currentPage * this.itemsPerPage) < this.event.length) {
-      this.currentPage++;
-      this.paginate();
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePaginatedEvents();
     }
   }
 
-  prevPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.paginate();
-    }
-  }
+  getVisiblePages(): number[] {
+    const startPage = Math.max(1, this.currentPage - Math.floor(this.maxVisiblePages / 2));
+    const endPage = Math.min(this.totalPages, startPage + this.maxVisiblePages - 1);
+    const pages = [];
 
-  onSearchEvent(): void {
-    this.filteredEvents = this.event.filter((f: Event) => {
-      const matchesSearch = f.name.includes(this.searchTerm);
-      return matchesSearch;
-    });
-    this.currentPage = 1;
-    this.paginate();
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    return pages;
   }
 
   onEventInfo(eventId: string): void {
