@@ -7,7 +7,7 @@
                 </div>
                 <div class="row" *ngIf="selectedEvent">
                     <div class="col-sm-6 d-flex align-items-center justify-content-center">
-                        <div class="card d-flex align-items-center justify-content-center" style="height: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card d-flex align-items-center justify-content-center" style="height: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%;">
                             <div class="card" style="margin: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                                 <img class="card-img-top" [src]="selectedEvent.image" alt="Event image" style="object-fit: cover;">
                             </div>
@@ -16,25 +16,33 @@
                     <div class="col-sm-6 d-flex flex-column">
                         <div class="card" style="margin-bottom: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <div style="margin: 16px;">
-                                <p class="card-text">รายละเอียด : {{selectedEvent.description}}</p>
-                                <p class="card-text mb-2">ผู้จัด : {{selectedEvent.creator}}</p>
+                                <p class="card-text mb-5">รายละเอียด : {{selectedEvent.description}}</p>
+                                <p class="card-text mb-2">ผู้จัด : {{selectedEvent.creator.toUpperCase()}}</p>
                                 <p class="card-text mb-2">สถานที่ : {{selectedEvent.location}}</p>
-                                <p class="card-text mb-2">จัดวันที่ : {{selectedEvent.date_time}}</p>
-                                <button type="button" class="btn btn-success">เข้าร่วมกิจกรรม</button>
+                                <p class="card-text mb-2">จัดวันที่ {{formatDate(selectedEvent.date_time)}}</p>
+                                <p class="card-text mb-2">จำนวนผู้เข้าร่วม 0 คน</p>
+                                <button 
+                                  type="button"
+                                  class="btn btn-success"
+                                  [ngClass]="{ 'btn-success': !isJoined, 'btn-danger': isJoined }"
+                                  (click)="onJoinEvent()"
+                                >
+                                  {{ isJoined ? 'ยกเลิกเข้าร่วมกิจกรรม' : 'เข้าร่วมกิจกรรม' }}
+                                </button>
                             </div>
                         </div>
                         <div class="mt-auto">
                             <app-comment />
                         </div>
                     </div>
-                    <div class="col-sm-6"></div>
+                    <!-- <div class="col-sm-6"></div>
                     <div class="col-sm-6 my-3">
                         <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <div style="margin: 16px;">
                                 ความคิดเห็น
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>               
             </div>
         </div>

@@ -1,21 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 const config = { autoIndex: true, };
 const url = "mongodb://localhost:27017/project_AW"
 
-//import router
+// import router
 const commentRouter = require("./router/comment.routes")
+const eventRouter = require("./router/event.routes")
+
+// use cors middleware
+app.use(cors({
+    origin: 'http://localhost:4200',  // กำหนด origin ที่อนุญาตให้เชื่อมต่อ
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // กำหนดวิธีการที่อนุญาต
+    allowedHeaders: ['Content-Type', 'Authorization'],  // กำหนด headers ที่อนุญาต
+}));
 
 app.use(express.json());
-//middleware
-app.use(function (req, res, next) {
-    // Website you wish to allow to connect     
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-    // Pass to next layer of middleware     
-    next();
-});
-//open + middleware
+
+// open + middleware
 app.use((req, res, next) => {
     mongoose.connect(url, config)
         .then(() => {
@@ -24,13 +27,13 @@ app.use((req, res, next) => {
         })
         .catch(err => {
             console.log('Cannot connect to MongoDB');
-            res.status(501).send('Cannot connect to MongoDB')
+            res.status(501).send('Cannot connect to MongoDB');
         });
-})
+});
 
-//router 
+// router 
 app.use("/comment", commentRouter)
-
+app.use("/event", eventRouter)
 
 const port = 3000;
 app.listen(port, () => {

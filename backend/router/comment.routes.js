@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Comment = require('../models/comment');
-//GET getComment
+// GET getComment
 router.get('/', async (req, res) => {
     try {
         const data = await Comment.find(); //  Select * from comments
@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         return res.status(500).json(err);
     }
 });
-//GET getCommentByCommentId
+// GET getCommentByCommentId
 router.get('/:commentId', async (req, res) => {
     const {commentId} = req.params;
     try {
@@ -20,7 +20,7 @@ router.get('/:commentId', async (req, res) => {
         return res.status(500).json(err);
     }
 });
-//GET getAllCommentsByEventID
+// GET getAllCommentsByEventID
 // router.get('/:eventId', async (req, res) => {
 //     const eventId = req.params.eventId
 //     try {
@@ -30,7 +30,7 @@ router.get('/:commentId', async (req, res) => {
 //         return res.status(500).json(err);
 //     }
 // });
-//POST createComment
+// POST createComment
 router.post('/', async (req, res) => {
     const { commentId, comment, eventId, userId } = req.body
     try {
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
         return res.status(400).json(err);
     }
 });
-//PUT updateCommentByCommentID
+// PUT updateCommentByCommentID
 router.put('/:commentId', async (req, res) => {
     const {commentId} = req.params;
     const {comment} = req.body
@@ -55,7 +55,7 @@ return res.status(201).json(updateComment);
 }
 });
 
-//DELETE commentById
+// DELETE commentById
 router.delete('/:commentId', async (req, res) => {
     const {commentId} = req.params;
     try {                                                
