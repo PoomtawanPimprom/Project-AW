@@ -5,7 +5,7 @@ const Event = require("../models/event");
 // GET GetEvent
 router.get("/", async (req, res) => {
   try {
-    const data = await Event.find().sort({ eventId: -1 });; // select * from events and sort by eventId descending
+    const data = await Event.find().sort({ eventId: -1 }); // select * from events and sort by eventId descending
     return res.json(data);
   } catch (err) {
     return res.status(500).json(err);
@@ -121,7 +121,7 @@ router.delete("/:eventId", async (req, res) => {
   const { eventId } = req.params;
   try {
     const deleteEvent = await Event.findOneAndDelete({ eventId: eventId }); // delete from events where eventId = eventId;
-    return res.status(200).json("delete complete!");
+    return res.status(200).json("Delete complete!");
   } catch (err) {
     return res.status(400).json(err);
   }

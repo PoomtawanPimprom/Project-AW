@@ -11,8 +11,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]
 })
 export class EventMyeventComponent implements OnInit {
-
-  // GetEventByCreator
+  
   event: Event[] = []
   filteredEvents: Event[] = [];
   searchTerm: string = '';
@@ -22,12 +21,6 @@ export class EventMyeventComponent implements OnInit {
   maxVisiblePages: number = 4;
 
   constructor(private router: Router, private http: HttpClient, private datePipe: DatePipe) { }
-
-  // ngOnInit(): void {
-  //   this.filteredEvents = this.event;
-  //   this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
-  //   this.updatePaginatedEvents();
-  // }
 
   ngOnInit(): void {
     const username = localStorage.getItem('username');
