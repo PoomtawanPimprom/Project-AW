@@ -103,7 +103,7 @@ export class EventCreateComponent implements OnInit {
           alert('เพิ่มกิจกรรมสำเร็จ');
           setTimeout(() => {
             this.router.navigate(['/event']);
-          }, 1000);
+          }, 500);
         },
         error: (error) => {
           console.error('Error creating event:', error);

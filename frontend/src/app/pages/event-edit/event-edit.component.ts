@@ -106,7 +106,7 @@ export class EventEditComponent implements OnInit {
           alert('แก้ไขข้อมูลสำเร็จ');
           setTimeout(() => {
             this.router.navigate(['/event']);
-          }, 1000);
+          }, 500);
         },
         error: (error) => {
           console.error('Error updating event:', error);

@@ -113,19 +113,21 @@ export class EventMyeventComponent implements OnInit {
   }
 
   onDeleteEvent(eventId: number): void {
-    if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?")) {
+    if (confirm("คุณต้องการลบกิจกรรมนี้?")) {
       this.http.delete(`http://localhost:3000/event/${eventId}`).subscribe({
         next: () => {
           this.event = this.event.filter(e => e.eventId !== eventId);
           this.filteredEvents = this.event;
           this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
           this.updatePaginatedEvents();
-          console.log("ลบกิจกรรมสำเร็จ!");
         },
         error: (err) => {
           console.error("เกิดข้อผิดพลาดขณะลบกิจกรรม:", err);
         }
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     }
   }  
   

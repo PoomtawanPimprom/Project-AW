@@ -12,7 +12,7 @@ const Participant = require("../models/participant");
 //   }
 // });
 
-// GET GetParticipantByMemberAndEventId
+// GET GetParticipantByMemberAndEventId (for check button)
 router.get("/", async (req, res) => {
   const { member, eventId } = req.query;
   try {

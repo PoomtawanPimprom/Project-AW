@@ -18,6 +18,8 @@ export class EventInfoComponent implements OnInit {
   isJoined: boolean = false;
   member: string = '';
   participantCount: number = 0;
+  // showAlert: boolean = false;
+  // alertMessage: string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private datePipe: DatePipe) { }
 
@@ -50,7 +52,7 @@ export class EventInfoComponent implements OnInit {
       this.http.get<Participant>(`http://localhost:3000/participant?member=${this.member}&eventId=${eventId}`).subscribe({
         next: (participant) => {
           if (participant) {
-            this.isJoined = participant.status === 'เข้าร่วมแล้ว';
+            this.isJoined = participant.status === 'เข้าร่วม';
           }
         },
         error: (err) => {
@@ -75,27 +77,50 @@ export class EventInfoComponent implements OnInit {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
     if (eventId && this.member) {
       if (this.isJoined) {
-        this.http.delete(`http://localhost:3000/participant?member=${this.member}&eventId=${eventId}`).subscribe({
-          next: () => {
-            // console.log('Successfully left the event.');
-            this.isJoined = false;
-          },
-          error: (error) => {
-            console.error('Error leaving the event:', error);
-          }
-        });
+        if (confirm("คุณต้องการยกเลิกการเข้าร่วมกิจกรรมนี้?")) {
+          this.http.delete(`http://localhost:3000/participant?member=${this.member}&eventId=${eventId}`).subscribe({
+            next: () => {
+              // console.log('Successfully left the event.');
+              this.isJoined = false;
+              // this.alertMessage = 'ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ';
+              // this.showAlert = true;
+              // setTimeout(() => {
+              //   this.showAlert = false;
+              //   window.location.reload();
+              // }, 1000);
+
+              // alert('ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ');
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
+            },
+            error: (error) => {
+              console.error('Error leaving the event:', error);
+            }
+          });
+        }
       } else {
         const participantData: Participant = {
           participantId: 0,
           member: this.member,
           eventId: eventId,
-          status: 'เข้าร่วมแล้ว'
+          status: 'เข้าร่วม',
         };
 
         this.http.post('http://localhost:3000/participant', participantData).subscribe({
           next: (response) => {
             // console.log('Successfully joined the event:', response);
             this.isJoined = true;
+            // this.alertMessage = 'เข้าร่วมกิจกรรมสำเร็จ';
+            // this.showAlert = true;
+            // setTimeout(() => {
+            //   this.showAlert = false;
+            //   window.location.reload();
+            // }, 1000);
+            alert('เข้าร่วมกิจกรรมสำเร็จ');
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
           },
           error: (error) => {
             console.error('Error joining the event:', error);
