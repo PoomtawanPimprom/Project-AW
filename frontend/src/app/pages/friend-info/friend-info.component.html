@@ -33,10 +33,88 @@
                                     <h5 style="color: #082540;">{{item.name}}</h5>
                                     <p class="text-muted">{{item.faculty}}</p>
                                 </div>
-                                <button class="btn btn-secondary btn-sm w-100" style="background: #79ACEE; border: none;">เพิ่มเติม</button>
+                                
+                                <button class="btn btn-secondary btn-sm w-100" 
+                                    style="border: none;"
+                                    [ngStyle]="{
+                                        'background-color': item.status === 'accepted' ? '#79ACEE' : '#C3E8EB',
+                                        'color': item.status === 'accepted' ? '#FFF' : '#194d7a'
+                                    }"
+                                    (click)="openFriendModal(item)">
+                                    {{ isPendingRequest(item) ? 'รอดำเนินการ' : 'เพิ่มเติม' }}
+                                </button>    
                             </div>
                         </div>
-                    </div>                
+                    </div>
+                    
+                    <!-- Modal for displaying friend details -->
+                    <div *ngIf="selectedFriend" class="modal" tabindex="-1" role="dialog" aria-labelledby="friendModalLabel" aria-hidden="true">
+                        <div class="modal-bg " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="profile_img">
+                                        <img [src]="selectedFriend.image" alt="Friend image" class="img-fluid mb-3">
+                                    </div>
+                                    <h5 class="modal-title" id="friendModalLabel">{{ selectedFriend.name }}<br><span>{{ selectedFriend.faculty }}</span></h5>
+                                    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="imgBx">
+                                                <img [src]="selectedFriend.image" alt="Friend image" class="img-fluid mb-3">
+                                            </div>
+                                            <div class="actionBtns">
+                                                <div class="left">
+                                                    <i class="bi bi-heart"></i>
+                                                    <i class="bi bi-chat"></i>
+                                                    <i class="bi bi-send"></i>
+                                                </div>
+                                                <div class="right">
+                                                    <i class="bi bi-bookmark"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><strong>ชื่อ:</strong> {{ selectedFriend.name }}</p>
+                                            <p><strong>ชื่อเล่น:</strong> {{ selectedFriend.faculty }}</p>
+                                            <p><strong>อายุ:</strong> {{ selectedFriend.faculty }}</p>
+                                            <p><strong>สำนัก:</strong> {{ selectedFriend.faculty }}</p>
+                                            <p><strong>สาขา:</strong> {{ selectedFriend.faculty }}</p>
+                                            <p><strong>สิ่งที่ชอบ:</strong> {{ selectedFriend.faculty }}</p>
+
+                                            <div class="contact">
+                                                <a href="" class="nav-link">
+                                                    <i class="bi bi-facebook"></i>
+                                                </a>
+                                                <a href="" class="nav-link">
+                                                    <i class="bi bi-instagram"></i>
+                                                </a>
+                                                <a href="" class="nav-link">
+                                                    <i class="bi bi-tiktok"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- <p><strong>Status:</strong> {{ selectedFriend.status === 'pending' ? 'รอดำเนินการ' : 'Accepted' }}</p> -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" 
+                                    style="border: none;"
+                                    [ngStyle]="{
+                                        'background-color': selectedFriend.status === 'accepted' ? '#82CEDE' : '#C3E8EB',
+                                        'color': selectedFriend.status === 'accepted' ? '#FFF' : '#194d7a'
+                                    }"
+                                    (click)="openFriendModal(selectedFriend)">
+                                    {{ isPendingRequest(selectedFriend) ? 'รอดำเนินการ' : 'เพิ่มเพื่อน' }}
+                                </button> 
+                                    <button type="button" class="btn btn-secondary" style="background-color: #F6F4F0; border: none; color: #7a7777;" (click)="closeModal()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                  
                 </div>
                 </div>
             </div>

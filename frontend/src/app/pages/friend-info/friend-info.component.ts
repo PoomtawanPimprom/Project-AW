@@ -12,6 +12,7 @@ export class FriendInfoComponent implements OnInit {
   filteredFriends: any[] = [];
   selectedFaculty: string = 'เพื่อนทั้งหมด'; // Default is to show all friends
   search: string = '';
+  selectedFriend: any = null;
 
   constructor(private fs: FriendService) {}
 
@@ -29,9 +30,20 @@ export class FriendInfoComponent implements OnInit {
     this.applyFilter(); // เรียกฟังก์ชันกรองข้อมูล
   }
 
-
   onSearchFriend(): void {
     this.applyFilter(); // เรียกฟังก์ชันกรองข้อมูลเมื่อค้นหา
+  }
+
+  isPendingRequest(item: any): boolean {
+    return item.status === 'pending'; // Assuming 'status' field contains the friend request status
+  }
+
+  openFriendModal(friend: any): void {
+    this.selectedFriend = friend; // Set the selected friend's details
+  }
+
+  closeModal(): void {
+    this.selectedFriend = null; // Close the modal by setting selectedFriend to null
   }
 
   applyFilter(): void {
