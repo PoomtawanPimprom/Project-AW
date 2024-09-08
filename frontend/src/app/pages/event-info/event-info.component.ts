@@ -17,6 +17,7 @@ export class EventInfoComponent implements OnInit {
   selectedEvent?: Event;
   isJoined: boolean = false;
   member: string = '';
+  participantCount: number = 0;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private datePipe: DatePipe) { }
 
@@ -34,6 +35,16 @@ export class EventInfoComponent implements OnInit {
         },
       });
     }
+
+    this.http.get<{ count: number }>(`http://localhost:3000/participant/count/${eventId}`).subscribe({
+      next: (response) => {
+        this.participantCount = response.count;
+      },
+      error: (err) => {
+        console.error('Error fetching participant count:', err);
+      }
+    });
+
     this.member = localStorage.getItem('username') || '';
     if (this.member) {
       this.http.get<Participant>(`http://localhost:3000/participant?member=${this.member}&eventId=${eventId}`).subscribe({

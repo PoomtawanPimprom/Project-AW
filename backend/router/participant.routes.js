@@ -117,4 +117,17 @@ router.get("/latest/participantId", async (req, res) => {
   }
 });
 
+// GET CountMemberByEventId (used)
+router.get("/count/:eventId", async (req, res) => {
+  const { eventId } = req.params;
+
+  try {
+    const participantCount = await Participant.countDocuments({ eventId: eventId });
+    
+    return res.status(200).json({ count: participantCount });
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 module.exports = router;
