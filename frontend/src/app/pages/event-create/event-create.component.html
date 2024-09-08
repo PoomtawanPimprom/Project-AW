@@ -28,7 +28,7 @@
 
                     <div class="form-group">
                         <label for="image">รูปภาพกิจกรรม</label>
-                        <input type="file" class="form-control" (change)="onFileChange($event)" />
+                        <input type="file" class="form-control mean-file" (change)="onFileChange($event)"/>
                     </div>
 
                     <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">เพิ่มกิจกรรม</button>

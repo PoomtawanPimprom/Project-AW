@@ -12,7 +12,7 @@ const Participant = require("../models/participant");
 //   }
 // });
 
-// GET GetParticipantByMemberAndEventId (for check button)
+// GET GetParticipantByMemberAndEventId (used for check button)
 router.get("/", async (req, res) => {
   const { member, eventId } = req.query;
   try {
@@ -89,7 +89,7 @@ router.post("/", async (req, res) => {
 //   }
 // });
 
-// DELETE DeleteParticipantByMemberAndEventId
+// DELETE DeleteParticipantByMemberAndEventId (used)
 router.delete("/", async (req, res) => {
   const { member, eventId } = req.query;
   try {
