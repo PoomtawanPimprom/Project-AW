@@ -21,6 +21,8 @@ export class EventEditComponent implements OnInit {
   ];
   currentImage: string = this.images[0];
   imageOpacity: number = 1;
+  showAlert: boolean = false;
+  alertMessage: string = '';
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
 
@@ -122,10 +124,12 @@ export class EventEditComponent implements OnInit {
       this.http.put(`http://localhost:3000/event/${this.eventId}`, eventData).subscribe({
         next: (response) => {
           // console.log('Event updated successfully:', response);
-          alert('แก้ไขข้อมูลสำเร็จ');
+          this.alertMessage = 'แก้ไขข้อมูลสำเร็จ';
+          this.showAlert = true;
           setTimeout(() => {
-            this.router.navigate(['/event']);
-          }, 500);
+            this.router.navigate(['/event/myevent']);
+            this.showAlert = false;
+          }, 2000);
         },
         error: (error) => {
           console.error('Error updating event:', error);

@@ -88,12 +88,7 @@ export class EventInfoComponent implements OnInit {
                 this.showAlert = false;
                 // window.location.reload();
               }, 2000);
-
-              // alert('ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ');
               this.participantCount -= 1;
-              // setTimeout(() => {
-              //   window.location.reload();
-              // }, 500);
             },
             error: (error) => {
               console.error('Error leaving the event:', error);
@@ -116,13 +111,8 @@ export class EventInfoComponent implements OnInit {
             this.showAlert = true;
             setTimeout(() => {
               this.showAlert = false;
-              // window.location.reload();
             }, 2000);
-            // alert('เข้าร่วมกิจกรรมสำเร็จ');
             this.participantCount += 1;
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 500);
           },
           error: (error) => {
             console.error('Error joining the event:', error);

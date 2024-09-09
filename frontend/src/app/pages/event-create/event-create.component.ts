@@ -20,6 +20,8 @@ export class EventCreateComponent implements OnInit {
   ];
   currentImage: string = this.images[0];
   imageOpacity: number = 1;
+  showAlert: boolean = false;
+  alertMessage: string = '';
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
 
@@ -119,10 +121,12 @@ export class EventCreateComponent implements OnInit {
       this.http.post('http://localhost:3000/event', eventData).subscribe({
         next: (response) => {
           // console.log('Event created successfully:', response);
-          alert('เพิ่มกิจกรรมสำเร็จ');
+          this.alertMessage = 'เพิ่มกิจกรรมสำเร็จ';
+          this.showAlert = true;
           setTimeout(() => {
-            this.router.navigate(['/event']);
-          }, 500);
+            this.router.navigate(['/event/myevent']);
+            this.showAlert = false;
+          }, 2000);
         },
         error: (error) => {
           console.error('Error creating event:', error);
