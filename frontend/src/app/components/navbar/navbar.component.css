@@ -4,4 +4,10 @@
 
 .nav-link:hover {
     color: #cccccc !important;
+    transition: 0.4s;
+}
+
+.btn-mean:hover {
+    transition: 0.6s;
+    background-color: #79ACEE !important;
 }

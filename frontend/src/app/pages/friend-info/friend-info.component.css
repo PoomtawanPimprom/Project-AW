@@ -147,6 +147,7 @@
 .actionBtns .left i {
     max-width: 24px;
     margin-right: 8px;
+    font-weight: 800;
 }
 
 .modal-body strong{

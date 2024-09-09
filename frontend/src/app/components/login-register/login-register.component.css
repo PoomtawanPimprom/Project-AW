@@ -1,14 +1,31 @@
 .gradient-custom {
-    /* Fallback for old browsers */
-    background-color: #79acee;
-  
-    /* Linear gradient */
-    background: linear-gradient(to top, rgba(121, 172, 238, 0), rgba(129, 206, 222, 0));
-    
-    /* Bootstrap utility for background size, if needed */
-    background-size: cover;
-  }
+    background-color: #508C9B;
+    background: linear-gradient(to top, #508C9B, #EEEEEE);
+}
 
 .border-container {
     border-radius: 30px;
+    overflow: hidden;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+}
+
+button.hidden {
+    background-color: transparent;
+    border-color: #fff;
+    border: 0;
+}
+
+form {
+    padding: 0 40px;
+}
+
+input {
+    border: none;
+    outline: none;
+    width: 100%;
 }

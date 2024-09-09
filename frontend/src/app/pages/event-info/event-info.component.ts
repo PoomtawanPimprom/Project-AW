@@ -18,8 +18,10 @@ export class EventInfoComponent implements OnInit {
   isJoined: boolean = false;
   member: string = '';
   participantCount: number = 0;
-  // showAlert: boolean = false;
-  // alertMessage: string = '';
+  showAlert: boolean = false;
+  alertMessage: string = '';
+  showConfirm: boolean = false;
+  confirmMessage: string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private datePipe: DatePipe) { }
 
@@ -77,28 +79,8 @@ export class EventInfoComponent implements OnInit {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
     if (eventId && this.member) {
       if (this.isJoined) {
-        if (confirm("คุณต้องการยกเลิกการเข้าร่วมกิจกรรมนี้?")) {
-          this.http.delete(`http://localhost:3000/participant?member=${this.member}&eventId=${eventId}`).subscribe({
-            next: () => {
-              // console.log('Successfully left the event.');
-              this.isJoined = false;
-              // this.alertMessage = 'ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ';
-              // this.showAlert = true;
-              // setTimeout(() => {
-              //   this.showAlert = false;
-              //   window.location.reload();
-              // }, 1000);
-
-              // alert('ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ');
-              setTimeout(() => {
-                window.location.reload();
-              }, 500);
-            },
-            error: (error) => {
-              console.error('Error leaving the event:', error);
-            }
-          });
-        }
+        this.confirmMessage = "คุณต้องการยกเลิกการเข้าร่วมกิจกรรมนี้ ?";
+        this.showConfirm = true;
       } else {
         const participantData: Participant = {
           participantId: 0,
@@ -111,16 +93,12 @@ export class EventInfoComponent implements OnInit {
           next: (response) => {
             // console.log('Successfully joined the event:', response);
             this.isJoined = true;
-            // this.alertMessage = 'เข้าร่วมกิจกรรมสำเร็จ';
-            // this.showAlert = true;
-            // setTimeout(() => {
-            //   this.showAlert = false;
-            //   window.location.reload();
-            // }, 1000);
-            alert('เข้าร่วมกิจกรรมสำเร็จ');
+            this.alertMessage = 'เข้าร่วมกิจกรรมสำเร็จ';
+            this.showAlert = true;
             setTimeout(() => {
-              window.location.reload();
-            }, 500);
+              this.showAlert = false;
+            }, 2000);
+            this.participantCount += 1;
           },
           error: (error) => {
             console.error('Error joining the event:', error);
@@ -129,4 +107,30 @@ export class EventInfoComponent implements OnInit {
       }
     }
   }
+
+  onConfirmLeave(): void {
+    const eventId = Number(this.route.snapshot.paramMap.get('id'));
+    if (eventId && this.member) {
+      this.http.delete(`http://localhost:3000/participant?member=${this.member}&eventId=${eventId}`).subscribe({
+        next: () => {
+          this.isJoined = false;
+          this.alertMessage = 'ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ';
+          this.showAlert = true;
+          setTimeout(() => {
+            this.showAlert = false;
+          }, 2000);
+          this.participantCount -= 1;
+        },
+        error: (error) => {
+          // console.error('Error leaving the event:', error);
+        }
+      });
+    }
+    this.showConfirm = false;
+  }
+
+  onCloseConfirm() {
+    this.showConfirm = false;
+  }
+
 }

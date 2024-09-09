@@ -27,3 +27,55 @@
         transform: translateY(0);
     }
 }
+
+.fixed-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050; /* Higher than Bootstrap's default z-index */
+    /* max-width: 300px; */
+    /* width: 100%; */
+    opacity: 0;
+    animation: slideDownFadeInOut 2s ease forwards;
+}
+
+@keyframes slideDownFadeInOut {
+    0% {
+        top: -50px;
+        opacity: 0;
+    }
+    50% {
+        top: 20px;
+        opacity: 1;
+    }
+    80% {
+        top: 20px;
+        opacity: 1;
+    }
+    100% {
+        top: -50px;
+        opacity: 0;
+    }
+}
+
+.fixed-confirm {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    opacity: 0;
+    animation: slideDownFadeIn 1s ease forwards;
+}
+
+@keyframes slideDownFadeIn {
+    0% {
+        top: -50px;
+        opacity: 0;
+    }
+    100% {
+        top: 20px;
+        opacity: 1;
+    }
+}

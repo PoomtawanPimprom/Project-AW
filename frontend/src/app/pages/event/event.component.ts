@@ -56,13 +56,6 @@ export class EventComponent implements OnInit {
     return `${dateObj.getDate()} ${monthName} ${yearBuddhist} เวลา ${this.datePipe.transform(dateObj, 'HH:mm')} น.`;
   }
 
-  // onSearchEvent(): void {
-  //   this.filteredEvents = this.event.filter((f: Event) => {
-  //     return f.name.includes(this.searchTerm);
-  //   });
-  //   this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
-  //   this.currentPage = 1;
-  // }
   onSearchEvent(): void {
     this.filteredEvents = this.event.filter((f: Event) => {
       return f.name.includes(this.searchTerm);
