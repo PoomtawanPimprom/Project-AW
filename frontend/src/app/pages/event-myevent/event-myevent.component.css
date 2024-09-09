@@ -58,7 +58,7 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 1050; /* Higher than Bootstrap's default z-index */
-    max-width: 300px;
+    /* max-width: 300px; */
     /* width: 100%; */
     opacity: 0;
     animation: slideDownFadeInOut 2s ease forwards;
@@ -89,7 +89,6 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 1050;
-    max-width: 300px;
     opacity: 0;
     animation: slideDownFadeIn 1s ease forwards;
 }
