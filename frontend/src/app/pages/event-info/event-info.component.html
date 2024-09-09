@@ -1,9 +1,9 @@
 <div class="container-fluid" style="background: #f4f9fb;">
+    <div *ngIf="showAlert" class="alert alert-success text-center fixed-alert" role="alert">
+        {{ alertMessage }}
+    </div>
     <div class="row">
         <div class="col-sm-12 my-3">
-            <!-- <div *ngIf="showAlert" class="alert alert-success text-center" role="alert">
-                {{ alertMessage }}
-            </div> -->
             <div class="main-content">
                 <div class="d-flex justify-content-between align-items-center" *ngIf="selectedEvent">
                     <h2 style="margin-bottom: 10px;">กิจกรรม{{selectedEvent.name}}</h2>

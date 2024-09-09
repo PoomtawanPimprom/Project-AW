@@ -18,8 +18,8 @@ export class EventInfoComponent implements OnInit {
   isJoined: boolean = false;
   member: string = '';
   participantCount: number = 0;
-  // showAlert: boolean = false;
-  // alertMessage: string = '';
+  showAlert: boolean = false;
+  alertMessage: string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private datePipe: DatePipe) { }
 
@@ -82,12 +82,12 @@ export class EventInfoComponent implements OnInit {
             next: () => {
               // console.log('Successfully left the event.');
               this.isJoined = false;
-              // this.alertMessage = 'ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ';
-              // this.showAlert = true;
-              // setTimeout(() => {
-              //   this.showAlert = false;
-              //   window.location.reload();
-              // }, 1000);
+              this.alertMessage = 'ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ';
+              this.showAlert = true;
+              setTimeout(() => {
+                this.showAlert = false;
+                // window.location.reload();
+              }, 2000);
 
               // alert('ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ');
               this.participantCount -= 1;
@@ -112,13 +112,13 @@ export class EventInfoComponent implements OnInit {
           next: (response) => {
             // console.log('Successfully joined the event:', response);
             this.isJoined = true;
-            // this.alertMessage = 'เข้าร่วมกิจกรรมสำเร็จ';
-            // this.showAlert = true;
-            // setTimeout(() => {
-            //   this.showAlert = false;
-            //   window.location.reload();
-            // }, 1000);
-            alert('เข้าร่วมกิจกรรมสำเร็จ');
+            this.alertMessage = 'เข้าร่วมกิจกรรมสำเร็จ';
+            this.showAlert = true;
+            setTimeout(() => {
+              this.showAlert = false;
+              // window.location.reload();
+            }, 2000);
+            // alert('เข้าร่วมกิจกรรมสำเร็จ');
             this.participantCount += 1;
             // setTimeout(() => {
             //   window.location.reload();
