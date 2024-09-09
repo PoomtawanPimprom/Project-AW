@@ -22,6 +22,7 @@ import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { FriendInfoComponent } from './pages/friend-info/friend-info.component';
 import { FriendRequestComponent } from './pages/friend-request/friend-request.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CommentComponent } from './components/comment/comment.component';
     FriendInfoComponent,
     FriendRequestComponent,
     CommentComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
