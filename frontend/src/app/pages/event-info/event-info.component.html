@@ -28,7 +28,8 @@
                                 <p class="card-text mb-2"><strong>สถานที่ :</strong> {{selectedEvent.location}}</p>
                                 <p class="card-text mb-2">จัดวันที่ {{formatDate(selectedEvent.date_time)}}</p>
                                 <p class="card-text mb-2">จำนวนผู้เข้าร่วม {{participantCount}} คน</p>
-                                <button type="button" class="btn"
+                                <button *ngIf="selectedEvent && participantCount !== undefined && member !== ''"
+                                    type="button" class="btn"
                                     [ngClass]="{ 'btn-success': !isJoined, 'btn-danger': isJoined }"
                                     (click)="onJoinEvent()">
                                     {{ isJoined ? 'ยกเลิกการเข้าร่วมกิจกรรม' : 'เข้าร่วมกิจกรรม' }}
@@ -36,14 +37,14 @@
                             </div>
                         </div>
                         <div class="mt-auto">
-                            <app-comment />
+                            <component-input-comment />
                         </div>
                     </div>
                     <!-- <div class="col-sm-6"></div>
                     <div class="col-sm-6 my-3">
                         <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <div style="margin: 16px;">
-                                ความคิดเห็น
+                                <component-show-comment/>
                             </div>
                         </div>
                     </div> -->

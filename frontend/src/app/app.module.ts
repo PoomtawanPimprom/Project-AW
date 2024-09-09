@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms'; 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -23,6 +24,8 @@ import { FriendInfoComponent } from './pages/friend-info/friend-info.component';
 import { FriendRequestComponent } from './pages/friend-request/friend-request.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { InputCommentComponent } from './components/comment/input-comment/input-comment.component';
+import { ShowCommentComponent } from './components/comment/show-comment/show-comment.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     FriendRequestComponent,
     CommentComponent,
     ProfileComponent,
+    InputCommentComponent,
+    ShowCommentComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +56,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+
+    
   ],
   providers: [
     // provideClientHydration()
