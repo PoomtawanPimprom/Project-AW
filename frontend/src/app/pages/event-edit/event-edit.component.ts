@@ -137,4 +137,9 @@ export class EventEditComponent implements OnInit {
       });
     }
   }
+
+  onBackToMyEvent(): void {
+    this.router.navigate(['/event/myevent']);
+  }
+  
 }

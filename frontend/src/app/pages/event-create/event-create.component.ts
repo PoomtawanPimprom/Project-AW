@@ -134,4 +134,9 @@ export class EventCreateComponent implements OnInit {
       });
     }
   }
+
+  onBackToMyEvent(): void {
+    this.router.navigate(['/event/myevent']);
+  }
+  
 }

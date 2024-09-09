@@ -11,6 +11,21 @@
     padding: 4px;
 }
 
+.show-mean {
+    animation: floatUp 0.8s ease-out;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .fixed-alert {
     position: fixed;
     top: 20px;

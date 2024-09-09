@@ -2,11 +2,6 @@
     display: flex;
     flex-wrap: wrap;
     /* justify-content: space-between; */
-}
-
-.card-deck {
-    display: flex;
-    flex-wrap: wrap;
     animation: floatUp 0.8s ease-out;
 }
 

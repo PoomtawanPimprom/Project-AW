@@ -11,9 +11,7 @@
     padding: 4px;
 }
 
-.card-deck {
-    display: flex;
-    flex-wrap: wrap;
+.show-mean {
     animation: floatUp 0.8s ease-out;
 }
 
