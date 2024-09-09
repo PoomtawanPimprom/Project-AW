@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'component-show-comment',
@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './show-comment.component.css'
 })
 export class ShowCommentComponent {
-  comment: string = '';
+  @Input() comment: string = '';
 
-  updateComment(newComment: string) {
-    this.comment = newComment;
-  }
 }

@@ -1,9 +1,31 @@
 <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <div style="margin: 16px;">
         แสดงความคิดเห็น
-        <textarea id="description" class="form-control" formControlName="description" rows="2" required=""></textarea>
-        <div class="d-flex justify-content-end mt-2">
+        <textarea id="description" class="form-control" style="padding: 10px;" [formControl]="inputComment" rows="2"
+            required=""></textarea>
+        <div class="d-flex justify-content-end mt-2 mb-2">
+            <button class="btn btn-primary" style="margin-right: 10px;" type="button" data-toggle="collapse"
+                data-target="#commentExample" aria-expanded="false" aria-controls="commentExample">
+                ตัวอย่าง
+            </button>
             <button class="btn btn-mean">โพสต์ความคิดเห็น</button>
+        </div>
+        <div class="collapse" id="commentExample">
+            <component-show-comment [comment]="inputComment.value ?? '' " />
+        </div>
+        <div>
+            <div>
+                <div class="card" *ngFor="let item of commment"
+                    style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column;">
+                    <div style="display: flex; margin-bottom: 0.5rem;">
+                        <div class="rounded-circle bg-primary" style="height: 40px; width: 40px;"></div>
+                        <div
+                            style="display: flex; margin-left: 10px; align-items: center; justify-content: center;  text-align: center;">
+                            name</div>
+                    </div>
+                    <div class="card" style="padding: 10px;">{{item.comment}}</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
