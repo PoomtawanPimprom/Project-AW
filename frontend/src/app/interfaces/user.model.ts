@@ -1,0 +1,16 @@
+export interface userInterface{
+    _id: string,
+    userId :number,
+    name: string,
+    username: string,
+    password: string,
+    email: string,
+    institute: string,
+    major: string,
+    age: number,
+    like: string,
+    facebook: string,
+    instagram: string,
+    tiktok: string,
+    image: string,
+}

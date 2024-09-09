@@ -1,6 +1,9 @@
+import { userInterface } from "./user.model";
+
 export interface commentInterface{
-    commentId: Number,
-    comment: String,
-    eventId: Number,
-    userId: Number,
+    _id: string,
+    commentId: number,
+    comment: string,
+    eventId: number,
+    userId: userInterface,
 }

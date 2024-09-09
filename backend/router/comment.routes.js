@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Comment = require('../models/comment');
+const mongoose = require('mongoose');
 
+const ObjectId = mongoose.Types.ObjectId;
 // GET getComment
 router.get('/', async (req, res) => {
     try {
@@ -27,13 +29,14 @@ router.get('/:eventId', async (req, res) => {
 
 // POST createComment
 router.post('/', async (req, res) => {
-    const { commentId, comment, eventId, object_userId } = req.body
+    const { commentId, comment, eventId, object_userId } = req.body;
     try {
         const newComment = new Comment({ 
             commentId:Number(commentId),
             comment,
             eventId:Number(eventId),
-            userId:new mongoose.Types.ObjectId(object_userId) }); // = INSERT INTO comments (commentId, comment, eventId, userId) VALUES (commentId, comment, eventId, userId);
+            createdAt:Date.now(),
+            userId: new ObjectId(object_userId) }); // = INSERT INTO comments (commentId, comment, eventId, userId) VALUES (commentId, comment, eventId, userId);
             await newComment.save();
         return res.status(201).json(newComment);
     } catch (err) {
@@ -48,7 +51,10 @@ router.put('/:object_commentId', async (req, res) => {
     try {
         const updateComment = await Comment.findByIdAndUpdate( // = UPDATE comments SET comment = comment WHERE commentId = commentId;
             { commentId: object_commentId }, // where
-            { comment: comment });// data
+            { 
+                comment: comment,
+                updateAt: Date.now()
+             });// data
         return res.status(201).json(updateComment);
     } catch (err) {
         return res.status(400).json(err);

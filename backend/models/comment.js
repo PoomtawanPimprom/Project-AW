@@ -5,6 +5,8 @@ const commentSchema = new mongoose.Schema({
     commentId:Number,
     comment: String,
     eventId: Number,
+    createdAt: Date,
+    updateAt: Date,
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
