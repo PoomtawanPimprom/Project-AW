@@ -14,6 +14,12 @@ export class EventCreateComponent implements OnInit {
   eventForm!: FormGroup;
   imageBase64: string = '';
   creator: string = '';
+  images: string[] = [
+    'https://elearning2.sut.ac.th/pluginfile.php/1/theme_suranaree/night_mainbgimg/1722512027/night_bg_sut_lg.jpg',
+    'https://elearning2.sut.ac.th/pluginfile.php/1/theme_suranaree/mainbgimg/1722512027/E_learing%20art_completed.jpg'
+  ];
+  currentImage: string = this.images[0];
+  imageOpacity: number = 1;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
 
@@ -26,6 +32,19 @@ export class EventCreateComponent implements OnInit {
       description: ['', Validators.required],
       image: ['']
     });
+    this.startImageSlideshow();
+  }
+
+  startImageSlideshow(): void {
+    let currentIndex = 0;
+    setInterval(() => {
+      this.imageOpacity = 0;
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % this.images.length;
+        this.currentImage = this.images[currentIndex];
+        this.imageOpacity = 1;
+      }, 600);
+    }, 2000);
   }
 
   // onFileChange(event: any): void {
