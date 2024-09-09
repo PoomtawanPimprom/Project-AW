@@ -49,6 +49,10 @@
         top: 20px;
         opacity: 1;
     }
+    80% {
+        top: 20px;
+        opacity: 1;
+    }
     100% {
         top: -50px;
         opacity: 0;

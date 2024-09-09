@@ -19,6 +19,11 @@ export class EventMyeventComponent implements OnInit {
   itemsPerPage: number = 6;
   totalPages: number = 0;
   maxVisiblePages: number = 4;
+  showAlert: boolean = false;
+  alertMessage: string = '';
+  showConfirm: boolean = false;
+  confirmMessage: string = '';
+  eventIdToDelete: number | null = null;
 
   constructor(private router: Router, private http: HttpClient, private datePipe: DatePipe) { }
 
@@ -52,12 +57,6 @@ export class EventMyeventComponent implements OnInit {
     return `${dateObj.getDate()} ${monthName} ${yearBuddhist} เวลา ${this.datePipe.transform(dateObj, 'HH:mm')} น.`;
   }
 
-  // onSearchEvent(): void {
-  //   this.filteredEvents = this.event.filter((f: Event) => {
-  //     const matchesSearch = f.name.includes(this.searchTerm);
-  //     return matchesSearch;
-  //   });
-  // }
   onSearchEvent(): void {
     this.filteredEvents = this.event.filter((f: Event) => {
       return f.name.includes(this.searchTerm);
@@ -113,22 +112,37 @@ export class EventMyeventComponent implements OnInit {
   }
 
   onDeleteEvent(eventId: number): void {
-    if (confirm("คุณต้องการลบกิจกรรมนี้?")) {
-      this.http.delete(`http://localhost:3000/event/${eventId}`).subscribe({
+    this.confirmMessage = 'คุณต้องการลบกิจกรรมนี้ ?'
+    this.showConfirm = true;
+    this.eventIdToDelete = eventId;
+  }
+
+  onConfirmDelete(): void {
+    if (this.eventIdToDelete !== null) {
+      this.http.delete(`http://localhost:3000/event/${this.eventIdToDelete}`).subscribe({
         next: () => {
-          this.event = this.event.filter(e => e.eventId !== eventId);
+          this.event = this.event.filter(e => e.eventId !== this.eventIdToDelete);
           this.filteredEvents = this.event;
           this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
           this.updatePaginatedEvents();
+
+          this.alertMessage = 'ลบกิจกรรมสำเร็จ';
+          this.showAlert = true;
+          setTimeout(() => {
+            this.showAlert = false;
+          }, 2000);
+          this.showConfirm = false;
         },
         error: (err) => {
-          console.error("เกิดข้อผิดพลาดขณะลบกิจกรรม:", err);
+          // console.error('เกิดข้อผิดพลาดขณะลบกิจกรรม:', err);
         }
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
     }
-  }  
-  
+  }
+
+  onCloseConfirm() {
+      this.showConfirm = false;
+      this.eventIdToDelete = null;
+  }
+
 }

@@ -1,4 +1,15 @@
 <div class="container-fluid" style="background: #f4f9fb;">
+    <div *ngIf="showConfirm" class="alert alert-dark text-center fixed-confirm text-light" role="alert"
+        style="background-color: #343a40; border: none;">
+        {{ confirmMessage }}
+        <div class="d-flex justify-content-center mt-2">
+            <button type="button" class="btn btn-light mr-2" style="width: 100%;" (click)="onConfirmDelete()">ตกลง</button>
+            <button type="button" class="btn btn-danger" style="width: 100%;" (click)="onCloseConfirm()">ยกเลิก</button>
+        </div>
+    </div>
+    <div *ngIf="showAlert" class="alert alert-success text-center fixed-alert" role="alert">
+        {{ alertMessage }}
+    </div>
     <div class="row">
         <div class="col-sm-12 my-3">
             <div class="main-content">
