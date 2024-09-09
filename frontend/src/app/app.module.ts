@@ -22,7 +22,6 @@ import { EventEditComponent } from './pages/event-edit/event-edit.component';
 import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { FriendInfoComponent } from './pages/friend-info/friend-info.component';
 import { FriendRequestComponent } from './pages/friend-request/friend-request.component';
-import { CommentComponent } from './components/comment/comment.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { InputCommentComponent } from './components/comment/input-comment/input-comment.component';
 import { ShowCommentComponent } from './components/comment/show-comment/show-comment.component';
@@ -45,7 +44,6 @@ import { ShowCommentComponent } from './components/comment/show-comment/show-com
     EventInfoComponent,
     FriendInfoComponent,
     FriendRequestComponent,
-    CommentComponent,
     ProfileComponent,
     InputCommentComponent,
     ShowCommentComponent,
