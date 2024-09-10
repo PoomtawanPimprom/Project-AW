@@ -10,7 +10,7 @@ const url = "mongodb://localhost:27017/project_AW"
 const commentRouter = require("./router/comment.routes")
 const eventRouter = require("./router/event.routes")
 const participantRouter = require("./router/participant.routes")
-const frinedRouter = require("./router/friend.routes")
+const friendRouter = require("./router/friend.routes")
 
 // use cors middleware
 app.use(cors({
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 app.use("/comment", commentRouter)
 app.use("/event", eventRouter)
 app.use("/participant", participantRouter)
-app.use("/friend", frinedRouter)
+app.use("/friend", friendRouter)
 
 const port = 3000;
 app.listen(port, () => {

@@ -16,5 +16,6 @@ npm install express
 npm install dotenv
 npm install mongoose
 npm install cors
-npm install morgan 
+npm install morgan
+npm install nodemon -g –save-dev
 ```

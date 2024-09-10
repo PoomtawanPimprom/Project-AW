@@ -29,13 +29,13 @@
                     <div class="col-sm-6 d-flex flex-column">
                         <div class="card" style="margin-bottom: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <div style="margin: 16px;">
-                                <p class="card-text mb-5"><strong>รายละเอียด :</strong> {{selectedEvent.description}}
+                                <p class="mb-4"><strong>รายละเอียด :</strong> {{selectedEvent.description}}
                                 </p>
-                                <p class="card-text mb-2"><strong>ผู้จัด :</strong>
+                                <p class="mb-2"><strong>ผู้จัด :</strong>
                                     {{selectedEvent.creator.toUpperCase()}}</p>
-                                <p class="card-text mb-2"><strong>สถานที่ :</strong> {{selectedEvent.location}}</p>
-                                <p class="card-text mb-2">จัดวันที่ {{formatDate(selectedEvent.date_time)}}</p>
-                                <p class="card-text mb-2">จำนวนผู้เข้าร่วม {{participantCount}} คน</p>
+                                <p class="mb-2"><strong>สถานที่ :</strong> {{selectedEvent.location}}</p>
+                                <p class="mb-2">จัดวันที่ {{formatDate(selectedEvent.date_time)}}</p>
+                                <p class="mb-2">จำนวนผู้เข้าร่วม {{participantCount}} คน</p>
                                 <button *ngIf="selectedEvent && participantCount !== undefined && member !== ''"
                                     type="button" class="btn"
                                     [ngClass]="{ 'btn-success': !isJoined, 'btn-danger': isJoined }"

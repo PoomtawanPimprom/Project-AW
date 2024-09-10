@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
+import { CustomValidators } from '../../customs/customValidators';
 
 @Component({
   selector: 'app-event-create',
@@ -28,10 +29,10 @@ export class EventCreateComponent implements OnInit {
   ngOnInit(): void {
     this.creator = localStorage.getItem('username') || '';
     this.eventForm = this.fb.group({
-      name: ['', Validators.required],
-      location: ['', Validators.required],
-      date_time: ['', Validators.required],
-      description: ['', Validators.required],
+      name: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย'])]],
+      location: ['', [Validators.required, CustomValidators.maxLength(50)]],
+      date_time: ['', [Validators.required, CustomValidators.notPastDate]],
+      description: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(100)]],
       image: ['']
     });
     this.startImageSlideshow();
