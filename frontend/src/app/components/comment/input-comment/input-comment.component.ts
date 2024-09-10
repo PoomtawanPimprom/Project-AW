@@ -12,34 +12,61 @@ import { HttpClient } from '@angular/common/http';
 export class InputCommentComponent implements OnInit {
   private route = inject(ActivatedRoute);
   inputComment = new FormControl('');
+  commentUpdate = new FormControl('');
   eventId!: string
   comments: commentInterface[] = [];
 
+  selectCommentId!:string
+
+
   constructor(private http: HttpClient) { }
-  
+
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.eventId = params.get("id")!;
     })
     this.fetchCommentData();
-}
+    
+  }
 
-  async fetchCommentData() {
+  fetchCommentData() {
     this.http.get<commentInterface[]>(`http://localhost:3000/comment/${this.eventId}`)
-      .subscribe(result => { 
+      .subscribe(result => {
         this.comments = result;
         console.log(result)
       })
   }
-
-  async createComment(commmentData: any) {
-    this.http.post(`http://localhost:3000/comment`, commmentData)
-      .subscribe(result => {console.log(result)})
+  deleteCommentByObID(_id: string) {
+    this.http.delete(`http://localhost:3000/comment/${_id}`)
+      .subscribe(result => {
+        console.log(result)
+        this.fetchCommentData();
+      })
   }
 
+  createComment(commmentData: any) {
+    this.http.post(`http://localhost:3000/comment`, commmentData)
+      .subscribe(result => {
+        console.log(result)
+        this.fetchCommentData();
+      })
+      this.inputComment.reset();
+  }
+
+  updateComment() {
+    const comment = { comment:this.commentUpdate.value }
+    this.http.put(`http://localhost:3000/comment/edit/${this.selectCommentId}`,comment )
+      .subscribe(result => {
+        console.log(result)
+        this.fetchCommentData();
+      })
+      this.commentUpdate.reset();
+  }
+
+
+  //Onclick 
   onClickCreateCommet() {
     const dataComment = {
-      commentId: 4,
       comment: this.inputComment.value || '',
       eventId: Number(this.eventId),
       object_userId: "66df21485b9a7e6d3912798e"
@@ -48,4 +75,17 @@ export class InputCommentComponent implements OnInit {
     this.fetchCommentData();
   };
 
+  async onClickDeleteComment(_id: string) {
+    this.deleteCommentByObID(_id);
+  }
+
+  async onClickUpdateComment(_id:string) {
+    console.log("_idComment",_id)
+    this.updateComment();
+  }
+
+  async onClikeSelectComment(_id:string) {
+    this.selectCommentId = _id;
+    console.log(this.selectCommentId)
+  }
 }

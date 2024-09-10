@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const config = { autoIndex: true, };
+const morgan = require('morgan')
 const url = "mongodb://localhost:27017/project_AW"
 
 // import router
@@ -17,7 +18,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // กำหนดวิธีการที่อนุญาต
     allowedHeaders: ['Content-Type', 'Authorization'],  // กำหนด headers ที่อนุญาต
 }));
-
+app.use(morgan('dev'))
 app.use(express.json());
 
 // open + middleware

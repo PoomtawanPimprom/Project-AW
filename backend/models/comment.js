@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Event = require("../models/event");
 const User = require("../models/user");
 const commentSchema = new mongoose.Schema({
-    commentId:Number,
     comment: String,
     eventId: Number,
     createdAt: Date,
