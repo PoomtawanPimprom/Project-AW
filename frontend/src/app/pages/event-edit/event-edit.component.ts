@@ -35,7 +35,7 @@ export class EventEditComponent implements OnInit {
       name: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย'])]],
       location: ['', [Validators.required, CustomValidators.maxLength(50)]],
       date_time: ['', [Validators.required, CustomValidators.notPastDate]],
-      description: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(100)]],
+      description: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(200)]],
       image: ['']
     });
 
