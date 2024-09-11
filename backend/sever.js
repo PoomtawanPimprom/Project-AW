@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -27,7 +28,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Connect to MongoDB
-mongoose.connect(url, config)
+mongoose.connect(process.env.DATABASE_URL, config)
     .then(() => {
         console.log('Connected to MongoDB...');
         app.listen(3000, () => {
