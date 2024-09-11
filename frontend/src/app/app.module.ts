@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { TestRoutingPageComponent } from './routing/test-routing-page/test-routing-page.component';
 import { Routing2Component } from './routing/routing2/routing2.component';
 import { DynamicRoutingComponent } from './routing/dynamic-routing/dynamic-routing.component';
@@ -25,13 +24,14 @@ import { FriendRequestComponent } from './pages/friend-request/friend-request.co
 import { ProfileComponent } from './pages/profile/profile.component';
 import { InputCommentComponent } from './components/comment/input-comment/input-comment.component';
 import { ShowCommentComponent } from './components/comment/show-comment/show-comment.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     NavbarComponent,
-    LoginRegisterComponent,
     TestRoutingPageComponent,
     Routing2Component,
     DynamicRoutingComponent,
@@ -47,6 +47,8 @@ import { ShowCommentComponent } from './components/comment/show-comment/show-com
     ProfileComponent,
     InputCommentComponent,
     ShowCommentComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
