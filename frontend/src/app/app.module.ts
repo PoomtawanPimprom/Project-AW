@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { TestRoutingPageComponent } from './routing/test-routing-page/test-routing-page.component';
 import { Routing2Component } from './routing/routing2/routing2.component';
 import { DynamicRoutingComponent } from './routing/dynamic-routing/dynamic-routing.component';
@@ -31,7 +30,6 @@ import { ShowCommentComponent } from './components/comment/show-comment/show-com
     AppComponent,
     SidebarComponent,
     NavbarComponent,
-    LoginRegisterComponent,
     TestRoutingPageComponent,
     Routing2Component,
     DynamicRoutingComponent,
