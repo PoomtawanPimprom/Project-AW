@@ -91,8 +91,12 @@
 
                                         <div class="form-group">
                                             <label for="image">รูปภาพกิจกรรม</label>
-                                            <input type="file" class="form-control mean-file"
+                                            <input type="file" class="form-control mean-file" formControlName="image"
                                                 (change)="onFileChange($event)" />
+                                            <div *ngIf="eventForm.get('image')?.errors?.['invalidFileType']"
+                                                class="text-danger">
+                                                กรุณาอัพโหลดไฟล์ที่เป็นรูปภาพ (jpg, jpeg, png, gif)
+                                            </div>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary"

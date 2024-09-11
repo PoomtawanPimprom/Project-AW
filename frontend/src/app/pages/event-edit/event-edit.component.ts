@@ -36,7 +36,7 @@ export class EventEditComponent implements OnInit {
       location: ['', [Validators.required, CustomValidators.maxLength(50)]],
       date_time: ['', [Validators.required, CustomValidators.notPastDate]],
       description: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(200)]],
-      image: ['']
+      image: ['', [CustomValidators.imageFile]]
     });
 
     // Fetch event data from the API
@@ -72,6 +72,15 @@ export class EventEditComponent implements OnInit {
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      const maxSizeInMB = 5; // กำหนดขนาดไฟล์สูงสุด (MB)
+      const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+  
+      if (file.size > maxSizeInBytes) {
+        this.alertMessage = 'ขนาดไฟล์เกินขีดจำกัด';
+        this.showAlert = true;
+        return;
+      }
+  
       const reader = new FileReader();
       reader.onload = (e: any) => {
         const img = new Image();
@@ -107,7 +116,7 @@ export class EventEditComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
-  }
+  }  
 
   onSubmit(): void {
     if (this.eventForm.valid) {

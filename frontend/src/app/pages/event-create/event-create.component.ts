@@ -33,7 +33,7 @@ export class EventCreateComponent implements OnInit {
       location: ['', [Validators.required, CustomValidators.maxLength(50)]],
       date_time: ['', [Validators.required, CustomValidators.notPastDate]],
       description: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(200)]],
-      image: ['']
+      image: ['', [CustomValidators.imageFile]]
     });
     this.startImageSlideshow();
   }
