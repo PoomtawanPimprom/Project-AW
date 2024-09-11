@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,6 +14,7 @@ const commentRouter = require("./router/comment.routes");
 const eventRouter = require("./router/event.routes");
 const participantRouter = require("./router/participant.routes");
 const friendRouter = require("./router/friend.routes");
+const userRouter = require("./router/user.routes");
 
 // use cors middleware
 app.use(cors({
@@ -26,7 +28,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Connect to MongoDB
-mongoose.connect(url, config)
+mongoose.connect(process.env.DATABASE_URL, config)
     .then(() => {
         console.log('Connected to MongoDB...');
         app.listen(3000, () => {
@@ -43,6 +45,7 @@ app.use("/comment", commentRouter);
 app.use("/event", eventRouter);
 app.use("/participant", participantRouter);
 app.use("/friend", friendRouter);
+app.use("/user", userRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

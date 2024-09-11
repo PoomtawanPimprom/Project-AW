@@ -20,6 +20,7 @@ router.get('/:eventId', async (req, res) => {
     try {
         const data = await Comment.find({ eventId: id })
             .populate("userId")
+            .sort({ createdAt: -1 })
             .exec();
         return res.status(200).json(data);
     } catch (err) {

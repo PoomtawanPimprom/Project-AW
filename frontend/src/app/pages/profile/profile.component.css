@@ -8,6 +8,7 @@
     border-radius: 30px;
     min-height: 720px;
     padding: 40px;
+    
 }
 
 .container hr {
@@ -19,8 +20,51 @@
     border-radius: 50%;
 }
 
-.container .head {
-    margin-right: 10px;
-    background-color: #508C9B;
+.head {
+    margin-left: 3rem;
     align-items: center;
+}
+.head p {
+    margin-bottom: 0;
+}
+
+.profile{
+    border-bottom: 1px solid #9a9a9a;
+}
+
+.social {
+    margin-left: 3rem;
+    align-self: flex-start;
+    font-size: 2rem;
+}
+
+.social i {
+    width: 5rem;
+}
+
+input {
+    outline: none;
+}
+
+
+/* CSS */
+.button-sub {
+  background: #508C9B;
+  border-radius: 999px;
+  box-shadow: #508C9B 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
 }

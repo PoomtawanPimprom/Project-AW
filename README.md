@@ -11,6 +11,7 @@ ng g c components/name
 ng g c pages/name
 ```
 ## Backend
+# serve
 ```
 npm install express
 npm install dotenv
@@ -19,3 +20,10 @@ npm install cors
 npm install morgan
 npm install nodemon -g –save-dev
 ```
+# middleware
+```
+npm i dotenv
+npm i jsonwebtoken
+npm i bcryptjs
+```
+

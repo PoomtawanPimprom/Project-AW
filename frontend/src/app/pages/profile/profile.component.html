@@ -1,16 +1,35 @@
 <div class="background-profile d-flex justify-content-center align-items-center">
 
     <div class="bg-white container overflow-hidden shadow">
-        <div class="profile border d-flex ">
+        <div class="profile w-100 p-3 d-flex justify-content-center align-items-center">
             <img src="https://koreajoongangdaily.joins.com/data/photo/2023/10/09/b37d6ba6-a639-4674-8594-f8e96bc0587e.jpg" alt="profile" class="img-fluid img-thumbnail">
             <div class="head">
                 <h1 class="h3">Name Example</h1>
-                <p class="gmail">example&#64;gmail.com</p>
+                <p>example&#64;gmail.com</p>
+                <p>Age: xxx</p>
+                <p>Major: xxx</p>
             </div>
+            <div class="social">
+                <i class="bi bi-facebook mx-3 mt-5"></i>
+                <i class="bi bi-tiktok mx-3 mt-5"></i>
+                <i class="bi bi-instagram mx-3 mt-5"></i>
+            </div>
+            
         </div>
-        <div class="about">
-            <form>
-                <input type="text">
+
+        <div class="about mt-5">
+            <form class="d-flex flex-column col-4" >
+                <label for="">Username</label>
+                <input type="text" class="border-0">
+                <label for="">Email</label>
+                <input type="text" class="border-0">
+                <label for="">institute</label>
+                <input type="text" class="border-0">
+                <label for="">major</label>
+                <input type="text" class="border-0">
+                <label for="">age</label>
+                <input type="text" class="border-0">
+                <button type="submit" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
             </form>
         </div>
     </div>

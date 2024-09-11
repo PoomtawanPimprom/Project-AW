@@ -15,6 +15,7 @@ export class InputCommentComponent implements OnInit {
   commentUpdate = new FormControl('');
   eventId!: string
   comments: commentInterface[] = [];
+  objectID_user:string ="66df21485b9a7e6d3912798e"
 
   selectCommentId!:string
 
@@ -27,6 +28,12 @@ export class InputCommentComponent implements OnInit {
     })
     this.fetchCommentData();
     
+  }
+
+  isCurrentUser(itemId: string): boolean {
+    console.log(itemId)
+    console.log(this.objectID_user)
+    return this.objectID_user === itemId;
   }
 
   fetchCommentData() {
@@ -44,8 +51,8 @@ export class InputCommentComponent implements OnInit {
       })
   }
 
-  createComment(commmentData: any) {
-    this.http.post(`http://localhost:3000/comment`, commmentData)
+  createComment(commentData: any) {
+    this.http.post(`http://localhost:3000/comment`, commentData)
       .subscribe(result => {
         console.log(result)
         this.fetchCommentData();
