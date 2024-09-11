@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { Participant } from '../../interfaces/participant.model';
 import { DatePipe } from '@angular/common';
+import { EventService } from '../../service/event.service';
+import { ParticipantService } from '../../service/participant.service';
 
 @Component({
   selector: 'app-event-info',
@@ -23,16 +25,21 @@ export class EventInfoComponent implements OnInit {
   showConfirm: boolean = false;
   confirmMessage: string = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private datePipe: DatePipe) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private http: HttpClient, 
+    private datePipe: DatePipe,
+    private eventService: EventService, 
+    private participantService: ParticipantService, 
+  ) { }
 
   ngOnInit(): void {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
     
     if (eventId) {
-      this.http.get<Event>(`http://localhost:3000/event/${eventId}`).subscribe({
+      this.eventService.getEventById(eventId).subscribe({
         next: (data) => {
           this.selectedEvent = data;
-          // console.log('Event data:', this.selectedEvent);
         },
         error: (err) => {
           console.error('Error fetching event:', err);
@@ -40,7 +47,7 @@ export class EventInfoComponent implements OnInit {
       });
     }
 
-    this.http.get<{ count: number }>(`http://localhost:3000/participant/count/${eventId}`).subscribe({
+    this.participantService.getParticipantCount(eventId).subscribe({
       next: (response) => {
         this.participantCount = response.count;
       },
@@ -51,7 +58,7 @@ export class EventInfoComponent implements OnInit {
 
     this.member = localStorage.getItem('username') || '';
     if (this.member) {
-      this.http.get<Participant>(`http://localhost:3000/participant?member=${this.member}&eventId=${eventId}`).subscribe({
+      this.participantService.getParticipantStatus(this.member, eventId).subscribe({
         next: (participant) => {
           if (participant) {
             this.isJoined = participant.status === 'เข้าร่วม';
@@ -89,9 +96,8 @@ export class EventInfoComponent implements OnInit {
           status: 'เข้าร่วม',
         };
 
-        this.http.post('http://localhost:3000/participant', participantData).subscribe({
-          next: (response) => {
-            // console.log('Successfully joined the event:', response);
+        this.participantService.joinEvent(participantData).subscribe({
+          next: () => {
             this.isJoined = true;
             this.alertMessage = 'เข้าร่วมกิจกรรมสำเร็จ';
             this.showAlert = true;
@@ -111,7 +117,7 @@ export class EventInfoComponent implements OnInit {
   onConfirmLeave(): void {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
     if (eventId && this.member) {
-      this.http.delete(`http://localhost:3000/participant?member=${this.member}&eventId=${eventId}`).subscribe({
+      this.participantService.leaveEvent(this.member, eventId).subscribe({
         next: () => {
           this.isJoined = false;
           this.alertMessage = 'ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ';
@@ -122,7 +128,7 @@ export class EventInfoComponent implements OnInit {
           this.participantCount -= 1;
         },
         error: (error) => {
-          // console.error('Error leaving the event:', error);
+          console.error('Error leaving the event:', error);
         }
       });
     }
