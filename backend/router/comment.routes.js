@@ -7,19 +7,39 @@ const ObjectId = mongoose.Types.ObjectId;
 // GET getComment
 router.get('/', async (req, res) => {
     try {
-        const data = await Comment.find(); //  Select * from comments
+        const data = await Comment.find()
         return res.json(data);
     } catch (err) {
         return res.status(500).json(err);
     }
 });
 
+// GET getOneCommentByEventID
+router.get('/onecomment/:eventId', async (req, res) => {
+    const eventID = req.params.eventId;
+    try {
+        const data = await Comment.findOne({ eventId: eventID })
+            .populate("userId")
+            .exec();
+        return res.json(data);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+});
+
+
 // GET getAllCommentsByEventID
 router.get('/:eventId', async (req, res) => {
     const id = req.params.eventId
     try {
         const data = await Comment.find({ eventId: id })
-            .populate("userId")
+            .populate({ path: 'userId', select: "name image" })
+            .populate({
+                path: 'replies', populate: {
+                    path: 'userId',
+                    select: 'name image'
+                }
+            })
             .sort({ createdAt: -1 })
             .exec();
         return res.status(200).json(data);
@@ -46,6 +66,29 @@ router.post('/', async (req, res) => {
     }
 });
 
+// POST createReplyComment
+router.post("/reply", async (req, res) => {
+    const { objParentComment, comment, object_userId } = req.body;
+    try {
+        //create a new comment
+        const newComment = new Comment({
+            comment: comment,
+            createdAt: Date.now(),
+            userId: new ObjectId(object_userId)
+        });
+        const result = await newComment.save();
+        //update parentcomment
+        const parentComment = await Comment.findByIdAndUpdate(
+            objParentComment,
+            { $push: { replies: result._id } },
+            { new: true }
+        )
+        return res.status(201).json({ newComment: result, parentComment });
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
+})
+
 //update
 //GET getCommentByObjectId_Comment
 router.get("/edit/:objectId_comment", async (req, res) => {
@@ -68,8 +111,8 @@ router.put('/edit/:object_commentId', async (req, res) => {
             return res.status(400).send('Invalid ID');
         }
 
-        const updateComment = await Comment.findByIdAndUpdate( // = UPDATE comments SET comment = comment WHERE commentId = commentId;
-            _id, // where
+        const updateComment = await Comment.findByIdAndUpdate(
+            _id,
             {
                 comment: comment,
                 updateAt: Date.now()
