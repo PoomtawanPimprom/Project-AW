@@ -25,6 +25,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { InputCommentComponent } from './components/comment/input-comment/input-comment.component';
 import { ShowCommentComponent } from './components/comment/show-comment/show-comment.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { LoginComponent } from './pages/login/login.component';
     InputCommentComponent,
     ShowCommentComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
