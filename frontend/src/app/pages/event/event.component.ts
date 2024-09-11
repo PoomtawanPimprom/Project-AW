@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { DatePipe } from '@angular/common';

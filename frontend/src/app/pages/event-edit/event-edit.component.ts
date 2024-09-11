@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { CustomValidators } from '../../customs/customValidators';
+import { EventService } from '../../service/event.service';
 
 @Component({
   selector: 'app-event-edit',
@@ -25,7 +25,12 @@ export class EventEditComponent implements OnInit {
   showAlert: boolean = false;
   alertMessage: string = '';
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private eventService: EventService,
+  ) {}
 
   ngOnInit(): void {
     this.creator = localStorage.getItem('username') || '';
@@ -39,8 +44,7 @@ export class EventEditComponent implements OnInit {
       image: ['', [CustomValidators.imageFile]]
     });
 
-    // Fetch event data from the API
-    this.http.get<Event>(`http://localhost:3000/event/${this.eventId}`).subscribe({
+    this.eventService.getEventById(this.eventId).subscribe({
       next: (eventData) => {
         this.eventForm.patchValue({
           name: eventData.name,
@@ -130,10 +134,8 @@ export class EventEditComponent implements OnInit {
         creator: this.creator
       };
 
-      // Update event via PUT request
-      this.http.put(`http://localhost:3000/event/${this.eventId}`, eventData).subscribe({
+      this.eventService.updateEvent(this.eventId, eventData).subscribe({
         next: (response) => {
-          // console.log('Event updated successfully:', response);
           this.alertMessage = 'แก้ไขข้อมูลสำเร็จ';
           this.showAlert = true;
           setTimeout(() => {

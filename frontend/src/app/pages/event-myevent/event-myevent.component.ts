@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { DatePipe } from '@angular/common';
@@ -28,7 +27,6 @@ export class EventMyeventComponent implements OnInit {
 
   constructor(
     private router: Router, 
-    private http: HttpClient, 
     private datePipe: DatePipe, 
     private eventService: EventService
   ) { }
@@ -124,7 +122,7 @@ export class EventMyeventComponent implements OnInit {
 
   onConfirmDelete(): void {
     if (this.eventIdToDelete !== null) {
-      this.http.delete(`http://localhost:3000/event/${this.eventIdToDelete}`).subscribe({
+      this.eventService.deleteEventById(this.eventIdToDelete).subscribe({
         next: () => {
           this.event = this.event.filter(e => e.eventId !== this.eventIdToDelete);
           this.filteredEvents = this.event;
@@ -139,7 +137,7 @@ export class EventMyeventComponent implements OnInit {
           this.showConfirm = false;
         },
         error: (err) => {
-          // console.error('เกิดข้อผิดพลาดขณะลบกิจกรรม:', err);
+          console.error('เกิดข้อผิดพลาดขณะลบกิจกรรม:', err);
         }
       });
     }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { CustomValidators } from '../../customs/customValidators';
+import { EventService } from '../../service/event.service';
 
 @Component({
   selector: 'app-event-create',
@@ -24,7 +24,11 @@ export class EventCreateComponent implements OnInit {
   showAlert: boolean = false;
   alertMessage: string = '';
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router,
+    private eventService: EventService,
+  ) {}
 
   ngOnInit(): void {
     this.creator = localStorage.getItem('username') || '';
@@ -49,18 +53,6 @@ export class EventCreateComponent implements OnInit {
       }, 600);
     }, 2000);
   }
-
-  // onFileChange(event: any): void {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       this.imageBase64 = e.target.result;
-  //       console.log('Base64 Image:', this.imageBase64);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
@@ -119,9 +111,8 @@ export class EventCreateComponent implements OnInit {
         creator: this.creator
       };
 
-      this.http.post('http://localhost:3000/event', eventData).subscribe({
+      this.eventService.createEvent(eventData).subscribe({
         next: (response) => {
-          // console.log('Event created successfully:', response);
           this.alertMessage = 'เพิ่มกิจกรรมสำเร็จ';
           this.showAlert = true;
           setTimeout(() => {

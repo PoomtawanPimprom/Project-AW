@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { Participant } from '../../interfaces/participant.model';
@@ -27,7 +26,6 @@ export class EventInfoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private http: HttpClient, 
     private datePipe: DatePipe,
     private eventService: EventService, 
     private participantService: ParticipantService, 
