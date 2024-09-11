@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { CustomValidators } from '../../customs/customValidators';
+import { handleFileChange } from '../../customs/imageUtils';
 import { EventService } from '../../service/event.service';
 
 @Component({
@@ -74,53 +75,10 @@ export class EventEditComponent implements OnInit {
   }
 
   onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const maxSizeInMB = 5; // กำหนดขนาดไฟล์สูงสุด (MB)
-      const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
-  
-      if (file.size > maxSizeInBytes) {
-        this.alertMessage = 'ขนาดไฟล์เกินขีดจำกัด';
-        this.showAlert = true;
-        return;
-      }
-  
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d')!;
-          
-          const maxWidth = 800;
-          const maxHeight = 600;
-          let width = img.width;
-          let height = img.height;
-  
-          if (width > height) {
-            if (width > maxWidth) {
-              height *= maxWidth / width;
-              width = maxWidth;
-            }
-          } else {
-            if (height > maxHeight) {
-              width *= maxHeight / height;
-              height = maxHeight;
-            }
-          }
-  
-          canvas.width = width;
-          canvas.height = height;
-  
-          ctx.drawImage(img, 0, 0, width, height);
-  
-          this.imageBase64 = canvas.toDataURL('image/jpeg', 0.7);
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }  
+    handleFileChange(event, (base64: string) => {
+      this.imageBase64 = base64;
+    });
+  }
 
   onSubmit(): void {
     if (this.eventForm.valid) {

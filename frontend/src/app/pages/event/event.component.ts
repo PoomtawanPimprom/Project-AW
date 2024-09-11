@@ -96,17 +96,10 @@ export class EventComponent implements OnInit {
 
   onEventInfo(eventId: string): void {
     this.router.navigate([`/event/info/${eventId}`]);
-    console.log("Event Info Working! By ID = ", eventId)
   }
 
   onMyEvent(): void {
     this.router.navigate(['/event/myevent']);
-    console.log("My Event Working!")
-  }
-
-  onAddEvent(): void {
-    this.router.navigate(['/event/myevent/create']);
-    console.log("Add Event Working!")
   }
 
 }

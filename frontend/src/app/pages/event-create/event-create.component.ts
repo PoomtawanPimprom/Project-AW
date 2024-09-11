@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { CustomValidators } from '../../customs/customValidators';
+import { handleFileChange } from '../../customs/imageUtils';
 import { EventService } from '../../service/event.service';
 
 @Component({
@@ -55,49 +56,10 @@ export class EventCreateComponent implements OnInit {
   }
 
   onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const img = new Image();
-        img.onload = () => {
-          // Create a canvas element
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d')!;
-          
-          // Set canvas size to scaled dimensions
-          const maxWidth = 800; // Set maximum width as needed
-          const maxHeight = 600; // Set maximum height as needed
-          let width = img.width;
-          let height = img.height;
-  
-          if (width > height) {
-            if (width > maxWidth) {
-              height *= maxWidth / width;
-              width = maxWidth;
-            }
-          } else {
-            if (height > maxHeight) {
-              width *= maxHeight / height;
-              height = maxHeight;
-            }
-          }
-  
-          canvas.width = width;
-          canvas.height = height;
-  
-          // Draw image on canvas
-          ctx.drawImage(img, 0, 0, width, height);
-  
-          // Get base64 data from canvas
-          this.imageBase64 = canvas.toDataURL('image/jpeg', 0.7); // 0.7 is quality (0.0 to 1.0)
-          console.log('Base64 Image:', this.imageBase64);
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }  
+    handleFileChange(event, (base64: string) => {
+      this.imageBase64 = base64;
+    });
+  }
 
   onSubmit(): void {
     if (this.eventForm.valid) {
