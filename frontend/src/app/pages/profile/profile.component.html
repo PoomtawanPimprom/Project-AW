@@ -2,12 +2,12 @@
 
     <div class="bg-white container overflow-hidden shadow">
         <div class="profile w-100 p-3 d-flex justify-content-center align-items-center">
-            <img src="https://koreajoongangdaily.joins.com/data/photo/2023/10/09/b37d6ba6-a639-4674-8594-f8e96bc0587e.jpg" alt="profile" class="img-fluid img-thumbnail">
+            <img [src]="image" alt="profile" class="img-fluid img-thumbnail">
             <div class="head">
-                <h1 class="h3">Name Example</h1>
+                <h1 class="h3">{{username}}</h1>
                 <p>example&#64;gmail.com</p>
-                <p>Age: xxx</p>
-                <p>Major: xxx</p>
+                <p>Age: {{user[0].age}}</p>
+                <p>Major: {{user[0].major}}</p>
             </div>
             <div class="social">
                 <i class="bi bi-facebook mx-3 mt-5"></i>
@@ -26,8 +26,6 @@
                 <label for="">institute</label>
                 <input type="text" class="border-0">
                 <label for="">major</label>
-                <input type="text" class="border-0">
-                <label for="">age</label>
                 <input type="text" class="border-0">
                 <button type="submit" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
             </form>
