@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { DatePipe } from '@angular/common';
+import { EventService } from '../../service/event.service';
 
 @Component({
   selector: 'app-event',
@@ -20,31 +21,30 @@ export class EventComponent implements OnInit {
   totalPages: number = 0;
   maxVisiblePages: number = 4;
 
-  constructor(private router: Router, private http: HttpClient, private datePipe: DatePipe) { }
+  constructor(
+    private router: Router, 
+    private datePipe: DatePipe, 
+    private eventService: EventService
+  ) { }
 
   ngOnInit(): void {
-    this.http.get<Event[]>('http://localhost:3000/event')
-      .subscribe({
-        next: (data) => {
-          // console.log('Data fetched from API:', data);
-          this.event = data;
-          this.filteredEvents = this.event;
-          this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
-          this.updatePaginatedEvents();
-        },
-        error: (error) => {
-          console.error('Error fetching events:', error);
-        },
-        // complete: () => {
-        //   console.log('Data fetching complete');
-        // }
-      });
+    this.fetchEvents();
   }
 
-  // formatDate(date: string): string {
-  //   const dateObj = new Date(date);
-  //   return this.datePipe.transform(dateObj, 'dd-MM-yyyy เวลา HH:mm น.') || '';
-  // }
+  fetchEvents(): void {
+    this.eventService.getEvents().subscribe({
+      next: (data) => {
+        this.event = data;
+        this.filteredEvents = this.event;
+        this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+        this.updatePaginatedEvents();
+      },
+      error: (error) => {
+        console.error('Error fetching events:', error);
+      }
+    });
+  }
+
   formatDate(date: string): string {
     const dateObj = new Date(date);
     const yearBuddhist = dateObj.getFullYear() + 543;
