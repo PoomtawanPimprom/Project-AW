@@ -16,22 +16,20 @@ import { FriendRequestComponent } from './pages/friend-request/friend-request.co
 import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
- { path: 'routing1', component: TestRoutingPageComponent },
- { path: 'routing2', component: Routing2Component },
- { path: 'routing/:id', component: DynamicRoutingComponent },
- { path: 'login', component: LoginRegisterComponent},
- { path: 'main', component: MainComponent},
- { path: 'friend', component: FriendComponent},
- { path: 'event', component: EventComponent},
- { path: 'event/info/:id', component: EventInfoComponent},
- { path: 'event/myevent', component: EventMyeventComponent},
- { path: 'event/myevent/create', component: EventCreateComponent},
- { path: 'event/myevent/edit/:id', component: EventEditComponent},
- { path: 'friendInfo', component: FriendInfoComponent},
- { path: 'friendRequest', component: FriendRequestComponent},
- { path: 'profile', component: ProfileComponent},
-
-
+  { path: 'routing1', component: TestRoutingPageComponent },
+  { path: 'routing2', component: Routing2Component },
+  { path: 'routing/:id', component: DynamicRoutingComponent },
+  { path: 'login', component: LoginRegisterComponent},
+  { path: 'main', component: MainComponent},
+  { path: 'friend', component: FriendComponent},
+  { path: 'event', component: EventComponent},
+  { path: 'event/info/:id', component: EventInfoComponent},
+  { path: 'event/myevent', component: EventMyeventComponent},
+  { path: 'event/myevent/create', component: EventCreateComponent},
+  { path: 'event/myevent/edit/:id', component: EventEditComponent},
+  { path: 'friendInfo', component: FriendInfoComponent},
+  { path: 'friendRequest', component: FriendRequestComponent},
+  { path: 'profile/:username', component: ProfileComponent},
 ];
 
 @NgModule({
