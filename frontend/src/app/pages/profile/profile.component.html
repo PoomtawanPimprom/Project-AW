@@ -1,33 +1,46 @@
 <div class="background-profile d-flex justify-content-center align-items-center">
 
     <div class="bg-white container overflow-hidden shadow">
-        <div class="profile w-100 p-3 d-flex justify-content-center align-items-center">
-            <img [src]="image" alt="profile" class="img-fluid img-thumbnail">
+        <div class="profile w-100 d-flex justify-content-center align-items-center" *ngFor="let item of user">
+            <img 
+                [src]="item.image"
+                alt="profile" style="object-fit: cover;" />
             <div class="head">
-                <h1 class="h3">{{username}}</h1>
-                <p>example&#64;gmail.com</p>
-                <p>Age: {{user[0].age}}</p>
-                <p>Major: {{user[0].major}}</p>
+                <h1 class="h3">{{item.name}}</h1>
+                <p>{{item.email}}</p>
+                <p>Age: {{item.age}}</p>
+                <p>Major: {{item.major}}</p>
             </div>
             <div class="social">
-                <i class="bi bi-facebook mx-3 mt-5"></i>
-                <i class="bi bi-tiktok mx-3 mt-5"></i>
-                <i class="bi bi-instagram mx-3 mt-5"></i>
+                <a [href]="item.facebook"><i class="bi bi-facebook mx-3 mt-5"></i></a>
+                <a [href]="item.tiktok"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
+                <a [href]="item.instagram"><i class="bi bi-instagram mx-3 mt-5"></i></a>
             </div>
             
         </div>
 
-        <div class="about mt-5">
-            <form class="d-flex flex-column col-4" >
-                <label for="">Username</label>
-                <input type="text" class="border-0">
+        <div class="about mt-2" *ngFor="let item of user">
+            <form [formGroup]="profileForm" class="d-flex flex-column col-4" >
+                <label for="">Name</label>
+                <input type="text" formControlName="name" >
                 <label for="">Email</label>
-                <input type="text" class="border-0">
-                <label for="">institute</label>
-                <input type="text" class="border-0">
-                <label for="">major</label>
-                <input type="text" class="border-0">
-                <button type="submit" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
+                <input type="text" formControlName="email" >
+                <label for="">Institute</label>
+                <input type="text" formControlName="institute" >
+                <label for="">Major</label>
+                <input type="text" formControlName="major" >
+                <label for="">Facebook</label>
+                <input type="text" formControlName="facebook" >
+                <label for="">Instagram</label>
+                <input type="text" formControlName="instagram" >
+                <label for="">Tiktok</label>
+                <input type="text" formControlName="tiktok" >
+                <label for="images" class="drop-container" id="dropcontainer">
+                    <span class="drop-title">Drop files here</span>
+                    or
+                    <input type="file" id="images" accept="image/*" required>
+                </label>
+                <button (click)="onClickUpdateUser(item._id)" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
             </form>
         </div>
     </div>

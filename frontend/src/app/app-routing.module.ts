@@ -29,7 +29,8 @@ const routes: Routes = [
  { path: 'event/myevent/edit/:id', component: EventEditComponent},
  { path: 'friendInfo', component: FriendInfoComponent},
  { path: 'friendRequest', component: FriendRequestComponent},
- { path: 'profile', component: ProfileComponent},
+ { path: 'profile/:id', component: ProfileComponent},
+ { path: 'profile/:id', component: ProfileComponent},
  { path: 'login', component: LoginComponent},
  { path: 'register', component: RegisterComponent},
 
