@@ -48,9 +48,9 @@
 
 
 .about form input {
-    border: 1px solid #ccc; /* เส้นขอบของฟิลด์ฟอร์ม */
-    border-radius: 5px; /* มุมโค้งของฟิลด์ฟอร์ม */
-    padding: 0.5rem; /* ระยะห่างภายในฟิลด์ฟอร์ม */
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    padding: 0.5rem; 
 }
 
 
@@ -147,14 +147,34 @@
     border-color: #111;
   }
   
-  .drop-container:hover .drop-title {
+.drop-container:hover .drop-title {
     color: #222;
-  }
+}
   
-  .drop-title {
+.drop-title {
     color: #444;
     font-size: 20px;
     font-weight: bold;
     text-align: center;
     transition: color .2s ease-in-out;
-  }
+}
+
+
+@media (max-width: 550px) {
+    .drop-container {
+        width: 100%;
+        height: 150px;
+    }
+
+    .drop-title {
+        font-size: 16px;
+    }
+
+    .about form {
+        width: 100%;
+    }
+
+    .about form input {
+        width: 100%;
+    }
+}
