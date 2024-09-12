@@ -125,7 +125,14 @@ export class InputCommentComponent implements OnInit {
     this.updateComment();
   }
 
+
   async onClikeSelectComment(_id: string) {
     this.selectCommentId = _id;
+  }
+
+  async onClikeSelectUpdateComment(text: string) {
+    this.CommentupdateFormGroup.setValue({
+      Commentupdate: text
+    })
   }
 }

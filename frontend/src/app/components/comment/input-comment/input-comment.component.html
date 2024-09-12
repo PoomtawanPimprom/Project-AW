@@ -28,8 +28,8 @@
             <div>
                 <!-- map comment -->
                 <div class="card mb-2" *ngFor="let comment of comments"
-                    style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column; background-color: #123f66; max-width: 760px;">
-                    <div class="card-body">
+                    style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column; background-color: #123f66; max-width: 760px; flex-wrap: unset;">
+                    <div class="card-body" style="padding: 10px;">
                         <div style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
                             <div class="rounded-circle bg-primary"
                                 style="height: 40px; width: 40px; margin-right: 10px;">
@@ -50,7 +50,8 @@
                                         style="padding: 0; width: 100px; min-width: auto;">
                                         <button class="dropdown-item text-primary btn-sm" data-toggle="modal"
                                             data-target="#staticBackdrop"
-                                            style="padding-left: 10px; padding-right: 10px;">แก้ไข</button>
+                                            style="padding-left: 10px; padding-right: 10px;"
+                                            (click)="onClikeSelectUpdateComment(comment.comment)">แก้ไข</button>
                                         <button class="dropdown-item text-danger btn-sm"
                                             style="padding-left: 10px; padding-right: 10px;"
                                             (click)="onClickDeleteComment(comment._id)">
@@ -67,9 +68,9 @@
                             <!-- reply -->
                             <div
                                 style="display: flex; flex-direction:row; justify-content: end; width: 100%; height: 100%; ">
-                                <div style="margin-right: 10px; width: 60%; height: 100%;">
+                                <div style="margin-right: 10px; width: 85%; height: 100%; ">
                                     <form [formGroup]="replyCommentFormGroup">
-                                        <input type="text" style="width: 100%; height: 38px;"
+                                        <input type="text" style="width: 100%; height: 38px; border-radius: 10px; padding: 10px;" placeholder="reply..."
                                             formControlName="replyComment">
                                     </form>
                                 </div>
@@ -82,7 +83,7 @@
                         <!-- show reply comment -->
                         <div *ngIf="comment.replies && comment.replies.length > 0">
                             <div class="card mb-2" *ngFor="let data of comment.replies"
-                                style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column;  ">
+                                style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column; margin-top: 10px;">
                                 <div  style="padding: 0px;">
                                     <div
                                         style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
@@ -105,7 +106,7 @@
                                                     style="padding: 0; width: 100px; min-width: auto;">
                                                     <button class="dropdown-item text-primary btn-sm"
                                                         data-toggle="modal" data-target="#staticBackdrop"
-                                                        style="padding-left: 10px; padding-right: 10px;">แก้ไข</button>
+                                                        style="padding-left: 10px; padding-right: 10px;" (click)="onClikeSelectUpdateComment(data.comment)">แก้ไข</button>
                                                     <button class="dropdown-item text-danger btn-sm"
                                                         style="padding-left: 10px; padding-right: 10px;"
                                                         (click)="onClickDeleteComment(data._id)">
@@ -121,7 +122,7 @@
                                             <div>{{data.comment}}</div>
                                         </div>
                                         <!-- reply -->
-                                        <div
+                                        <!-- <div
                                             style="display: flex; flex-direction:row; justify-content: end; width: 100%; height: 100%; ">
                                             <div style="margin-right: 10px; width: 60%; height: 100%;">
                                                 <form [formGroup]="replyCommentFormGroup">
@@ -131,9 +132,9 @@
                                             </div>
                                             <div style="width: 15%;">
                                                 <button style="width: 100%;"
-                                                    class="btn btn btn-primary">ตอบกลับ</button>
+                                                    class="btn btn btn-primary" (click)="onClickCreateReplyComment(data._id)">ตอบกลับ</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
