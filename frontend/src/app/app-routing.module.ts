@@ -15,24 +15,24 @@ import { FriendRequestComponent } from './pages/friend-request/friend-request.co
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
- { path: 'routing1', component: TestRoutingPageComponent },
- { path: 'routing2', component: Routing2Component },
- { path: 'routing/:id', component: DynamicRoutingComponent },
- { path: 'main', component: MainComponent},
- { path: 'friend', component: FriendComponent},
- { path: 'event', component: EventComponent},
- { path: 'event/info/:id', component: EventInfoComponent},
- { path: 'event/myevent', component: EventMyeventComponent},
- { path: 'event/myevent/create', component: EventCreateComponent},
- { path: 'event/myevent/edit/:id', component: EventEditComponent},
- { path: 'friendInfo', component: FriendInfoComponent},
- { path: 'friendRequest', component: FriendRequestComponent},
- { path: 'profile/:id', component: ProfileComponent},
- { path: 'login', component: LoginComponent},
- { path: 'register', component: RegisterComponent},
-
+  { path: 'routing1', component: TestRoutingPageComponent },
+  { path: 'routing2', component: Routing2Component },
+  { path: 'routing/:id', component: DynamicRoutingComponent },
+  { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
+  { path: 'friend', component: FriendComponent, canActivate: [AuthGuard] },
+  { path: 'event', component: EventComponent, canActivate: [AuthGuard] },
+  { path: 'event/info/:id', component: EventInfoComponent, canActivate: [AuthGuard] },
+  { path: 'event/myevent', component: EventMyeventComponent, canActivate: [AuthGuard] },
+  { path: 'event/myevent/create', component: EventCreateComponent, canActivate: [AuthGuard] },
+  { path: 'event/myevent/edit/:id', component: EventEditComponent, canActivate: [AuthGuard] },
+  { path: 'friendInfo', component: FriendInfoComponent, canActivate: [AuthGuard] },
+  { path: 'friendRequest', component: FriendRequestComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({

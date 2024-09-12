@@ -22,4 +22,31 @@ export class AuthenticationService {
     return this.http.post<any>(this.apiSignUp, payload);
   }
 
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined';
+  }
+
+  setToken(token: string): void {
+    if (this.isBrowser()) {
+      localStorage.setItem('token', token);
+    }
+  }
+
+  getToken(): string | null {
+    if (this.isBrowser()) {
+      return localStorage.getItem('token');
+    }
+    return null;
+  }
+
+  removeToken(): void {
+    if (this.isBrowser()) {
+      localStorage.removeItem('token');
+    }
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
 }
