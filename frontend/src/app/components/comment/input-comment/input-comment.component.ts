@@ -50,8 +50,6 @@ export class InputCommentComponent implements OnInit {
     });
   }
 
-
-
   isCurrentUser(itemId: string): boolean {
     return this.objectID_user === itemId;
   }
@@ -79,7 +77,7 @@ export class InputCommentComponent implements OnInit {
     this.inputCommentFormGroup.reset();
   }
 
-  createReplyComment(commentReplyData: any) {
+  createReplycomment(commentReplyData: any) {
     this.CommentService.createReplyComment(commentReplyData)
       .subscribe(result => {
         this.fetchCommentData();
@@ -89,7 +87,7 @@ export class InputCommentComponent implements OnInit {
 
   updateComment() {
     const comment = this.CommentupdateFormGroup.get("Commentupdate")?.value
-    this.CommentService.updateComment(this.selectCommentId,comment)
+    this.CommentService.updateComment(this.selectCommentId, comment)
       .subscribe(result => {
         this.fetchCommentData();
       })
@@ -113,9 +111,10 @@ export class InputCommentComponent implements OnInit {
     const dataReply = {
       objParentComment: objParentComment,
       comment: comment,
+      eventId: this.eventId,
       object_userId: this.objectID_user
     }
-    this.createReplyComment(dataReply)
+    this.createReplycomment(dataReply)
   }
 
   async onClickDeleteComment(_id: string) {
@@ -126,7 +125,14 @@ export class InputCommentComponent implements OnInit {
     this.updateComment();
   }
 
+
   async onClikeSelectComment(_id: string) {
     this.selectCommentId = _id;
+  }
+
+  async onClikeSelectUpdateComment(text: string) {
+    this.CommentupdateFormGroup.setValue({
+      Commentupdate: text
+    })
   }
 }
