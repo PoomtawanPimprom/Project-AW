@@ -14,6 +14,7 @@ import { FriendInfoComponent } from './pages/friend-info/friend-info.component';
 import { FriendRequestComponent } from './pages/friend-request/friend-request.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
  { path: 'routing1', component: TestRoutingPageComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
  { path: 'profile/:id', component: ProfileComponent},
  { path: 'profile/:id', component: ProfileComponent},
  { path: 'login', component: LoginComponent},
+ { path: 'register', component: RegisterComponent},
 
 ];
 

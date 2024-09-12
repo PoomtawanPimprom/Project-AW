@@ -34,8 +34,8 @@
                     <span style="margin-right: 10px">{{ username || 'NULL' }}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">แก้ไขโปรไฟล์</a>
-                    <a class="dropdown-item" href="#">ออกจากระบบ</a>
+                    <a class="dropdown-item" [routerLink]="'/profile'">โปรไฟล์ของฉัน</a>
+                    <a class="dropdown-item" [routerLink]="'/'">ออกจากระบบ</a>
                 </div>
             </div>
         </form>
