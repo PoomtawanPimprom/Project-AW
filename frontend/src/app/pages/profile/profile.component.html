@@ -38,7 +38,7 @@
                 <label for="images" class="drop-container" id="dropcontainer">
                     <span class="drop-title">Drop files here</span>
                     or
-                    <input type="file" id="images" accept="image/*" required>
+                    <input type="file" id="images" accept="image/*" formControlName="image" (change)="onFileChange($event)" required>
                 </label>
                 <button (click)="onClickUpdateUser(item._id)" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
             </form>

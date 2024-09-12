@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { userInterface } from '../../interfaces/user.model';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { handleFileChange } from '../../customs/imageUtils';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ export class ProfileComponent {
   id!: string;
   user: userInterface[] = [];
   profileForm: FormGroup;
+  imageBase64!: string;
 
   selectUserId!: string;
 
@@ -28,6 +30,7 @@ export class ProfileComponent {
       facebook: [''],
       instagram: [''],
       tiktok: [''],
+      image: [''],
     });
    }
 
@@ -53,6 +56,7 @@ export class ProfileComponent {
           facebook: this.user[0].facebook,
           instagram: this.user[0].instagram,
           tiktok: this.user[0].tiktok,
+          image: this.user[0].image
         });
         // console.log(this.profileForm);
       }
@@ -61,7 +65,9 @@ export class ProfileComponent {
 
 
   updateUser(_id: string) {
-    const user = { user:this.profileForm.value }
+    const user = { 
+      user:this.profileForm.value 
+    }
     
     this.http.put(`http://localhost:3000/user/${_id}`,user )
       .subscribe(result => {
@@ -74,6 +80,16 @@ export class ProfileComponent {
   async onClickUpdateUser(_id:string) {
     console.log("_id",_id)
     this.updateUser(_id);
+  }
+
+  onFileChange(event: any): void {
+    handleFileChange(event, (base64: string) => {
+      this.imageBase64 = base64;
+      this.profileForm.patchValue({
+        image: this.imageBase64
+      });
+      console.log(this.imageBase64);
+    });
   }
 
 }

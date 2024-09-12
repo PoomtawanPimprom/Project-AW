@@ -35,6 +35,7 @@ router.put('/:object_userId', async (req, res) => {
               facebook: user.facebook,
               instagram: user.instagram,
               tiktok: user.tiktok,
+              image: user.image,
               updateAt: Date.now()
             },
               { 
