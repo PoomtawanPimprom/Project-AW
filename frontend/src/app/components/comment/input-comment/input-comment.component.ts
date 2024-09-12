@@ -79,7 +79,7 @@ export class InputCommentComponent implements OnInit {
     this.inputCommentFormGroup.reset();
   }
 
-  createReplyComment(commentReplyData: any) {
+  createReplycomment(commentReplyData: any) {
     this.CommentService.createReplyComment(commentReplyData)
       .subscribe(result => {
         this.fetchCommentData();
@@ -113,9 +113,10 @@ export class InputCommentComponent implements OnInit {
     const dataReply = {
       objParentComment: objParentComment,
       comment: comment,
+      eventId: this.eventId,
       object_userId: this.objectID_user
     }
-    this.createReplyComment(dataReply)
+    this.createReplycomment(dataReply)
   }
 
   async onClickDeleteComment(_id: string) {

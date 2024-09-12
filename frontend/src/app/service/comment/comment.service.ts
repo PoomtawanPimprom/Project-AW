@@ -15,7 +15,7 @@ export class CommentService {
   }
 
   deleteCommentByObID(_id: string) {
-    return this.http.delete(`${_id}`)
+    return this.http.delete(`${this.apiURL}/${_id}`)
   }
 
   createComment(commentData: any) {

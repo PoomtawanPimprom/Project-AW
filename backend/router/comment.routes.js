@@ -37,14 +37,17 @@ router.get('/:eventId', async (req, res) => {
             .populate({
                 path: 'replies', populate: {
                     path: 'userId',
-                    select: 'name image'
+                    select: 'name image',
                 }
             })
             .sort({ createdAt: -1 })
             .exec();
+        data.forEach(comment => {
+            comment.replies.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        });
         return res.status(200).json(data);
     } catch (err) {
-        return res.status(500).json(err);
+        return res.status(500).json(err.message);
     }
 });
 
