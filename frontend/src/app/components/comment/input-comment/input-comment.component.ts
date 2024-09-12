@@ -50,8 +50,6 @@ export class InputCommentComponent implements OnInit {
     });
   }
 
-
-
   isCurrentUser(itemId: string): boolean {
     return this.objectID_user === itemId;
   }
@@ -89,7 +87,7 @@ export class InputCommentComponent implements OnInit {
 
   updateComment() {
     const comment = this.CommentupdateFormGroup.get("Commentupdate")?.value
-    this.CommentService.updateComment(this.selectCommentId,comment)
+    this.CommentService.updateComment(this.selectCommentId, comment)
       .subscribe(result => {
         this.fetchCommentData();
       })

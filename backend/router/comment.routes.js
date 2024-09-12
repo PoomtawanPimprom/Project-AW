@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+//model
 const Comment = require('../models/comment');
+
 const mongoose = require('mongoose');
 
 const ObjectId = mongoose.Types.ObjectId;
@@ -60,7 +62,7 @@ router.post('/', async (req, res) => {
             eventId: Number(eventId),
             createdAt: Date.now(),
             userId: new ObjectId(object_userId)
-        }); // = INSERT INTO comments (commentId, comment, eventId, userId) VALUES (commentId, comment, eventId, userId);
+        });
         await newComment.save();
         return res.status(201).json(newComment);
     } catch (err) {
@@ -73,14 +75,12 @@ router.post('/', async (req, res) => {
 router.post("/reply", async (req, res) => {
     const { objParentComment, comment, object_userId } = req.body;
     try {
-        //create a new comment
         const newComment = new Comment({
             comment: comment,
             createdAt: Date.now(),
             userId: new ObjectId(object_userId)
         });
         const result = await newComment.save();
-        //update parentcomment
         const parentComment = await Comment.findByIdAndUpdate(
             objParentComment,
             { $push: { replies: result._id } },
@@ -113,14 +113,13 @@ router.put('/edit/:object_commentId', async (req, res) => {
         if (!ObjectId.isValid(_id)) {
             return res.status(400).send('Invalid ID');
         }
-
         const updateComment = await Comment.findByIdAndUpdate(
             _id,
             {
                 comment: comment,
                 updateAt: Date.now()
             },
-            { new: true });// data
+            { new: true });
         return res.status(201).json(updateComment);
     } catch (err) {
         return res.status(400).json(err);
@@ -131,7 +130,12 @@ router.put('/edit/:object_commentId', async (req, res) => {
 router.delete('/:object_commentId', async (req, res) => {
     const _id = req.params.object_commentId;
     try {
-        const deleteComment = await Comment.findByIdAndDelete(_id); // DELETE FROM comments WHERE commentId=commentId;
+        const comment = await Comment.findById(_id);
+        if (!comment) {
+            return res.status(404).json({ message: 'Comment not found' });
+        }
+        await Comment.deleteMany({ _id: { $in: comment.replies } });
+        await Comment.findByIdAndDelete(_id);
         return res.status(200).json('delete complete!');
     } catch (err) {
         return res.status(400).json(err);

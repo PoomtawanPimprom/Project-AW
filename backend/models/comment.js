@@ -15,4 +15,5 @@ const commentSchema = new mongoose.Schema({
         ref: 'Comment'
     }]
 }, { collection: 'comment' });
+
 module.exports = mongoose.model("Comment", commentSchema);
