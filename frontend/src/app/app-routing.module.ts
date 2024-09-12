@@ -30,7 +30,6 @@ const routes: Routes = [
  { path: 'friendInfo', component: FriendInfoComponent},
  { path: 'friendRequest', component: FriendRequestComponent},
  { path: 'profile/:id', component: ProfileComponent},
- { path: 'profile/:id', component: ProfileComponent},
  { path: 'login', component: LoginComponent},
  { path: 'register', component: RegisterComponent},
 

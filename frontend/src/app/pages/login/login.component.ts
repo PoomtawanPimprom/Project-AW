@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../service/authentication.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  rememberMe: boolean = false;
   showAlert: boolean = false;
   alertMessage: string = '';
 
@@ -17,6 +18,14 @@ export class LoginComponent {
     private authService: AuthenticationService,
     private router: Router,
   ) { }
+
+  ngOnInit() {
+    const storedUsername = localStorage.getItem('rememberedUsername');
+    if (storedUsername) {
+      this.username = storedUsername;
+      this.rememberMe = true;
+    }
+  }
 
   onSubmit() {
     const payload = {
@@ -30,6 +39,12 @@ export class LoginComponent {
           if (response.state) {
             this.alertMessage = 'เข้าสู่ระบบสำเร็จ';
             this.showAlert = true;
+
+            if (this.rememberMe) {
+              localStorage.setItem('rememberedUsername', this.username);
+            } else {
+              localStorage.removeItem('rememberedUsername');
+            }
 
             localStorage.setItem('token', response.token);
             localStorage.setItem('_id', response.result._id);
