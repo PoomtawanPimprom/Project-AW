@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { CustomValidators } from '../../customs/customValidators';
 import { handleFileChange } from '../../customs/imageUtils';
-import { EventService } from '../../service/event.service';
+import { EventService } from '../../service/event/event.service';
 
 @Component({
   selector: 'app-event-edit',

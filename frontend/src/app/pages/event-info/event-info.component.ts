@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { Participant } from '../../interfaces/participant.model';
 import { DatePipe } from '@angular/common';
-import { EventService } from '../../service/event.service';
-import { ParticipantService } from '../../service/participant.service';
+import { EventService } from '../../service/event/event.service';
+import { ParticipantService } from '../../service/participant/participant.service';
 
 @Component({
   selector: 'app-event-info',
