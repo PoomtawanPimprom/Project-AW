@@ -12,7 +12,7 @@ ng g c pages/name
 ng g s service/name
 ```
 ## Backend
-## Server
+### Server
 ```
 npm install express
 npm install dotenv
@@ -21,7 +21,7 @@ npm install cors
 npm install morgan
 npm install nodemon -g –save-dev
 ```
-## Middleware
+### Middleware
 ```
 npm i dotenv
 npm i jsonwebtoken

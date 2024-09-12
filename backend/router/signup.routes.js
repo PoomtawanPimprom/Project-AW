@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-//model
+// Model
 const User = require('../models/user');
 
 const router = express.Router();
@@ -27,12 +27,12 @@ const insertUser = async (data) => {
     }
 }
 
-const getLastestUser = async () => {
+const getLatestUser = async () => {
     try {
-        const LastestUser = await User.findOne().sort({ userId: -1 });
+        const LatestUser = await User.findOne().sort({ userId: -1 });
 
-        if (LastestUser) {
-            number = parseInt(LastestUser.userId, 10) + 1;
+        if (LatestUser) {
+            number = parseInt(LatestUser.userId, 10) + 1;
             return parseInt(number)
         }
         else {
@@ -45,30 +45,54 @@ const getLastestUser = async () => {
     }
 }
 
-//
+// const checkExistingUser = async (username, email) => {
+//     try {
+//         const user = await User.findOne({ $or: [{ username }, { email }] });
+//         return user;
+//     } catch (err) {
+//         throw new Error(err.message);
+//     }
+// }
+
+// Method
 router.post('/', async (req, res) => {
-    makeHash(req.body.password)
-        .then((hashpassword) => {
-            getLastestUser()
-                .then((number) => {
-                    const playload = {
-                        userId: number,
-                        username: req.body.username,
-                        password: hashpassword,
-                        email: req.body.email,
-                    }
-                    insertUser(playload)
-                        .then((result) => {
-                            return res.status(200).json(result);
-                        }).catch(
-                            (err) => {
-                                console.log(err)
-                                return res.status(500).json(err.message);
-                            })
-                });
-        }).catch((err) => {
-            return res.status(500).json(err.message);
-        })
+    try {
+        // const { username, email, password } = req.body;
+        
+        // const existingUser = await checkExistingUser(username, email);
+
+        // if (existingUser) {
+        //     if (existingUser.username === username && existingUser.email === email) {
+        //         return res.status(400).json({ state: false, message: 'ชื่อผู้ใช้และอีเมลถูกใช้งานแล้ว' });
+        //     }
+        //     if (existingUser.username === username) {
+        //         return res.status(400).json({ state: false, message: 'ชื่อผู้ใช้ถูกใช้งานแล้ว' });
+        //     }
+        //     if (existingUser.email === email) {
+        //         return res.status(400).json({ state: false, message: 'อีเมลถูกใช้งานแล้ว' });
+        //     }
+        // }
+
+        const hashPassword = await makeHash(req.body.password);
+        const number = await getLatestUser();
+
+        const payload = {
+            userId: number,
+            username: req.body.username,
+            password: hashPassword,
+            email: req.body.email,
+        }
+
+        const result = await insertUser(payload);
+
+        if (result.message === "sign up successful") {
+            return res.status(200).json({ state: true, message: result.message });
+        } else {
+            return res.status(400).json({ state: false, message: result.message });
+        }
+    } catch (err) {
+        return res.status(500).json({ state: false, message: err.message });
+    }
 });
 
 module.exports = router;

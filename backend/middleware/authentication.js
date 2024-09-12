@@ -1,13 +1,14 @@
 const jwt = require('jsonwebtoken');
 require("dotenv").config()
+
 // const makeHash = async (plainText) => {
 //     const result = await bcrypt.hash(plainText, 10);
 //     return result;
 // };
 
-// const compareHash = async (plaintext, hashtext) => {
+// const compareHash = async (plaintext, hashText) => {
 //     try {
-//         const result = await bcrypt.compare(plaintext, hashtext);
+//         const result = await bcrypt.compare(plaintext, hashText);
 //         return { status: result };
 //     } catch (error) {
 //         throw new Error("Error bcrypt compare");
