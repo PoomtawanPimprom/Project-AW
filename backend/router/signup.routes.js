@@ -45,33 +45,33 @@ const getLatestUser = async () => {
     }
 }
 
-// const checkExistingUser = async (username, email) => {
-//     try {
-//         const user = await User.findOne({ $or: [{ username }, { email }] });
-//         return user;
-//     } catch (err) {
-//         throw new Error(err.message);
-//     }
-// }
+const checkExistingUser = async (username, email) => {
+    try {
+        const user = await User.findOne({ $or: [{ username }, { email }] });
+        return user;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+}
 
 // Method
 router.post('/', async (req, res) => {
     try {
-        // const { username, email, password } = req.body;
+        const { username, email } = req.body;
         
-        // const existingUser = await checkExistingUser(username, email);
+        const existingUser = await checkExistingUser(username, email);
 
-        // if (existingUser) {
-        //     if (existingUser.username === username && existingUser.email === email) {
-        //         return res.status(400).json({ state: false, message: 'ชื่อผู้ใช้และอีเมลถูกใช้งานแล้ว' });
-        //     }
-        //     if (existingUser.username === username) {
-        //         return res.status(400).json({ state: false, message: 'ชื่อผู้ใช้ถูกใช้งานแล้ว' });
-        //     }
-        //     if (existingUser.email === email) {
-        //         return res.status(400).json({ state: false, message: 'อีเมลถูกใช้งานแล้ว' });
-        //     }
-        // }
+        if (existingUser) {
+            if (existingUser.username === username && existingUser.email === email) {
+                return res.status(400).json({ state: false, message: 'ชื่อผู้ใช้และอีเมลถูกใช้งานแล้ว' });
+            }
+            if (existingUser.username === username) {
+                return res.status(400).json({ state: false, message: 'ชื่อผู้ใช้ถูกใช้งานแล้ว' });
+            }
+            if (existingUser.email === email) {
+                return res.status(400).json({ state: false, message: 'อีเมลถูกใช้งานแล้ว' });
+            }
+        }
 
         const hashPassword = await makeHash(req.body.password);
         const number = await getLatestUser();

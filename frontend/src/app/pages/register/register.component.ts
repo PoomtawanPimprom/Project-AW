@@ -32,20 +32,20 @@ export class RegisterComponent {
               this.showAlert = false;
             }, 2000);
           } else {
-            this.alertMessage = 'ไม่สามารถสมัครสมาชิกได้';
+            this.alertMessage = response.message;
             this.showAlert = true;
             setTimeout(() => {
               this.showAlert = false;
             }, 2000);
           }
         },
-        error: (response) => {
-          this.alertMessage = 'เกิดข้อผิดพลาดในการสมัครสมาชิก';
+        error: (errorResponse) => {
+          this.alertMessage = errorResponse.error.message || 'เกิดข้อผิดพลาดในการสมัครสมาชิก';
           this.showAlert = true;
           setTimeout(() => {
             this.showAlert = false;
           }, 2000);
         }
       });
-  }  
+  }    
 }

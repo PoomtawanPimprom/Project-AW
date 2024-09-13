@@ -1,8 +1,7 @@
 <div class="container-fluid">
     <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert" [ngClass]="{
         'alert-success': alertMessage === 'สมัครสมาชิกสำเร็จ',
-        'alert-danger': alertMessage === 'ไม่สามารถสมัครสมาชิกได้' || 
-                        alertMessage === 'เกิดข้อผิดพลาดในการสมัครสมาชิก'
+        'alert-danger': alertMessage !== 'สมัครสมาชิกสำเร็จ'
       }">
         {{ alertMessage }}
     </div>
