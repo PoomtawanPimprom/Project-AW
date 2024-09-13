@@ -46,6 +46,6 @@ export class FriendService implements OnInit {
   
   updateFriendStatus(userId1: string, userId2: string): Observable<any> {
     const requestBody = { userId1, userId2 };
-    return this.http.put(`${this.apiURL}/updateStatus, requestBody`, { headers: this.getAuthHeaders() });
+    return this.http.put(`${this.apiURL}/updateStatus`, requestBody, { headers: this.getAuthHeaders() });
   }
 }

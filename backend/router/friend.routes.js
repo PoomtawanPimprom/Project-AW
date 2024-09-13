@@ -116,7 +116,6 @@ router.get("/all/:userId1", async (req, res) => {
 // PUT UpdateFriendStatus
 router.put("/updateStatus", async (req, res) => {
     const { userId1, userId2 } = req.body;
-
     try {
         const updatedFriend = await Friend.findOneAndUpdate(
             {
@@ -138,34 +137,5 @@ router.put("/updateStatus", async (req, res) => {
     }
 });
 
-// PUT UpdateFriendStatus
-// router.put("/updateStatus", async (req, res) => {
-//     const { userId1, userId2 } = req.body; // รับค่า userId1 และ userId2 จาก request body
-
-//     try {
-//         // ตรวจสอบความถูกต้องของ userId
-//         if (!mongoose.Types.ObjectId.isValid(userId1) || !mongoose.Types.ObjectId.isValid(userId2)) {
-//             return res.status(400).json({ message: 'Invalid user IDs' });
-//         }
-
-//         // ค้นหาเอกสารเพื่อนที่ตรงกับ userId1, userId2 และสถานะเป็น 'pending'
-//         const updatedFriend = await Friend.findOneAndUpdate(
-//             { userId1: userId1, userId2: userId2, status: 'pending' },
-//             { status: 'accepted', updateAt: Date.now() },
-//             { new: true } // ส่งคืนเอกสารที่อัปเดตแล้ว
-//         );
-
-//         // ตรวจสอบว่ามีการค้นพบเอกสารที่ตรงกับเงื่อนไขหรือไม่
-//         if (!updatedFriend) {
-//             return res.status(404).json({ message: 'Friendship not found or status is not pending' });
-//         }
-
-//         // ส่งคืนเอกสารที่อัปเดตแล้ว
-//         return res.json(updatedFriend);
-//     } catch (err) {
-//         // จัดการ error และส่ง error message กลับไปที่ client
-//         return res.status(500).json({ message: 'Error updating friend status', error: err.message });
-//     }
-// });
 
 module.exports = router;

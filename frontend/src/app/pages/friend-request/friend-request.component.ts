@@ -42,28 +42,30 @@ export class FriendRequestComponent implements OnInit {
         this.applyFilter();  // กรองข้อมูลเมื่อดึงข้อมูลเพื่อนสำเร็จ
       });
   }
-
-  onRecordUserId(userId2: string): void{
-    this.userId2 = userId2;
-    console.log(this.userId2)
-  }
-
-  acceptedFriend() {
-    if (!this.userId1 || !this.userId2) {
-      console.error('User IDs are required');
-      return;
-    }
   
-    this.fs.updateFriendStatus(this.userId1, this.userId2).subscribe(
-      response => {
-        console.log('Friend status updated successfully:', response);
-        this.fetchFriendData();
-      },
-      error => {
-        console.error('Error updating friend status:', error);
-      }
-    );
+  acceptedFriend(user2: any): void {
+  if (user2 && user2._id) {
+    this.userId2 = user2._id;  // ดึงค่า _id ของ user2
+  } else {
+    console.error('User2 does not have _id');
+    return;
   }
+  
+  if (!this.objectID_user || !this.userId2) {
+    console.error('User IDs are required');
+    return;
+  }
+
+  this.fs.updateFriendStatus(this.objectID_user, this.userId2).subscribe(
+    response => {
+      console.log('Friend status updated successfully:', response);
+      this.fetchFriendData();
+    },
+    error => {
+      console.error('Error updating friend status:', error);
+    }
+  );
+}
   
     // ฟังก์ชันค้นหาเพื่อน
   onSearchFriend(): void {
