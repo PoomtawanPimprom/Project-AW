@@ -45,8 +45,36 @@ export class AuthenticationService {
     }
   }
 
+  removeData(): void {
+    if (this.isBrowser()) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('_id');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('username');
+    }
+  }
+
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    if (token) {
+      const tokenPayload = this.decodeToken(token);
+      if (tokenPayload && tokenPayload.exp) {
+        const currentTime = Math.floor(new Date().getTime() / 1000);
+        if (tokenPayload.exp > currentTime) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private decodeToken(token: string): any {
+    try {
+      const payload = token.split('.')[1];
+      return JSON.parse(atob(payload));
+    } catch (error) {
+      return null;
+    }
   }
 
 }

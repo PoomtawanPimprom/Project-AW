@@ -13,7 +13,9 @@ export class AuthGuard implements CanActivate {
     if (this.authService.isLoggedIn()) {
       return true;
     } else {
-      this.router.navigate(['/']);
+      alert("หมดเวลาเข้าใช้งาน กรุณาเข้าสู่ระบบอีกครั้ง");
+      this.authService.removeData();
+      this.router.navigate(['/login']);
       return false;
     }
   }

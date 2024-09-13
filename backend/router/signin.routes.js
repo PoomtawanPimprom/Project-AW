@@ -48,7 +48,8 @@ router.post('/', async (req, res) => {
         const compareStatus = await compareHash(payload.password,result.password)
         const state = compareStatus.status;
         if (state) {
-            const token = jwt.sign(result,process.env.KEY,{ expiresIn: 60 * 1 }) // for test 1 minutes
+            const token = jwt.sign(result,process.env.KEY,{ expiresIn: 60 * 60 * 3 }) // 3 hours
+            // const token = jwt.sign(result,process.env.KEY,{ expiresIn: 60 * 1 }) // for test 1 minutes
             return res.status(200).json({ result, token, state });
         } else {
             return res.status(200).json({ state })
