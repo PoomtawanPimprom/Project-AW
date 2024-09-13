@@ -3,6 +3,15 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const User = require("../models/user");
 
+router.get('/', async (req, res) => {
+  try {
+      const data = await User.find()
+      return res.json(data);
+  } catch (err) {
+      return res.status(500).json(err);
+  }
+});
+
 router.get("/:id", async (req, res) => {
 
     const userId = req.params.id;

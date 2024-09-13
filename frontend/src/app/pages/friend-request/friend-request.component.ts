@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FriendService } from '../../service/friend.service';
+import { FriendService } from '../../service/friend/friend.service';
 import { Friend } from '../../interfaces/friend.medel';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router'; 
@@ -17,13 +17,16 @@ export class FriendRequestComponent implements OnInit {
   search: string = '';
   
   friends: Friend[] = [];
-  userId1!: string; // ประกาศตัวแปร userId1
+  userId1: string | null = "";
+  userId2: string | null = "";
   //ยังไม่ get
-  objectID_user: string = "66e2e9355716276cd708bc7f"
+  objectID_user: string | null = "";
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.objectID_user = localStorage.getItem("_id");
+    this.userId1 = this.objectID_user;
     this.route.paramMap.subscribe((params) => {
       this.userId1 = params.get("id")!; // รับค่า userId1 จาก URL
     });
@@ -32,12 +35,34 @@ export class FriendRequestComponent implements OnInit {
   }
 
   fetchFriendData() {
-    this.fs.getAllFriendPendingByUserId1(this.objectID_user)
+    this.fs.getAllFriendPendingByUserId1(this.objectID_user || "")
       .subscribe(result => {
         this.friends = result;
         console.log(this.friends);
         this.applyFilter();  // กรองข้อมูลเมื่อดึงข้อมูลเพื่อนสำเร็จ
       });
+  }
+
+  onRecordUserId(userId2: string): void{
+    this.userId2 = userId2;
+    console.log(this.userId2)
+  }
+
+  acceptedFriend() {
+    if (!this.userId1 || !this.userId2) {
+      console.error('User IDs are required');
+      return;
+    }
+  
+    this.fs.updateFriendStatus(this.userId1, this.userId2).subscribe(
+      response => {
+        console.log('Friend status updated successfully:', response);
+        this.fetchFriendData();
+      },
+      error => {
+        console.error('Error updating friend status:', error);
+      }
+    );
   }
   
     // ฟังก์ชันค้นหาเพื่อน
@@ -49,7 +74,7 @@ export class FriendRequestComponent implements OnInit {
   onFilterInstitute(institute: string): void {
     this.selectedInstitute = institute;
     this.applyFilter(); // เรียกฟังก์ชันกรองข้อมูล
-  }  
+  }
 
   // ฟังก์ชันกรองข้อมูล
   applyFilter(): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FriendService } from '../../service/friend.service';
+import { FriendService } from '../../service/friend/friend.service';
 import { Friend } from '../../interfaces/friend.medel'; // Import interface
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router'; 
@@ -18,11 +18,13 @@ export class FriendComponent implements OnInit {
   friends: Friend[] = [];
   userId1!: string; // ประกาศตัวแปร userId1
   //ยังไม่ get
-  objectID_user: string = "66e2e9355716276cd708bc7f"
+  objectID_user!: string | null
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.objectID_user = localStorage.getItem("_id");
+
     this.route.paramMap.subscribe((params) => {
       this.userId1 = params.get("id")!; // รับค่า userId1 จาก URL
     });
@@ -31,7 +33,7 @@ export class FriendComponent implements OnInit {
   }
 
   fetchFriendData() {
-    this.fs.getAllFriendsAcceptedByUserId1(this.objectID_user)
+    this.fs.getAllFriendsAcceptedByUserId1(this.objectID_user || "")
       .subscribe(result => {
         this.friends = result;
         console.log(this.friends);
