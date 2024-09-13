@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background: #f4f9fb;">
+<div class="container-fluid" style="background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);">
     <div *ngIf="showAlert" class="alert alert-success text-center fixed-alert" role="alert">
         {{ alertMessage }}
     </div>
@@ -91,8 +91,11 @@
 
                                         <div class="form-group">
                                             <label for="image">รูปภาพกิจกรรม</label>
-                                            <input type="file" class="form-control mean-file"
-                                                (change)="onFileChange($event)" />
+                                            <input type="file" class="form-control mean-file" formControlName="image" (change)="onFileChange($event)" />
+                                            <div *ngIf="eventForm.get('image')?.errors?.['invalidFileType']"
+                                                class="text-danger">
+                                                กรุณาอัพโหลดไฟล์ที่เป็นรูปภาพ (jpg, jpeg, png, gif)
+                                            </div>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary"

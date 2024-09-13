@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { CustomValidators } from '../../customs/customValidators';
+import { handleFileChange } from '../../customs/imageUtils';
+import { EventService } from '../../service/event/event.service';
 
 @Component({
   selector: 'app-event-create',
@@ -24,7 +25,11 @@ export class EventCreateComponent implements OnInit {
   showAlert: boolean = false;
   alertMessage: string = '';
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router,
+    private eventService: EventService,
+  ) {}
 
   ngOnInit(): void {
     this.creator = localStorage.getItem('username') || '';
@@ -33,7 +38,7 @@ export class EventCreateComponent implements OnInit {
       location: ['', [Validators.required, CustomValidators.maxLength(50)]],
       date_time: ['', [Validators.required, CustomValidators.notPastDate]],
       description: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(200)]],
-      image: ['']
+      image: ['', [CustomValidators.imageFile]]
     });
     this.startImageSlideshow();
   }
@@ -50,62 +55,11 @@ export class EventCreateComponent implements OnInit {
     }, 2000);
   }
 
-  // onFileChange(event: any): void {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       this.imageBase64 = e.target.result;
-  //       console.log('Base64 Image:', this.imageBase64);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
-
   onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const img = new Image();
-        img.onload = () => {
-          // Create a canvas element
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d')!;
-          
-          // Set canvas size to scaled dimensions
-          const maxWidth = 800; // Set maximum width as needed
-          const maxHeight = 600; // Set maximum height as needed
-          let width = img.width;
-          let height = img.height;
-  
-          if (width > height) {
-            if (width > maxWidth) {
-              height *= maxWidth / width;
-              width = maxWidth;
-            }
-          } else {
-            if (height > maxHeight) {
-              width *= maxHeight / height;
-              height = maxHeight;
-            }
-          }
-  
-          canvas.width = width;
-          canvas.height = height;
-  
-          // Draw image on canvas
-          ctx.drawImage(img, 0, 0, width, height);
-  
-          // Get base64 data from canvas
-          this.imageBase64 = canvas.toDataURL('image/jpeg', 0.7); // 0.7 is quality (0.0 to 1.0)
-          console.log('Base64 Image:', this.imageBase64);
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }  
+    handleFileChange(event, (base64: string) => {
+      this.imageBase64 = base64;
+    });
+  }
 
   onSubmit(): void {
     if (this.eventForm.valid) {
@@ -119,9 +73,8 @@ export class EventCreateComponent implements OnInit {
         creator: this.creator
       };
 
-      this.http.post('http://localhost:3000/event', eventData).subscribe({
+      this.eventService.createEvent(eventData).subscribe({
         next: (response) => {
-          // console.log('Event created successfully:', response);
           this.alertMessage = 'เพิ่มกิจกรรมสำเร็จ';
           this.showAlert = true;
           setTimeout(() => {

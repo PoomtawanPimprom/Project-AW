@@ -1,16 +1,46 @@
 <div class="background-profile d-flex justify-content-center align-items-center">
 
     <div class="bg-white container overflow-hidden shadow">
-        <div class="profile border d-flex ">
-            <img src="https://koreajoongangdaily.joins.com/data/photo/2023/10/09/b37d6ba6-a639-4674-8594-f8e96bc0587e.jpg" alt="profile" class="img-fluid img-thumbnail">
+        <div class="profile w-100 d-flex justify-content-center align-items-center" *ngFor="let item of user">
+            <img 
+                [src]="item.image"
+                alt="profile" style="object-fit: cover;" />
             <div class="head">
-                <h1 class="h3">Name Example</h1>
-                <p class="gmail">example&#64;gmail.com</p>
+                <h1 class="h3">{{item.name}}</h1>
+                <p>{{item.email}}</p>
+                <p>Age: {{item.age}}</p>
+                <p>Major: {{item.major}}</p>
             </div>
+            <div class="social">
+                <a [href]="item.facebook"><i class="bi bi-facebook mx-3 mt-5"></i></a>
+                <a [href]="item.tiktok"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
+                <a [href]="item.instagram"><i class="bi bi-instagram mx-3 mt-5"></i></a>
+            </div>
+            
         </div>
-        <div class="about">
-            <form>
-                <input type="text">
+
+        <div class="about mt-2" *ngFor="let item of user">
+            <form [formGroup]="profileForm" class="d-flex flex-column col-4" >
+                <label for="">Name</label>
+                <input type="text" formControlName="name" >
+                <label for="">Email</label>
+                <input type="text" formControlName="email" >
+                <label for="">Institute</label>
+                <input type="text" formControlName="institute" >
+                <label for="">Major</label>
+                <input type="text" formControlName="major" >
+                <label for="">Facebook</label>
+                <input type="text" formControlName="facebook" >
+                <label for="">Instagram</label>
+                <input type="text" formControlName="instagram" >
+                <label for="">Tiktok</label>
+                <input type="text" formControlName="tiktok" >
+                <label for="images" class="drop-container" id="dropcontainer">
+                    <span class="drop-title">Drop files here</span>
+                    or
+                    <input type="file" id="images" accept="image/*" formControlName="image" (change)="onFileChange($event)" required>
+                </label>
+                <button (click)="onClickUpdateUser(item._id)" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
             </form>
         </div>
     </div>

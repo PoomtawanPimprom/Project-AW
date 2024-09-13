@@ -1,8 +1,19 @@
 <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <div style="margin: 16px;">
         แสดงความคิดเห็น
-        <textarea id="description" class="form-control" style="padding: 10px;" [formControl]="inputComment" rows="2"
-            required=""></textarea>
+        <form [formGroup]="inputCommentFormGroup">
+            <textarea id="description" class="form-control" style="padding: 10px;" rows="2"
+                formControlName="inputComment"></textarea>
+        </form>
+        <!-- validate -->
+        <div *ngIf="inputCommentFormGroup.get('inputComment')?.touched && inputCommentFormGroup.get('inputComment')?.errors?.['required']"
+            class="text-danger" style="margin-top: 5px;">
+            กรุณาระบุกรอกความคิดเห็น
+        </div>
+        <div *ngIf="inputCommentFormGroup.get('inputComment')?.hasError('forbiddenWords')" class="text-danger">
+            โปรดแสดงความคิดเห็นอย่างสุภาพ
+        </div>
+
         <div class="d-flex justify-content-end mt-2 mb-2">
             <button class="btn btn-primary" style="margin-right: 10px;" type="button" data-toggle="collapse"
                 data-target="#commentExample" aria-expanded="false" aria-controls="commentExample">
@@ -11,57 +22,147 @@
             <button class="btn btn-mean" (click)="onClickCreateCommet()">โพสต์ความคิดเห็น</button>
         </div>
         <div class="collapse" id="commentExample">
-            <component-show-comment [comment]="inputComment.value ?? '' " />
+            <component-show-comment [comment]="inputCommentFormGroup.get('inputComment')?.value" />
         </div>
         <div>
             <div>
-                <div class="card mb-2" *ngFor="let item of comments"
-                    style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column;">
-                    <div style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
-                        <div class="rounded-circle bg-primary" style="height: 40px; width: 40px; margin-right: 10px;">
-                        </div>
-                        <div style="display: flex; width: 20% ; margin-right: 10px;">
-                            {{ item.userId.name}}
-                        </div>
-                        <div style="display: flex; width: 70%; justify-content: end; align-items: center;">
-                            <div>
-                                <button style="background-color: white; border: 0px;" type="button"
-                                    data-toggle="dropdown" aria-expanded="false" (click)="onClikeSelectComment(item._id)" >
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <button class="dropdown-item text-primary" data-toggle="modal"
-                                        data-target="#staticBackdrop">Edit</button>
-                                    <div class="dropdown-item text-danger" (click)="onClickDeleteComment(item._id)">
-                                        Delete</div>
+                <!-- map comment -->
+                <div class="card mb-2" *ngFor="let comment of comments"
+                    style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column; background-color: #123f66; max-width: 760px; flex-wrap: unset;">
+                    <div class="card-body" style="padding: 10px;">
+                        <div style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
+                            <div class="rounded-circle bg-primary"
+                                style="height: 40px; width: 40px; margin-right: 10px;">
+                            </div>
+                            <div style="display: flex; width: 20% ; margin-right: 10px; color: white;">
+                                {{ comment.userId.name}}
+                            </div>
+                            <div
+                                style="display: flex; width: 70%; justify-content: end; align-items: center; border-radius: 100%;">
+                                <div class="dropdown">
+                                    <button *ngIf="isCurrentUser(comment.userId._id)"
+                                        style="background-color: white; border: 0px; border-radius: 100%; border: none;"
+                                        type="button" data-toggle="dropdown" aria-expanded="false"
+                                        (click)="onClikeSelectComment(comment._id)">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <div class="dropdown-menu  dropdown-menu-right"
+                                        style="padding: 0; width: 100px; min-width: auto;">
+                                        <button class="dropdown-item text-primary btn-sm" data-toggle="modal"
+                                            data-target="#staticBackdrop"
+                                            style="padding-left: 10px; padding-right: 10px;"
+                                            (click)="onClikeSelectUpdateComment(comment.comment)">แก้ไข</button>
+                                        <button class="dropdown-item text-danger btn-sm"
+                                            style="padding-left: 10px; padding-right: 10px;"
+                                            (click)="onClickDeleteComment(comment._id)">
+                                            ลบ</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card" style="padding: 10px;">
-                        <div>{{item.comment}}</div>
-                        <div>{{item._id}}</div>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
-                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">แก้ไขความเห็น</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <div style="display: flex; flex-direction: column;  word-wrap: normal;">
+                            <div class="card "
+                                style="padding: 10px; display: flex; flex-direction: column; margin-bottom: 10px; ">
+                                <div>{{comment.comment}}</div>
+                            </div>
+                            <!-- reply -->
+                            <div
+                                style="display: flex; flex-direction:row; justify-content: end; width: 100%; height: 100%; ">
+                                <div style="margin-right: 10px; width: 85%; height: 100%; ">
+                                    <form [formGroup]="replyCommentFormGroup">
+                                        <input type="text" style="width: 100%; height: 38px; border-radius: 10px; padding: 10px;" placeholder="reply..."
+                                            formControlName="replyComment">
+                                    </form>
                                 </div>
-                                <div class="modal-body">
-                                    แก้ไขความเห็น
-                                    <textarea class="form-control" style="padding: 10px;" [formControl]="commentUpdate"
-                                        rows="2" required="" ></textarea>
+                                <div style="width: 15%;">
+                                    <button style="width: 100%;" class="btn btn btn-primary"
+                                        (click)="onClickCreateReplyComment(comment._id)">ตอบกลับ</button>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                        (click)="onClickUpdateComment(item._id)">ตกลง</button>
+                            </div>
+                        </div>
+                        <!-- show reply comment -->
+                        <div *ngIf="comment.replies && comment.replies.length > 0">
+                            <div class="card mb-2" *ngFor="let data of comment.replies"
+                                style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column; margin-top: 10px;">
+                                <div  style="padding: 0px;">
+                                    <div
+                                        style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
+                                        <div class="rounded-circle bg-primary"
+                                            style="height: 40px; width: 40px; margin-right: 10px;">
+                                        </div>
+                                        <div style="display: flex; width: 20% ; margin-right: 10px;">
+                                            {{ data.userId.name}}
+                                        </div>
+                                        <div
+                                            style="display: flex; width: 70%; justify-content: end; align-items: center;">
+                                            <div class="dropdown">
+                                                <button *ngIf="isCurrentUser(data.userId._id)"
+                                                    style="background-color: white; border: 0px;" type="button"
+                                                    data-toggle="dropdown" aria-expanded="false"
+                                                    (click)="onClikeSelectComment(data._id)">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </button>
+                                                <div class="dropdown-menu  dropdown-menu-right"
+                                                    style="padding: 0; width: 100px; min-width: auto;">
+                                                    <button class="dropdown-item text-primary btn-sm"
+                                                        data-toggle="modal" data-target="#staticBackdrop"
+                                                        style="padding-left: 10px; padding-right: 10px;" (click)="onClikeSelectUpdateComment(data.comment)">แก้ไข</button>
+                                                    <button class="dropdown-item text-danger btn-sm"
+                                                        style="padding-left: 10px; padding-right: 10px;"
+                                                        (click)="onClickDeleteComment(data._id)">
+                                                        ลบ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="display: flex; flex-direction: column;  word-wrap: normal; max-width: 760px;">
+                                        <div class="card "
+                                            style="padding: 10px; display: flex; flex-direction: column; margin-bottom: 10px; ">
+                                            <div>{{data.comment}}</div>
+                                        </div>
+                                        <!-- reply -->
+                                        <!-- <div
+                                            style="display: flex; flex-direction:row; justify-content: end; width: 100%; height: 100%; ">
+                                            <div style="margin-right: 10px; width: 60%; height: 100%;">
+                                                <form [formGroup]="replyCommentFormGroup">
+                                                    <input type="text" style="width: 100%; height: 38px;"
+                                                        formControlName="replyComment">
+                                                </form>
+                                            </div>
+                                            <div style="width: 15%;">
+                                                <button style="width: 100%;"
+                                                    class="btn btn btn-primary" (click)="onClickCreateReplyComment(data._id)">ตอบกลับ</button>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">แก้ไขความเห็น</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        แก้ไขความเห็น
+                                        <form [formGroup]="CommentupdateFormGroup">
+                                            <textarea id="description" class="form-control" style="padding: 10px;"
+                                                rows="2" formControlName="Commentupdate"></textarea>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">ปิด</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                            (click)="onClickUpdateComment(comment._id)">ตกลง</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

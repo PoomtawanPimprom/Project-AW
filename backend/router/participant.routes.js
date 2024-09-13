@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Participant = require("../models/participant");
+const authorization = require("../middleware/authentication")
 
 // GET GetParticipant
 // router.get("/", async (req, res) => {
@@ -13,7 +14,7 @@ const Participant = require("../models/participant");
 // });
 
 // GET GetParticipantByMemberAndEventId (used for check button)
-router.get("/", async (req, res) => {
+router.get("/", authorization, async (req, res) => {
   const { member, eventId } = req.query;
   try {
     const data = await Participant.findOne({ member: member, eventId: eventId });
@@ -40,7 +41,7 @@ router.get("/", async (req, res) => {
 // });
 
 // POST CreateParticipant (used)
-router.post("/", async (req, res) => {
+router.post("/", authorization, async (req, res) => {
   const { member, eventId, status } = req.body;
 
   try {
@@ -90,7 +91,7 @@ router.post("/", async (req, res) => {
 // });
 
 // DELETE DeleteParticipantByMemberAndEventId (used)
-router.delete("/", async (req, res) => {
+router.delete("/", authorization, async (req, res) => {
   const { member, eventId } = req.query;
   try {
     const deleteParticipant = await Participant.findOneAndDelete({ member: member, eventId: eventId });
@@ -105,7 +106,7 @@ router.delete("/", async (req, res) => {
 });
 
 // GET GetLatestParticipantId (used)
-router.get("/latest/participantId", async (req, res) => {
+router.get("/latest/participantId", authorization, async (req, res) => {
   try {
     const latestParticipant = await Participant.findOne().sort({ participantId: -1 });
     if (!latestParticipant) {
@@ -118,7 +119,7 @@ router.get("/latest/participantId", async (req, res) => {
 });
 
 // GET CountMemberByEventId (used)
-router.get("/count/:eventId", async (req, res) => {
+router.get("/count/:eventId", authorization, async (req, res) => {
   const { eventId } = req.params;
 
   try {

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from '../../interfaces/event.model';
 import { CustomValidators } from '../../customs/customValidators';
+import { handleFileChange } from '../../customs/imageUtils';
+import { EventService } from '../../service/event/event.service';
 
 @Component({
   selector: 'app-event-edit',
@@ -25,7 +26,12 @@ export class EventEditComponent implements OnInit {
   showAlert: boolean = false;
   alertMessage: string = '';
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private eventService: EventService,
+  ) {}
 
   ngOnInit(): void {
     this.creator = localStorage.getItem('username') || '';
@@ -36,11 +42,10 @@ export class EventEditComponent implements OnInit {
       location: ['', [Validators.required, CustomValidators.maxLength(50)]],
       date_time: ['', [Validators.required, CustomValidators.notPastDate]],
       description: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(200)]],
-      image: ['']
+      image: ['', [CustomValidators.imageFile]]
     });
 
-    // Fetch event data from the API
-    this.http.get<Event>(`http://localhost:3000/event/${this.eventId}`).subscribe({
+    this.eventService.getEventById(this.eventId).subscribe({
       next: (eventData) => {
         this.eventForm.patchValue({
           name: eventData.name,
@@ -70,43 +75,9 @@ export class EventEditComponent implements OnInit {
   }
 
   onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d')!;
-          
-          const maxWidth = 800;
-          const maxHeight = 600;
-          let width = img.width;
-          let height = img.height;
-  
-          if (width > height) {
-            if (width > maxWidth) {
-              height *= maxWidth / width;
-              width = maxWidth;
-            }
-          } else {
-            if (height > maxHeight) {
-              width *= maxHeight / height;
-              height = maxHeight;
-            }
-          }
-  
-          canvas.width = width;
-          canvas.height = height;
-  
-          ctx.drawImage(img, 0, 0, width, height);
-  
-          this.imageBase64 = canvas.toDataURL('image/jpeg', 0.7);
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
+    handleFileChange(event, (base64: string) => {
+      this.imageBase64 = base64;
+    });
   }
 
   onSubmit(): void {
@@ -121,10 +92,8 @@ export class EventEditComponent implements OnInit {
         creator: this.creator
       };
 
-      // Update event via PUT request
-      this.http.put(`http://localhost:3000/event/${this.eventId}`, eventData).subscribe({
+      this.eventService.updateEvent(this.eventId, eventData).subscribe({
         next: (response) => {
-          // console.log('Event updated successfully:', response);
           this.alertMessage = 'แก้ไขข้อมูลสำเร็จ';
           this.showAlert = true;
           setTimeout(() => {

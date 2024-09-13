@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/event");
+const authorization = require("../middleware/authentication")
 
 // GET GetEvent
-router.get("/", async (req, res) => {
+router.get("/", authorization, async (req, res) => {
   try {
     const data = await Event.find().sort({ eventId: -1 }); // select * from events and sort by eventId descending
     return res.json(data);
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET GetEventByEventId
-router.get("/:eventId", async (req, res) => {
+router.get("/:eventId", authorization, async (req, res) => {
   const { eventId } = req.params;
   try {
     const data = await Event.findOne({ eventId: eventId }); // select * from events where eventId = eventId
@@ -24,7 +25,7 @@ router.get("/:eventId", async (req, res) => {
 });
 
 // GET GetEventByCreator
-router.get("/creator/:username", async (req, res) => {
+router.get("/creator/:username", authorization, async (req, res) => {
   const { username } = req.params;
   try {
     const data = await Event.find({ creator: username }).sort({ eventId: -1 }); // select * from events where creator = username and sort by eventId descending
@@ -48,7 +49,7 @@ router.get("/creator/:username", async (req, res) => {
 // });
 
 // POST CreateEvent
-router.post("/", async (req, res) => {
+router.post("/", authorization, async (req, res) => {
   const { image, name, location, date_time, description, creator } = req.body;
 
   try {
@@ -93,7 +94,7 @@ router.post("/", async (req, res) => {
 // });
 
 // PUT UpdateEventByEventID
-router.put("/:eventId", async (req, res) => {
+router.put("/:eventId", authorization, async (req, res) => {
   const { eventId } = req.params;
   const updateData = req.body;
 
@@ -117,7 +118,7 @@ router.put("/:eventId", async (req, res) => {
 });
 
 // DELETE DeleteEventById
-router.delete("/:eventId", async (req, res) => {
+router.delete("/:eventId", authorization, async (req, res) => {
   const { eventId } = req.params;
   try {
     const deleteEvent = await Event.findOneAndDelete({ eventId: eventId }); // delete from events where eventId = eventId;
@@ -128,7 +129,7 @@ router.delete("/:eventId", async (req, res) => {
 });
 
 // GET GetLatestEventId
-router.get("/latest/eventId", async (req, res) => {
+router.get("/latest/eventId", authorization, async (req, res) => {
   try {
     const latestEvent = await Event.findOne().sort({ eventId: -1 });
     if (!latestEvent) {

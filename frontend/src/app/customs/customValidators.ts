@@ -20,4 +20,14 @@ export class CustomValidators {
     const today = new Date();
     return inputDate < today ? { pastDate: true } : null;
   }
+
+  static imageFile(control: AbstractControl): ValidationErrors | null {
+    const file = control.value;
+    if (!file) return null; // If no file is selected, no error
+
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    const fileExtension = file.split('.').pop()?.toLowerCase();
+
+    return allowedExtensions.includes(fileExtension) ? null : { invalidFileType: true };
+  }
 }
