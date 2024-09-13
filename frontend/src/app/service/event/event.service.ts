@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Event } from '../../interfaces/event.model';
 
@@ -12,28 +12,35 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.apiUrl);
+    return this.http.get<Event[]>(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
   getEventsByCreator(username: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.apiUrl}/creator/${username}`);
+    return this.http.get<Event[]>(`${this.apiUrl}/creator/${username}`, { headers: this.getAuthHeaders() });
   }
 
   deleteEventById(eventId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${eventId}`);
+    return this.http.delete<void>(`${this.apiUrl}/${eventId}`, { headers: this.getAuthHeaders() });
   }
 
   getEventById(eventId: number): Observable<Event> {
-    return this.http.get<Event>(`${this.apiUrl}/${eventId}`);
+    return this.http.get<Event>(`${this.apiUrl}/${eventId}`, { headers: this.getAuthHeaders() });
   }
 
   createEvent(eventData: Event): Observable<any> {
-    return this.http.post(this.apiUrl, eventData);
+    return this.http.post(this.apiUrl, eventData, { headers: this.getAuthHeaders() });
   }
 
   updateEvent(eventId: number, eventData: Event): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${eventId}`, eventData);
+    return this.http.put(`${this.apiUrl}/${eventId}`, eventData, { headers: this.getAuthHeaders() });
   }
-  
 }

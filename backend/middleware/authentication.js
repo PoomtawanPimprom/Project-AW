@@ -1,40 +1,29 @@
 const jwt = require('jsonwebtoken');
-require("dotenv").config()
+require('dotenv').config();
 
-// const makeHash = async (plainText) => {
-//     const result = await bcrypt.hash(plainText, 10);
-//     return result;
-// };
+const authorization = (req, res, next) => {
+    // ดึง Token จาก Header และแยก Bearer ออก
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // ใช้ Bearer <token>
 
-// const compareHash = async (plaintext, hashText) => {
-//     try {
-//         const result = await bcrypt.compare(plaintext, hashText);
-//         return { status: result };
-//     } catch (error) {
-//         throw new Error("Error bcrypt compare");
-//     }
-// };
-
-const authorization = ((req, res, next) =>{
-    const token = req.headers["authorization"];
     if (token === undefined) {
         return res.status(401).json({
             status: 401,
-            "message": "Unauthorized"
-        })
-    } 
-    else {
-        jwt.verify(token,process.env.KEY,(err, decode)=>{
-            if (err) {
-                return res.status(401).json({
-                    status: 401,
-                    "message": "Unauthorized"
-                })
-            } else {
-                next()
-            }
-        });    
+            message: "Unauthorized"
+        });
     }
-})
 
-module.exports = authorization
+    jwt.verify(token, process.env.KEY, (err, decode) => {
+        if (err) {
+            return res.status(401).json({
+                status: 401,
+                message: "Unauthorized"
+            });
+        } else {
+            req.user = decode;
+            next();
+        }
+    });
+};
+
+module.exports = authorization;
