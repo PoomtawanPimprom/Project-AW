@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   username: string | null = '';
+  showAlert: boolean = false;
+  alertMessage: string = '';
 
   constructor(private router: Router) {}
 
@@ -28,10 +30,15 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogout(): void {
+    this.alertMessage = 'ออกจากระบบสำเร็จ';
+    this.showAlert = true;
+    setTimeout(() => {
+      this.router.navigate(['/']);
+      this.showAlert = false;
+    }, 2000);
     localStorage.removeItem('token');
     localStorage.removeItem('_id');
     localStorage.removeItem('userId');
     localStorage.removeItem('username');
-    this.router.navigate(['/']);
   }
 }

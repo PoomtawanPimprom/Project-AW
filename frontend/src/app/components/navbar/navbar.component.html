@@ -5,6 +5,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
+<div *ngIf="showAlert" class="alert alert-success text-center fixed-alert" role="alert">
+    {{ alertMessage }}
+</div>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #072540;">
     <a class="navbar-brand" style="padding-left: 26px; padding-right: 26px;">
         <img src="https://img5.pic.in.th/file/secure-sv1/lg-ff.png" alt="logo" style="width: 140px">
