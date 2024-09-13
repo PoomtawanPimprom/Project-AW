@@ -11,12 +11,16 @@ export class SidebarComponent {
 
   @Output() filterInstitute = new EventEmitter<string>();
 
-  onFilterInstitute(faculty: string): void {
-    this.selectedMenu = faculty; // เก็บเมนูที่ถูกเลือก
-    this.filterInstitute.emit(faculty); // ส่งค่า faculty เป็น string
-  }
+  // SidebarComponent
+onFilterInstitute(institute: string): void {
+  this.selectedMenu = institute; // เก็บเมนูที่ถูกเลือก
+  this.filterInstitute.emit(institute); // ส่งค่า institute เป็น string
+  console.log(`Emitting institute: ${institute}`);
+}
 
-  isActiveMenu(faculty: string): boolean {
-    return this.selectedMenu === faculty;
+  
+
+  isActiveMenu(institute: string): boolean {
+    return this.selectedMenu === institute;
   }
 }

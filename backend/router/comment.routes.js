@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+
+const Authentication = require("../middleware/authentication")
 //model
 const Comment = require('../models/comment');
 
@@ -17,7 +19,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET getOneCommentByEventID
-router.get('/onecomment/:eventId', async (req, res) => {
+router.get('/onecomment/:eventId', Authentication, async (req, res) => {
     const eventID = req.params.eventId;
     try {
         const data = await Comment.findOne({ eventId: eventID })
@@ -31,7 +33,7 @@ router.get('/onecomment/:eventId', async (req, res) => {
 
 
 // GET getAllCommentsByEventID
-router.get('/:eventId', async (req, res) => {
+router.get('/:eventId', Authentication, async (req, res) => {
     const id = req.params.eventId
     try {
         const data = await Comment.find({ eventId: id })
@@ -54,7 +56,7 @@ router.get('/:eventId', async (req, res) => {
 });
 
 // POST createComment
-router.post('/', async (req, res) => {
+router.post('/', Authentication, async (req, res) => {
     const { comment, eventId, object_userId } = req.body;
     try {
         const newComment = new Comment({
@@ -72,7 +74,7 @@ router.post('/', async (req, res) => {
 });
 
 // POST createReplyComment
-router.post("/reply", async (req, res) => {
+router.post("/reply", Authentication, async (req, res) => {
     const { objParentComment, comment, object_userId } = req.body;
     try {
         const newComment = new Comment({
@@ -94,7 +96,7 @@ router.post("/reply", async (req, res) => {
 
 //update
 //GET getCommentByObjectId_Comment
-router.get("/edit/:objectId_comment", async (req, res) => {
+router.get("/edit/:objectId_comment", Authentication, async (req, res) => {
     const id = req.params.objectId_comment;
     try {
         const data = await Comment.findById(id).exec();
@@ -105,7 +107,7 @@ router.get("/edit/:objectId_comment", async (req, res) => {
 })
 
 // PUT updateCommentByCommentID
-router.put('/edit/:object_commentId', async (req, res) => {
+router.put('/edit/:object_commentId', Authentication, async (req, res) => {
     const _id = req.params.object_commentId;
     const { comment } = req.body
     try {
@@ -127,7 +129,7 @@ router.put('/edit/:object_commentId', async (req, res) => {
 });
 
 // DELETE commentById
-router.delete('/:object_commentId', async (req, res) => {
+router.delete('/:object_commentId', Authentication, async (req, res) => {
     const _id = req.params.object_commentId;
     try {
         const comment = await Comment.findById(_id);
