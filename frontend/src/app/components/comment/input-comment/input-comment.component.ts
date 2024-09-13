@@ -20,10 +20,10 @@ export class InputCommentComponent implements OnInit {
 
   selectCommentId!: string
   eventId!: string
+  objectID_user!: string | null
 
   comments: commentInterface[] = [];
-  //ยังไม่ get
-  objectID_user: string = "66e1d4df9caf79e577871265"
+
 
   constructor(private http: HttpClient, private fb: FormBuilder, private CommentService: CommentService) { }
 
@@ -31,6 +31,7 @@ export class InputCommentComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.eventId = params.get("id")!;
     })
+    this.objectID_user = localStorage.getItem("_id");
     this.initForms();
     this.CommentService.getCommentByEventId(this.eventId)
     this.fetchCommentData()
