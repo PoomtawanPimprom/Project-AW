@@ -48,10 +48,10 @@
                 <div class="friends-container">
                     <div class="friend-wrapper" *ngFor="let item of filteredFriends">
                         <div class="friend-card">
-                            <img [src]="item.image" alt="Friend image" class="mb-3">
+                            <img [src]="item.userId2.image" alt="Friend image" class="mb-3">
                             <div class="card-body">
-                                <h5 style="color: #082540;">{{item.name}}</h5>
-                                <p class="text-muted">{{item.faculty}}</p>
+                                <h5 style="color: #082540;">{{item.userId2.name}}</h5>
+                                <p class="text-muted">{{item.userId2.institute}}</p>
                             </div>
                             <button class="btn btn-secondary btn-sm w-100" 
                                     style="background: #79ACEE; border: none;">
@@ -63,4 +63,4 @@
             </div>                
         </div>
     </div>
-</div>
+</div>  

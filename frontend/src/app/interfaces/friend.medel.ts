@@ -1,7 +1,8 @@
+import { userInterface } from "./user.model";
+
 export interface Friend {
-    id: string;
-    image: string;
-    name: string;
-    faculty: string;
-    status: string;
+    friendId: string,
+    userId1: userInterface,
+    userId2: userInterface,
+    status: 'pending' | 'accepted',
 }

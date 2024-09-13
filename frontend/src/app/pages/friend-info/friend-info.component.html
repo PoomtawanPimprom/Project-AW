@@ -31,7 +31,7 @@
                                 <img [src]="item.image" alt="Friend image" class="mb-3">
                                 <div class="card-body">
                                     <h5 style="color: #082540;">{{item.name}}</h5>
-                                    <p class="text-muted">{{item.faculty}}</p>
+                                    <p class="text-muted">{{item.institute}}</p>
                                 </div>
                                 
                                 <button class="btn btn-secondary btn-sm w-100" 
@@ -55,7 +55,7 @@
                                     <div class="profile_img">
                                         <img [src]="selectedFriend.image" alt="Friend image" class="img-fluid mb-3">
                                     </div>
-                                    <h5 class="modal-title" id="friendModalLabel">{{ selectedFriend.name }}<br><span>{{ selectedFriend.faculty }}</span></h5>
+                                    <h5 class="modal-title" id="friendModalLabel">{{ selectedFriend.name }}<br><span>{{ selectedFriend.institute }}</span></h5>
                                     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -79,11 +79,11 @@
                                         </div>
                                         <div class="col-md-6">
                                             <p><strong>ชื่อ:</strong> {{ selectedFriend.name }}</p>
-                                            <p><strong>ชื่อเล่น:</strong> {{ selectedFriend.faculty }}</p>
-                                            <p><strong>อายุ:</strong> {{ selectedFriend.faculty }}</p>
-                                            <p><strong>สำนัก:</strong> {{ selectedFriend.faculty }}</p>
-                                            <p><strong>สาขา:</strong> {{ selectedFriend.faculty }}</p>
-                                            <p><strong>สิ่งที่ชอบ:</strong> {{ selectedFriend.faculty }}</p>
+                                            <p><strong>ชื่อเล่น:</strong> {{ selectedFriend.institute }}</p>
+                                            <p><strong>อายุ:</strong> {{ selectedFriend.institute }}</p>
+                                            <p><strong>สำนัก:</strong> {{ selectedFriend.institute }}</p>
+                                            <p><strong>สาขา:</strong> {{ selectedFriend.institute }}</p>
+                                            <p><strong>สิ่งที่ชอบ:</strong> {{ selectedFriend.institute }}</p>
 
                                             <div class="contact">
                                                 <a target="_blank" href="https://www.facebook.com/" class="nav-link">

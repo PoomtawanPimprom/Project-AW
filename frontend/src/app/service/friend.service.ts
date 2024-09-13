@@ -1,82 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Friend } from '../interfaces/friend.medel';
+
 @Injectable({
   providedIn: 'root'
 })
-export class FriendService {
 
-  friend: Friend[] = [
-    {
-      "id": "1",
-      "image": "https://i.pinimg.com/736x/26/25/62/2625624d1249b9ca751e5ac2d9403d86.jpg",
-      "name": "สมพร กี่งใบทอง",
-      "faculty": "สำนักวิชาวิทยาศาสตร์",
-      "status": "accepted"
-    },
-    {
-      "id": "2",
-      "image": "https://i.pinimg.com/736x/26/25/62/2625624d1249b9ca751e5ac2d9403d86.jpg",
-      "name": "นวลน้อย ปรีชา",
-      "faculty": "สำนักวิชาเทคโนโลยีสังคม",
-      "status": "accepted"
-    },
-    {
-      "id": "3",
-      "image": "https://i.pinimg.com/736x/26/25/62/2625624d1249b9ca751e5ac2d9403d86.jpg",
-      "name": "วีระ โชติพงศ์",
-      "faculty": "สำนักวิชาวิศวกรรมศาสตร์",
-      "status": "accepted"
-    },
-    {
-      "id": "4",
-      "image": "https://i.pinimg.com/736x/26/25/62/2625624d1249b9ca751e5ac2d9403d86.jpg",
-      "name": "มณีรัตน์ รัตนบรรเทิง",
-      "faculty": "สำนักวิชาแพทยศาสตร์",
-      "status": "pending"
-    },
-    {
-      "id": "5",
-      "image": "https://i.pinimg.com/736x/26/25/62/2625624d1249b9ca751e5ac2d9403d86.jpg",
-      "name": "ธนภัทร แสนเมือง",
-      "faculty": "สำนักวิชาแพทยศาสตร์",
-      "status": "pending"
-    },
-    {
-      "id": "6",
-      "image": "https://i.pinimg.com/736x/26/25/62/2625624d1249b9ca751e5ac2d9403d86.jpg",
-      "name": "สมพงษ์ กี่งใบทอง",
-      "faculty": "สำนักวิชาวิทยาศาสตร์",
-      "status": "accepted"
-    },
-    
-  ];
+export class FriendService implements OnInit {
+  
+  private apiURL = 'http://localhost:3000/friend';
+  friends: Friend[] = [];
+  allFriends: Friend[] = [];
 
-    filteredFriends = this.friend;
-    selectedFaculty: string = 'เพื่อนทั้งหมด';
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
-
-  //คนทั้งหมด
-  getAllFriends(){
-    return this.friend;
+  ngOnInit(): void {
   }
 
-  //เป็นเพื่อนแล้ว
-  getAcceptedFriends() {
-    return this.friend.filter(friend => friend.status === 'accepted');
+  // ดึงข้อมูลเพื่อนที่มีสถานะ accepted
+  getAllFriendsAcceptedByUserId1(userId1: string): Observable<Friend[]> {
+    return this.http.get<Friend[]>(`${this.apiURL}/accepted/${userId1}`);
   }
 
-  // รอดำเนินการ
-  getPendingRequests() {
-    return this.friend.filter(friend => friend.status === 'pending');
+  // ดึงข้อมูลเพื่อนที่มีสถานะ pending
+  getAllFriendPendingByUserId1(userId1: string): Observable<Friend[]> {
+    return this.http.get<Friend[]>(`${this.apiURL}/pending/${userId1}`);
   }
 
-  onFilterInstitute(faculty: string): void {
-  this.selectedFaculty = faculty;
-  if (faculty === 'เพื่อนทั้งหมด') {
-    this.filteredFriends = this.friend;
-  } else {
-    this.filteredFriends = this.friend.filter((f: Friend) => f.faculty === faculty);
+  getAllFriendsByUserId(userId1: string): Observable<Friend[]>{
+    return this.http.get<Friend[]>(`${this.apiURL}/all/${userId1}`);
   }
-}
+
+
 }

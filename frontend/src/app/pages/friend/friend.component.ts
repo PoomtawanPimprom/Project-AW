@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendService } from '../../service/friend.service';
+import { Friend } from '../../interfaces/friend.medel'; // Import interface
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router'; 
 
 @Component({
   selector: 'app-friend',
@@ -8,38 +11,52 @@ import { FriendService } from '../../service/friend.service';
 })
 export class FriendComponent implements OnInit {
 
-  filteredFriends: any[] = [];
-  selectedFaculty: string = 'เพื่อนทั้งหมด'; // Default is to show all friends
+  filteredFriends: Friend[] = []; // ใช้ interface Friend
+  selectedInstitute: string = 'เพื่อนทั้งหมด'; // Default is to show all friends
   search: string = '';
-
-  constructor(private fs: FriendService) {}
+  
+  friends: Friend[] = [];
+  userId1!: string; // ประกาศตัวแปร userId1
+  //ยังไม่ get
+  objectID_user: string = "66e2e9355716276cd708bc7f"
+  
+  constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getAcceptedFriends(); // เรียก getAcceptedFriends() เมื่อคอมโพเนนต์โหลด
+    this.route.paramMap.subscribe((params) => {
+      this.userId1 = params.get("id")!; // รับค่า userId1 จาก URL
+    });
+    this.fetchFriendData()
+
   }
 
-  getAcceptedFriends() {
-    const allFriends = this.fs.getAcceptedFriends(); // ดึงข้อมูลเพื่อนทั้งหมดจาก service
-    this.filteredFriends = allFriends; // ตั้งค่า filteredFriends เป็นรายการเพื่อนทั้งหมด
+  fetchFriendData() {
+    this.fs.getAllFriendsAcceptedByUserId1(this.objectID_user)
+      .subscribe(result => {
+        this.friends = result;
+        console.log(this.friends);
+        this.applyFilter();  // กรองข้อมูลเมื่อดึงข้อมูลเพื่อนสำเร็จ
+      });
   }
-
-  onFilterInstitute(faculty: string): void {
-    this.selectedFaculty = faculty; // เก็บสำนักวิชาที่ถูกเลือก
-    this.applyFilter(); // เรียกฟังก์ชันกรองข้อมูล
-  }
-
-
+  
+    // ฟังก์ชันค้นหาเพื่อน
   onSearchFriend(): void {
-    this.applyFilter(); // เรียกฟังก์ชันกรองข้อมูลเมื่อค้นหา
+    this.applyFilter(); // กรองข้อมูลเพื่อนเมื่อทำการค้นหา
   }
 
+  // ฟังก์ชันกรองเพื่อนตามสถาบัน
+  onFilterInstitute(institute: string): void {
+    this.selectedInstitute = institute;
+    this.applyFilter(); // เรียกฟังก์ชันกรองข้อมูล
+  }  
+
+  // ฟังก์ชันกรองข้อมูล
   applyFilter(): void {
-    const allFriends = this.fs.getAcceptedFriends(); // ดึงข้อมูลเพื่อนทั้งหมดจาก service
-    // กรองเพื่อนตามสำนักวิชาและคำค้นหา
-    this.filteredFriends = allFriends.filter((friend: any) => {
-      const matchesFaculty = this.selectedFaculty === 'เพื่อนทั้งหมด' || friend.faculty === this.selectedFaculty;
-      const matchesSearch = friend.name.toLowerCase().includes(this.search.toLowerCase());
-      return matchesFaculty && matchesSearch;
+    
+    this.filteredFriends = this.friends.filter((friends) => {
+      const matchesInstitute = this.selectedInstitute === 'เพื่อนทั้งหมด' || friends.userId2.institute === this.selectedInstitute;
+      const matchesSearch = !this.search || friends.userId2.name.toLowerCase().includes(this.search.toLowerCase());
+      return matchesInstitute && matchesSearch;
     });
   }
 }

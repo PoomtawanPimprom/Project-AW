@@ -10,23 +10,23 @@ export class FriendInfoComponent implements OnInit {
 
   
   filteredFriends: any[] = [];
-  selectedFaculty: string = 'เพื่อนทั้งหมด'; // Default is to show all friends
+  selectedInstitute: string = 'เพื่อนทั้งหมด'; // Default is to show all friends
   search: string = '';
   selectedFriend: any = null;
 
   constructor(private fs: FriendService) {}
 
   ngOnInit(): void {
-    this.getAllFriends(); // เรียก getAcceptedFriends() เมื่อคอมโพเนนต์โหลด
+    // this.getAllFriends(); // เรียก getAcceptedFriends() เมื่อคอมโพเนนต์โหลด
   }
 
-  getAllFriends() {
-    const allFriends = this.fs.getAllFriends(); // ดึงข้อมูลเพื่อนทั้งหมดจาก service
-    this.filteredFriends = allFriends; // ตั้งค่า filteredFriends เป็นรายการเพื่อนทั้งหมด
-  }
+  // getAllFriends() {
+  //   const allFriends = this.fs.getAllFriends(); // ดึงข้อมูลเพื่อนทั้งหมดจาก service
+  //   this.filteredFriends = allFriends; // ตั้งค่า filteredFriends เป็นรายการเพื่อนทั้งหมด
+  // }
 
-  onFilterInstitute(faculty: string): void {
-    this.selectedFaculty = faculty; // เก็บสำนักวิชาที่ถูกเลือก
+  onFilterInstitute(institute: string): void {
+    this.selectedInstitute = institute; // เก็บสำนักวิชาที่ถูกเลือก
     this.applyFilter(); // เรียกฟังก์ชันกรองข้อมูล
   }
 
@@ -47,12 +47,12 @@ export class FriendInfoComponent implements OnInit {
   }
 
   applyFilter(): void {
-    const allFriends = this.fs.getAllFriends(); // ดึงข้อมูลเพื่อนทั้งหมดจาก service
+    // const allFriends = this.fs.getAllFriends(); // ดึงข้อมูลเพื่อนทั้งหมดจาก service
     // กรองเพื่อนตามสำนักวิชาและคำค้นหา
-    this.filteredFriends = allFriends.filter((friend: any) => {
-      const matchesFaculty = this.selectedFaculty === 'เพื่อนทั้งหมด' || friend.faculty === this.selectedFaculty;
-      const matchesSearch = friend.name.toLowerCase().includes(this.search.toLowerCase());
-      return matchesFaculty && matchesSearch;
-    });
+    // this.filteredFriends = allFriends.filter((friend: any) => {
+    //   const matchesinstitute = this.selectedInstitute === 'เพื่อนทั้งหมด' || friend.institute === this.selectedInstitute;
+    //   const matchesSearch = friend.name.toLowerCase().includes(this.search.toLowerCase());
+    //   return matchesinstitute && matchesSearch;
+    // });
   }
 }
