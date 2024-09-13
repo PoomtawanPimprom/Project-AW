@@ -8,13 +8,11 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   title = 'frontend';
-  showNavbar = true;
   showRootPage = true;
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.showNavbar = !(event.url === '/' || event.url === '/login' || event.url === '/register');
         this.showRootPage = (event.url === '/');
       }
     });
