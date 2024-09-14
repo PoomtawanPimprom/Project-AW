@@ -36,7 +36,7 @@
                                 </div>
                                 
                                 <button class="btn btn-secondary btn-sm w-100" 
-                                    style="border: none;"
+                                    style="border: none; background: #79ACEE;"
                                     (click)="openFriendModal(item)">
                                     {{ isPendingRequest(item) ? 'รอดำเนินการ' : 'เพิ่มเติม' }}
                                 </button>    
@@ -99,14 +99,10 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" 
-                                    style="border: none;"
-                                    [ngStyle]="{
-                                        'background-color': selectedFriend.status === 'accepted' ? '#82CEDE' : '#C3E8EB',
-                                        'color': selectedFriend.status === 'accepted' ? '#FFF' : '#194d7a'
-                                    }"
-                                    (click)="openFriendModal(selectedFriend)">
-                                    {{ isPendingRequest(selectedFriend) ? 'รอดำเนินการ' : 'เพิ่มเพื่อน' }}
-                                </button> 
+                                        style="border: none; background: #82CEDE;"
+                                        (click)="pendingFriend(selectedFriend)">
+                                        {{ isPendingRequest(selectedFriend) ? 'รอดำเนินการ' : 'เพิ่มเพื่อน' }}
+                                    </button> 
                                     <button type="button" class="btn btn-secondary" style="background-color: #F6F4F0; border: none; color: #7a7777;" (click)="closeModal()">Close</button>
                                 </div>
                             </div>

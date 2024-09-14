@@ -55,3 +55,8 @@
     width: 24.99%;
     padding: 10px;
 }
+
+.text-muted {
+    font-size: .8rem;
+    color: #6c757d !important;
+}

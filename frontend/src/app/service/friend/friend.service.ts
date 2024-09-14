@@ -11,6 +11,8 @@ import { userInterface } from '../../interfaces/user.model';
 export class FriendService implements OnInit {
   private apiURL = 'http://localhost:3000/friend'
   private apiURL2 = 'http://localhost:3000/user'
+  private apiURL3 = 'http://localhost:3000/event';
+
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
@@ -36,16 +38,26 @@ export class FriendService implements OnInit {
     return this.http.get<Friend[]>(`${this.apiURL}/pending/${userId1}`, { headers: this.getAuthHeaders() });
   }
 
-  getAllFriendsByUserId(userId1: string): Observable<Friend[]>{
-    return this.http.get<Friend[]>(`${this.apiURL}/all/${userId1}`, { headers: this.getAuthHeaders() });
-  }
-
   getAllUser(): Observable<userInterface[]> {
     return this.http.get<userInterface[]>(this.apiURL2, { headers: this.getAuthHeaders() });
   }
+
+  getImforUserId1(userId1: string): Observable<Friend[]>{
+    return this.http.get<Friend[]>(`${this.apiURL}/imfor/${userId1}`, { headers: this.getAuthHeaders() })
+  }
+
+  getEventById(eventId: number): Observable<Event> {
+    return this.http.get<Event>(`${this.apiURL3}/${eventId}`, { headers: this.getAuthHeaders() });
+  }
   
-  updateFriendStatus(userId1: string, userId2: string): Observable<any> {
+  updateFriendStatusAccepted(userId1: string, userId2: string): Observable<any> {
     const requestBody = { userId1, userId2 };
-    return this.http.put(`${this.apiURL}/updateStatus`, requestBody, { headers: this.getAuthHeaders() });
+    return this.http.put(`${this.apiURL}/updateFriendAccepted`, requestBody, { headers: this.getAuthHeaders() });
+  }
+
+  addFriends(userId1: string, userId2: string): Observable<any> {
+    const requestBody = { userId1, userId2 };
+    console.log('Request Body:', requestBody); // ตรวจสอบข้อมูลที่ส่งไป
+    return this.http.post(`${this.apiURL2}/addFriend`, requestBody, { headers: this.getAuthHeaders() });
   }
 }

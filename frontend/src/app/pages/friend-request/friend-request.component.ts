@@ -3,6 +3,8 @@ import { FriendService } from '../../service/friend/friend.service';
 import { Friend } from '../../interfaces/friend.medel';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router'; 
+import { response } from 'express';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-friend-request',
@@ -19,8 +21,8 @@ export class FriendRequestComponent implements OnInit {
   friends: Friend[] = [];
   userId1: string | null = "";
   userId2: string | null = "";
-  //ยังไม่ get
   objectID_user: string | null = "";
+  user: any;
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
@@ -35,13 +37,25 @@ export class FriendRequestComponent implements OnInit {
   }
 
   fetchFriendData() {
-    this.fs.getAllFriendPendingByUserId1(this.objectID_user || "")
-      .subscribe(result => {
-        this.friends = result;
-        console.log(this.friends);
-        this.applyFilter();  // กรองข้อมูลเมื่อดึงข้อมูลเพื่อนสำเร็จ
-      });
+    const userId = this.objectID_user || "";
+  
+    forkJoin({
+      friends: this.fs.getAllFriendPendingByUserId1(userId),
+      user: this.fs.getImforUserId1(userId)
+    }).subscribe({
+      next: ({ friends, user }) => {
+        console.log('Friends:', friends);
+        console.log('User:', user);
+        this.friends = friends;
+        this.user = user;
+        this.applyFilter();
+      },
+      error: error => {
+        console.error('Error fetching data:', error);
+      }
+    });
   }
+  
   
   acceptedFriend(user2: any): void {
   if (user2 && user2._id) {
@@ -56,7 +70,7 @@ export class FriendRequestComponent implements OnInit {
     return;
   }
 
-  this.fs.updateFriendStatus(this.objectID_user, this.userId2).subscribe(
+  this.fs.updateFriendStatusAccepted(this.objectID_user, this.userId2).subscribe(
     response => {
       console.log('Friend status updated successfully:', response);
       this.fetchFriendData();
@@ -65,7 +79,28 @@ export class FriendRequestComponent implements OnInit {
       console.error('Error updating friend status:', error);
     }
   );
+
 }
+
+
+  // acceptedFriend() {
+  //   this.userId2 = "66e2efac5716276cd708bc9d";
+    
+  //   if (!this.objectID_user || !this.userId2) {
+  //     console.error('User IDs are required');
+  //     return;
+  //   }
+  
+  //   this.fs.updateFriendStatus(this.objectID_user, this.userId2).subscribe(
+  //     response => {
+  //       console.log('Friend status updated successfully:', response);
+  //       this.fetchFriendData();
+  //     },
+  //     error => {
+  //       console.error('Error updating friend status:', error);
+  //     }
+  //   );
+  // }
   
     // ฟังก์ชันค้นหาเพื่อน
   onSearchFriend(): void {

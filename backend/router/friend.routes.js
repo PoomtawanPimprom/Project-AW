@@ -114,7 +114,7 @@ router.get("/all/:userId1", async (req, res) => {
 });
 
 // PUT UpdateFriendStatus
-router.put("/updateStatus", async (req, res) => {
+router.put("/updateFriendAccepted", async (req, res) => {
     const { userId1, userId2 } = req.body;
     try {
         const updatedFriend = await Friend.findOneAndUpdate(
