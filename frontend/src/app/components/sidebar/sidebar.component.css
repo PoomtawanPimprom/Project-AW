@@ -12,6 +12,7 @@
     color: #f8f9fa !important;
     padding: 8px 10px;
     margin-bottom: 6px;
+    transition: .5s;
 }
 .nav-link:hover {
     border-radius: 10px;
