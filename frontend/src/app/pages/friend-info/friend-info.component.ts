@@ -20,6 +20,9 @@ export class FriendInfoComponent implements OnInit {
   userId1: string | null = "";
   userId2: string | null = "";
   objectID_user: string | null = "";
+    // ตัวแปรสำหรับเก็บข้อความแจ้งเตือน
+    alertMessage: string = '';
+    showAlert: boolean = false;
 
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
@@ -62,10 +65,14 @@ export class FriendInfoComponent implements OnInit {
     this.fs.addFriends(this.userId1, this.objectID_user).subscribe(
       response => {
         console.log('Add friend successfully:', response);
+        this.alertMessage = 'เพิ่มเพื่อนสำเร็จ'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+        this.showAlert = true;
         this.fetchUsersData();
       },
       error => {
         console.error('Error add friend:', error);
+        this.alertMessage = 'เกิดข้อผิดพลาดโปรดลองใหม่'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+        this.showAlert = true;
       }
     );
   }

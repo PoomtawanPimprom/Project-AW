@@ -188,3 +188,34 @@
 .contact a:nth-child(3){
     background: #000000;
 }
+
+
+.fixed-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    opacity: 0;
+    animation: slideDownFadeInOut 2s ease forwards;
+}
+
+
+@keyframes slideDownFadeInOut {
+    0% {
+        top: -50px;
+        opacity: 0;
+    }
+    50% {
+        top: 20px;
+        opacity: 1;
+    }
+    80% {
+        top: 20px;
+        opacity: 1;
+    }
+    100% {
+        top: -50px;
+        opacity: 0;
+    }
+}

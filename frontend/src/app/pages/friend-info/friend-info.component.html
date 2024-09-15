@@ -47,6 +47,12 @@
                     <!-- Modal for displaying friend details -->
                     <div *ngIf="selectedFriend" class="modal" tabindex="-1" role="dialog" aria-labelledby="friendModalLabel" aria-hidden="true">
                         <div class="modal-bg " role="document">
+                            <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert"[ngClass]="{
+                                'alert-success': alertMessage === 'เพิ่มเพื่อนสำเร็จ',
+                                'alert-danger': alertMessage === 'เกิดข้อผิดพลาดโปรดลองใหม่'
+                            }">
+                                {{ alertMessage }}
+                            </div>
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <div class="profile_img">

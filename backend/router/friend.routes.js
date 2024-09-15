@@ -78,7 +78,7 @@ router.get("/pending/:userId1", async (req, res) => {
         const data = await Friend.find({ 
             $or: [
                 { userId1: userId1, status: 'pending' },
-                { userId2: userId1, status: 'pending' }
+                
             ]
         })
         .populate('userId1', 'name email image institute') // Populate ข้อมูลของ userId1

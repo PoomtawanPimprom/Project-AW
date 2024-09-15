@@ -21,6 +21,10 @@ export class FriendRequestComponent implements OnInit {
   userId2: string | null = "";
   objectID_user: string | null = "";
   user: any;
+  // ตัวแปรสำหรับเก็บข้อความแจ้งเตือน
+  alertMessage: string = '';
+  showAlert: boolean = false;
+
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
@@ -31,6 +35,7 @@ export class FriendRequestComponent implements OnInit {
     });
 
     this.fetchFriendData()
+    this.applyFilter(); 
   }
 
   fetchFriendData() {
@@ -75,10 +80,15 @@ export class FriendRequestComponent implements OnInit {
   this.fs.updateFriendStatusAccepted(this.objectID_user, this.userId2).subscribe(
     response => {
       console.log('Friend status updated successfully:', response);
+      this.alertMessage = 'เป็นเพื่อนกันแล้ว'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+      this.showAlert = true;
       this.fetchFriendData();
+      this.applyFilter(); 
     },
     error => {
       console.error('Error updating friend status:', error);
+      this.alertMessage = 'เกิดข้อผิดพลาดโปรดลองใหม่'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+      this.showAlert = true;
     }
   );
 
@@ -113,10 +123,15 @@ export class FriendRequestComponent implements OnInit {
     this.fs.deleteFriend(userId1, userId2).subscribe(
       (response) => {
         console.log('Friend deleted successfully:', response);
+        this.alertMessage = 'ลบเพื่อนสำเร็จ'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+        this.showAlert = true;
         this.fetchFriendData(); // อัพเดทรายการเพื่อนหลังจากลบแล้ว
+        this.applyFilter(); 
       },
       (error) => {
         console.error('Error deleting friend:', error);
+        this.alertMessage = 'เกิดข้อผิดพลาดในการลบเพื่อน';
+        this.showAlert = true;
       }
     );
   }

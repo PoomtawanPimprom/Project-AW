@@ -1,5 +1,11 @@
 <app-navbar/>
 <div class="container-fluid" style="background: #f7f4fb;">
+    <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert"[ngClass]="{
+        'alert-success': alertMessage === 'ลบเพื่อนสำเร็จ',
+        'alert-danger': alertMessage === 'เกิดข้อผิดพลาดโปรดลองใหม่'
+    }">
+        {{ alertMessage }}
+    </div>
     <div class="row">
         <div class="col-md-3 my-3">
             <div class="sidebar">

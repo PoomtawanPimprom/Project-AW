@@ -19,6 +19,9 @@ export class FriendComponent implements OnInit {
   userId1!: string; // ประกาศตัวแปร userId1
   objectID_user!: string | null
   user: any;
+  // ตัวแปรสำหรับเก็บข้อความแจ้งเตือน
+  alertMessage: string = '';
+  showAlert: boolean = false;
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
@@ -29,6 +32,7 @@ export class FriendComponent implements OnInit {
     });
 
     this.fetchFriendData()
+    this.applyFilter(); 
   }
 
   fetchFriendData() {
@@ -87,10 +91,15 @@ export class FriendComponent implements OnInit {
     this.fs.deleteFriend(userId1, userId2).subscribe(
       (response) => {
         console.log('Friend deleted successfully:', response);
+        this.alertMessage = 'ลบเพื่อนสำเร็จ'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+        this.showAlert = true;
         this.fetchFriendData(); // อัพเดทรายการเพื่อนหลังจากลบแล้ว
+        this.applyFilter(); 
       },
       (error) => {
         console.error('Error deleting friend:', error);
+        this.alertMessage = 'เกิดข้อผิดพลาดในการลบเพื่อน';
+        this.showAlert = true;
       }
     );
   }
