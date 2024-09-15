@@ -35,7 +35,7 @@
                                     <p class="text-muted">{{item.institute}}</p>
                                 </div>
                                 
-                                <button class="btn btn-secondary btn-sm w-100" 
+                                <button class="btn btn-secondary btn-sm w-100 main-btn" 
                                     style="border: none; background: #79ACEE;"
                                     (click)="openFriendModal(item)">
                                     {{ isPendingRequest(item) ? 'รอดำเนินการ' : 'เพิ่มเติม' }}
@@ -56,7 +56,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <div class="profile_img">
-                                        <img [src]="selectedFriend.image" alt="Friend image" class="img-fluid mb-3">
+                                        <img [src]="selectedFriend.image" alt="Friend image">
                                     </div>
                                     <h5 class="modal-title" id="friendModalLabel">{{ selectedFriend.name }}<br><span>{{ selectedFriend.institute }}</span></h5>
                                     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
@@ -67,7 +67,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="imgBx">
-                                                <img [src]="selectedFriend.image" alt="Friend image" class="img-fluid mb-3">
+                                                <img [src]="selectedFriend.image" alt="Friend image">
                                             </div>
                                             <div class="actionBtns">
                                                 <div class="left">
@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" 
+                                    <button class="btn btn-secondary main-btn" 
                                         style="border: none; background: #82CEDE;"
                                         (click)="pendingFriend(selectedFriend)">
                                         {{ isPendingRequest(selectedFriend) ? 'รอดำเนินการ' : 'เพิ่มเพื่อน' }}
