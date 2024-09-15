@@ -44,51 +44,57 @@ router.get("/imfor/:userId1", async (req, res) => {
     }
 });
 
-// GET GetFriendByUserIds with status == accepted
-router.get("/accepted/:userId1", async (req, res) => {
-    const userId1  = req.params.userId1;
+// GET GetFriends with status == accepted for both userId1 and userId2
+router.get("/accepted/:userId", async (req, res) => {
+    const { userId } = req.params;
     try {
-        // ค้นหาเพื่อนของ userId1 ที่มีสถานะเป็น accepted
-        const data = await Friend.find({ 
-            userId1: userId1, 
-            status: 'accepted' 
+        // ดึงข้อมูลเพื่อนที่มีสถานะเป็น accepted ซึ่ง userId อาจเป็น userId1 หรือ userId2
+        const data = await Friend.find({
+            $or: [
+                { userId1: userId, status: 'accepted' },
+                { userId2: userId, status: 'accepted' }
+            ]
         })
-        .populate('userId2') // Populate ข้อมูลของ userId2 เพื่อดูข้อมูลของเพื่อน
+        .populate('userId1', 'name email image institute') // Populate ข้อมูลของ userId1
+        .populate('userId2', 'name email image institute') // Populate ข้อมูลของ userId2
         .exec();
-        // ตรวจสอบว่ามีเพื่อนที่สถานะ accepted หรือไม่
+
         if (!data || data.length === 0) {
             return res.status(404).json({ message: "No accepted friends found" });
         }
-        
-        // ส่งคืนรายการเพื่อนที่มีสถานะ accepted เป็น JSON
-        return res.json(data); 
+
+        return res.json(data);
     } catch (err) {
-        // จัดการ error และส่ง error message กลับไปที่ client
         return res.status(500).json({ message: 'Error fetching accepted friends', error: err.message });
     }
 });
+
 
 // GET GetFriendByUserIds with status == pending
 router.get("/pending/:userId1", async (req, res) => {
     const { userId1 } = req.params;
     try {
+        // ดึงข้อมูลเพื่อนที่มีสถานะเป็น pending ซึ่ง userId1 หรือ userId2
         const data = await Friend.find({ 
-            userId1: userId1, 
-            status: "pending" 
+            $or: [
+                { userId1: userId1, status: 'pending' },
+                
+            ]
         })
-        .populate('userId2')
+        .populate('userId1', 'name email image institute') // Populate ข้อมูลของ userId1
+        .populate('userId2', 'name email image institute') // Populate ข้อมูลของ userId2
         .exec();
-        // ตรวจสอบว่ามีเพื่อนที่สถานะ accepted หรือไม่
+
         if (!data || data.length === 0) {
-            return res.status(404).json({ message: "No accepted friends found" });
+            return res.status(404).json({ message: "No pending friends found" });
         }
 
-        // ส่งคืนรายการเพื่อนที่มีสถานะ accepted เป็น JSON
         return res.json(data);
     } catch (err) {
-        return res.status(500).json(err);
+        return res.status(500).json({ message: 'Error fetching pending friends', error: err.message });
     }
 });
+
 
 // GET GetAllFriendsByUserId
 router.get("/all/:userId1", async (req, res) => {
@@ -114,7 +120,7 @@ router.get("/all/:userId1", async (req, res) => {
 });
 
 // PUT UpdateFriendStatus
-router.put("/updateStatus", async (req, res) => {
+router.put("/updateFriendAccepted", async (req, res) => {
     const { userId1, userId2 } = req.body;
     try {
         const updatedFriend = await Friend.findOneAndUpdate(
@@ -136,6 +142,29 @@ router.put("/updateStatus", async (req, res) => {
         return res.status(500).json({ message: 'Error updating friend status', error: err.message });
     }
 });
+
+// DELETE Friend by userId1 and userId2 (รองรับการสลับ userId1 และ userId2)
+router.delete("/deleteFriend/:userId1/:userId2", async (req, res) => {
+    const { userId1, userId2 } = req.params;
+    try {
+        // ค้นหาและลบ friend ไม่ว่าจะ userId1, userId2 จะถูกสลับกันหรือไม่
+        const deletedFriend = await Friend.findOneAndDelete({
+            $or: [
+                { userId1: userId1, userId2: userId2 },
+                { userId1: userId2, userId2: userId1 }
+            ]
+        }).exec();
+
+        if (!deletedFriend) {
+            return res.status(404).json({ message: "Friend not found" });
+        }
+
+        return res.json({ message: "Friend deleted successfully", deletedFriend });
+    } catch (err) {
+        return res.status(500).json({ message: 'Error deleting friend', error: err.message });
+    }
+});
+
 
 
 module.exports = router;

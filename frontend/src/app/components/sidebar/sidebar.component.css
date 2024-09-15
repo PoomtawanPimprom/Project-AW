@@ -2,7 +2,7 @@
     background: #194d7a;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 .nav-link:nth-child(1){
@@ -12,6 +12,7 @@
     color: #f8f9fa !important;
     padding: 8px 10px;
     margin-bottom: 6px;
+    transition: .5s;
 }
 .nav-link:hover {
     border-radius: 10px;

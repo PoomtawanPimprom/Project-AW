@@ -3,29 +3,36 @@ import { FriendService } from '../../service/friend/friend.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router'; 
 import { userInterface } from '../../interfaces/user.model';
+
 @Component({
   selector: 'app-friend-info',
   templateUrl: './friend-info.component.html',
-  styleUrl: './friend-info.component.css'
+  styleUrls: ['./friend-info.component.css']
 })
 export class FriendInfoComponent implements OnInit {
 
-  
   filteredUser: userInterface[] = []; // ใช้ interface Friend
   selectedInstitute: string = 'เพื่อนทั้งหมด'; // Default is to show all friends
   search: string = '';
   selectedFriend: any = null;
 
   users: userInterface[] = [];
-  userId1!: string; // ประกาศตัวแปร userId1
-  
+  userId1: string | null = "";
+  userId2: string | null = "";
+  objectID_user: string | null = "";
+    // ตัวแปรสำหรับเก็บข้อความแจ้งเตือน
+    alertMessage: string = '';
+    showAlert: boolean = false;
+
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.objectID_user = localStorage.getItem("_id");
+    console.log('Object ID User:', this.objectID_user);
     this.route.paramMap.subscribe((params) => {
-      this.userId1 = params.get("id")!; // รับค่า userId1 จาก URL
+      this.userId2 = params.get("id")!; // รับค่า userId1 จาก URL
     });
-    this.fetchUsersData()
+    this.fetchUsersData();
   }
 
   fetchUsersData(): void {
@@ -35,13 +42,43 @@ export class FriendInfoComponent implements OnInit {
         this.filteredUser = this.users;
       },
       error: (error) => {
-        console.error('Error fetching events:', error);
+        console.error('Error fetching users:', error);
       }
     });
     this.applyFilter();
   }
+
+  pendingFriend(user1: any): void {
+    if (user1 && user1._id) {
+      this.userId1 = user1._id;  // ดึงค่า _id ของ user2
+    } else {
+      console.error('User1 does not have _id');
+      return;
+    }
+
+    if (!this.userId1 || !this.objectID_user) {
+      console.error('User IDs are required');
+      return;
+    }
   
-    // ฟังก์ชันค้นหาเพื่อน
+    // เรียกใช้ฟังก์ชัน addFriends หลังจากตรวจสอบว่า _id ถูกต้อง
+    this.fs.addFriends(this.userId1, this.objectID_user).subscribe(
+      response => {
+        console.log('Add friend successfully:', response);
+        this.alertMessage = 'เพิ่มเพื่อนสำเร็จ'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+        this.showAlert = true;
+        this.fetchUsersData();
+      },
+      error => {
+        console.error('Error add friend:', error);
+        this.alertMessage = 'เกิดข้อผิดพลาดโปรดลองใหม่'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+        this.showAlert = true;
+      }
+    );
+  }
+  
+
+  // ฟังก์ชันค้นหาเพื่อน
   onSearchFriend(): void {
     this.applyFilter(); // กรองข้อมูลเพื่อนเมื่อทำการค้นหา
   }
@@ -54,9 +91,9 @@ export class FriendInfoComponent implements OnInit {
 
   // ฟังก์ชันกรองข้อมูล
   applyFilter(): void {
-    this.filteredUser = this.users.filter((users) => {
-      const matchesInstitute = this.selectedInstitute === 'เพื่อนทั้งหมด' || users.institute === this.selectedInstitute;
-      const matchesSearch = !this.search || users.name.toLowerCase().includes(this.search.toLowerCase());
+    this.filteredUser = this.users.filter((user) => {
+      const matchesInstitute = this.selectedInstitute === 'เพื่อนทั้งหมด' || user.institute === this.selectedInstitute;
+      const matchesSearch = !this.search || user.name.toLowerCase().includes(this.search.toLowerCase());
       return matchesInstitute && matchesSearch;
     });
   }
@@ -67,11 +104,10 @@ export class FriendInfoComponent implements OnInit {
 
   openFriendModal(friend: any): void {
     this.selectedFriend = friend; // Set the selected friend's details
+    console.log(this.selectedFriend);
   }
 
   closeModal(): void {
     this.selectedFriend = null; // Close the modal by setting selectedFriend to null
   }
-
-
 }

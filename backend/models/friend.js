@@ -1,15 +1,26 @@
 const mongoose = require("mongoose");
+
 const friendSchema = new mongoose.Schema({
-    friendId: Number,
     userId1: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     userId2: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
-    status: String,
-    createAt: Date,
-}, { collection: 'friend' });
+    status: {
+        type: String,
+        default: 'pending',
+        required: true
+    },
+    createAt: {
+        type: Date,
+        default: Date.now,
+        required: true
+    }
+}, { versionKey: false, collection: 'friend' });
+
 module.exports = mongoose.model("Friend", friendSchema);
