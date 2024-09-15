@@ -3,7 +3,6 @@ import { FriendService } from '../../service/friend/friend.service';
 import { Friend } from '../../interfaces/friend.medel'; // Import interface
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router'; 
-import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-friend',
@@ -46,6 +45,14 @@ export class FriendComponent implements OnInit {
         console.error('Error fetching friends:', error);
       }
     );
+
+    this.fs.getInfoUserId(userId).subscribe({
+      next: user => {
+        console.log('User:', user);
+        this.user = user;
+      },
+      error: error => console.error('Error fetching user:', error)
+    });
   }  
   
   

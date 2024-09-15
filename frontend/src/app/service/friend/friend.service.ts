@@ -33,12 +33,6 @@ export class FriendService implements OnInit {
     return this.http.get<Friend[]>(`${this.apiURL}/accepted/${userId}`, { headers: this.getAuthHeaders() });
   }
 
-  // ดึงข้อมูลเพื่อนที่มีสถานะ accepted
-  getAllFriendsAcceptedByUserId2(userId: string): Observable<Friend[]> {
-    return this.http.get<Friend[]>(`${this.apiURL}/accepted2/${userId}`, { headers: this.getAuthHeaders() });
-  }
-
-
   // ดึงข้อมูลเพื่อนที่มีสถานะ pending
   getAllFriendPendingByUserId1(userId1: string): Observable<Friend[]> {
     return this.http.get<Friend[]>(`${this.apiURL}/pending/${userId1}`, { headers: this.getAuthHeaders() });
@@ -48,9 +42,9 @@ export class FriendService implements OnInit {
     return this.http.get<userInterface[]>(this.apiURL2, { headers: this.getAuthHeaders() });
   }
 
-  getImforUserId1(userId1: string): Observable<Friend[]>{
-    return this.http.get<Friend[]>(`${this.apiURL}/imfor/${userId1}`, { headers: this.getAuthHeaders() })
-  }
+  getInfoUserId(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiURL2}/friend/${userId}`, { headers: this.getAuthHeaders() });
+  }  
 
   getEventById(eventId: number): Observable<Event> {
     return this.http.get<Event>(`${this.apiURL3}/${eventId}`, { headers: this.getAuthHeaders() });

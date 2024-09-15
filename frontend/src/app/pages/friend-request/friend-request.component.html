@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-3 my-3">
             <div class="sidebar">
-                <div class="profile-card" *ngIf="user">
+                <div class="profile-card" *ngIf="user && user.name"> <!-- ตรวจสอบว่า user และ name มีค่า -->
                     <div class="row my-2">
                         <div class="col-6">
                             <img [src]="user.image" alt="Profile" class="mb-3">
@@ -23,7 +23,7 @@
                             <small class="text-muted">Post</small>
                         </div>
                     </div>
-                </div>
+                </div>                
                 <hr class="my-4" style="border: 2px solid #f5f5ff;">
                 <app-sidebar (filterInstitute)="onFilterInstitute($event)"></app-sidebar>
             </div>

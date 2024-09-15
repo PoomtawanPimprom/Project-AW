@@ -3,8 +3,6 @@ import { FriendService } from '../../service/friend/friend.service';
 import { Friend } from '../../interfaces/friend.medel';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router'; 
-import { response } from 'express';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-friend-request',
@@ -29,33 +27,34 @@ export class FriendRequestComponent implements OnInit {
   ngOnInit(): void {
     this.objectID_user = localStorage.getItem("_id");
     this.userId1 = this.objectID_user;
+  
     this.route.paramMap.subscribe((params) => {
-      this.userId1 = params.get("id")!; // รับค่า userId1 จาก URL
+      this.userId1 = params.get("id")!;
     });
-    this.fetchFriendData()
-
-  }
+  
+    // ตรวจสอบว่ามีการเรียกฟังก์ชันนี้
+    this.fetchFriendData(); 
+  }  
 
   fetchFriendData() {
-    const userId = this.objectID_user || "";
-  
-    forkJoin({
-      friends: this.fs.getAllFriendPendingByUserId1(userId),
-      user: this.fs.getImforUserId1(userId)
-    }).subscribe({
-      next: ({ friends, user }) => {
-        console.log('Friends:', friends);
-        console.log('User:', user);
-        this.friends = friends;
-        this.user = user;
-        this.applyFilter();
-      },
-      error: error => {
-        console.error('Error fetching data:', error);
-      }
-    });
-  }
-  
+  const userId = this.objectID_user || "";
+
+  this.fs.getAllFriendPendingByUserId1(userId).subscribe({
+    next: friends => {
+      console.log('Friends:', friends);
+      this.friends = friends;
+    },
+    error: error => console.error('Error fetching friends:', error)
+  });
+
+  this.fs.getInfoUserId(userId).subscribe({
+    next: user => {
+      console.log('User:', user);
+      this.user = user;
+    },
+    error: error => console.error('Error fetching user:', error)
+  });
+}
   
   acceptedFriend(user2: any): void {
   if (user2 && user2._id) {
