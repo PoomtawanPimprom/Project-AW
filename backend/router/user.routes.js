@@ -58,7 +58,6 @@ router.put('/:object_userId', async (req, res) => {
 });
 
 // POST เพิ่มเพื่อน
-// Backend (Express.js)
 router.post('/addFriend', async (req, res) => {
     const { userId1, userId2 } = req.body;
 

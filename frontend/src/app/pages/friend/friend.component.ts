@@ -3,7 +3,7 @@ import { FriendService } from '../../service/friend/friend.service';
 import { Friend } from '../../interfaces/friend.medel'; // Import interface
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router'; 
-import { forkJoin } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-friend',
@@ -28,29 +28,28 @@ export class FriendComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.userId1 = params.get("id")!; // รับค่า userId1 จาก URL
     });
-    this.fetchFriendData()
 
+    this.fetchFriendData()
   }
 
   fetchFriendData() {
     const userId = this.objectID_user || "";
-    
-    forkJoin({
-      friends: this.fs.getAllFriendsAcceptedByUserId1(userId),
-      user: this.fs.getImforUserId1(userId)
-    }).subscribe(({ friends, user }) => {
-      this.friends = friends;  // ข้อมูลเพื่อน
-      this.user = user;  // ข้อมูลของผู้ใช้
-      console.log(this.friends, this.user);
-
-      this.applyFilter();  // กรองข้อมูลเมื่อดึงข้อมูลสำเร็จ
-    },
-    error => {
-      console.error('Error fetching data:', error);
-    });
-  }
+    // ดึงข้อมูลเพื่อนที่มีสถานะ accepted โดยพิจารณาให้ userId เป็นทั้ง userId1 และ userId2
+    this.fs.getAllFriendsAcceptedByUserId(userId).subscribe(
+      (friends) => {
+        this.friends = friends;  // เก็บข้อมูลเพื่อนที่ได้จากทั้ง userId1 และ userId2
+        console.log('Friends:', this.friends);
   
-    // ฟังก์ชันค้นหาเพื่อน
+        this.applyFilter();  // กรองข้อมูลเมื่อดึงข้อมูลสำเร็จ
+      },
+      error => {
+        console.error('Error fetching friends:', error);
+      }
+    );
+  }  
+  
+  
+  // ฟังก์ชันค้นหาเพื่อน
   onSearchFriend(): void {
     this.applyFilter(); // กรองข้อมูลเพื่อนเมื่อทำการค้นหา
   }
@@ -61,13 +60,39 @@ export class FriendComponent implements OnInit {
     this.applyFilter(); // เรียกฟังก์ชันกรองข้อมูล
   }  
 
-  // ฟังก์ชันกรองข้อมูล
-  applyFilter(): void {
-    
-    this.filteredFriends = this.friends.filter((friends) => {
-      const matchesInstitute = this.selectedInstitute === 'เพื่อนทั้งหมด' || friends.userId2.institute === this.selectedInstitute;
-      const matchesSearch = !this.search || friends.userId2.name.toLowerCase().includes(this.search.toLowerCase());
-      return matchesInstitute && matchesSearch;
-    });
+  getImage(item: Friend): string {
+    return item.userId1._id === this.objectID_user ? item.userId2.image : item.userId1.image;
   }
+  
+  getName(item: Friend): string {
+    return item.userId1._id === this.objectID_user ? item.userId2.name : item.userId1.name;
+  }
+  
+  getInstitute(item: Friend): string {
+    return item.userId1._id === this.objectID_user ? item.userId2.institute : item.userId1.institute;
+  }
+  
+
+ // ฟังก์ชันกรองข้อมูล
+applyFilter(): void {
+  this.filteredFriends = this.friends.filter((friend) => {
+    // ตรวจสอบกรณีที่ userId เป็น userId1
+    const isUserId1 = friend.userId1._id === this.objectID_user;
+    // ตรวจสอบกรณีที่ userId เป็น userId2
+    const isUserId2 = friend.userId2._id === this.objectID_user;
+    
+    // กรองตามสถาบัน
+    const matchesInstitute = this.selectedInstitute === 'เพื่อนทั้งหมด' ||
+      (isUserId1 && friend.userId2.institute === this.selectedInstitute) ||
+      (isUserId2 && friend.userId1.institute === this.selectedInstitute);
+    
+    // กรองตามการค้นหา
+    const matchesSearch = !this.search || 
+      (isUserId1 && friend.userId2.name.toLowerCase().includes(this.search.toLowerCase())) ||
+      (isUserId2 && friend.userId1.name.toLowerCase().includes(this.search.toLowerCase()));
+
+    return matchesInstitute && matchesSearch;
+  });
+}
+
 }

@@ -29,9 +29,15 @@ export class FriendService implements OnInit {
   }
 
   // ดึงข้อมูลเพื่อนที่มีสถานะ accepted
-  getAllFriendsAcceptedByUserId1(userId1: string): Observable<Friend[]> {
-    return this.http.get<Friend[]>(`${this.apiURL}/accepted/${userId1}`, { headers: this.getAuthHeaders() });
+  getAllFriendsAcceptedByUserId(userId: string): Observable<Friend[]> {
+    return this.http.get<Friend[]>(`${this.apiURL}/accepted/${userId}`, { headers: this.getAuthHeaders() });
   }
+
+  // ดึงข้อมูลเพื่อนที่มีสถานะ accepted
+  getAllFriendsAcceptedByUserId2(userId: string): Observable<Friend[]> {
+    return this.http.get<Friend[]>(`${this.apiURL}/accepted2/${userId}`, { headers: this.getAuthHeaders() });
+  }
+
 
   // ดึงข้อมูลเพื่อนที่มีสถานะ pending
   getAllFriendPendingByUserId1(userId1: string): Observable<Friend[]> {
