@@ -3,6 +3,16 @@
     height: 92vh;
 }
 
+.carousel-inner img{
+    animation: smoothScale 7s linear forwards;
+}
+
+@keyframes smoothScale {
+0% { transform: scale(1); }
+100% { transform: scale(1.15); }
+}
+
+
 .carousel-item:nth-child(1):after {
     content: '';
     width: 100%;

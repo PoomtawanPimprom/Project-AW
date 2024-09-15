@@ -73,8 +73,8 @@
     color: #6c757d !important;
 }
 
-
 .friend-card:hover {
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
     transform: translateY(-8px);
 }
 
@@ -82,9 +82,10 @@
     background: #C3E8EB !important;
     color: #082540;
     transform: scale(1.03);
-    text-shadow: 0 0 10px var(--color-backgroun-main2), 0 0 40px var(--color-backgroun-main2), 0 0 80px var(--color-backgroun-main2);
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
     transition: .5s;
 }
+
 
 .fixed-alert {
     position: fixed;
