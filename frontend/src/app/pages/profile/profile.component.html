@@ -13,17 +13,19 @@
                 <p>Major: {{item.major}}</p>
             </div>
             <div class="social">
-                <a [href]="item.facebook"><i class="bi bi-facebook mx-3 mt-5"></i></a>
-                <a [href]="item.tiktok"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
-                <a [href]="item.instagram"><i class="bi bi-instagram mx-3 mt-5"></i></a>
+                <a [href]="item.facebook" target="_blank"><i class="bi bi-facebook mx-3 mt-5"></i></a>
+                <a [href]="item.tiktok" target="_blank"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
+                <a [href]="item.instagram" target="_blank"><i class="bi bi-instagram mx-3 mt-5"></i></a>
             </div>
             
         </div>
 
         <div class="about mt-2" *ngFor="let item of user">
-            <form [formGroup]="profileForm" class="d-flex flex-column col-4" >
+            <form [formGroup]="profileForm" class="d-flex flex-column col-7" >
                 <label for="">Name</label>
-                <input type="text" formControlName="name" >
+                <input type="text"  formControlName="name" >
+                <label for="">Age</label>
+                <input type="text"  formControlName="age" >
                 <label for="">Email</label>
                 <input type="text" formControlName="email" >
                 <label for="">Institute</label>
@@ -33,15 +35,21 @@
                 <label for="">Facebook</label>
                 <input type="text" formControlName="facebook" >
                 <label for="">Instagram</label>
-                <input type="text" formControlName="instagram" >
+                <input type="text" formControlName="instagram">
                 <label for="">Tiktok</label>
                 <input type="text" formControlName="tiktok" >
+
                 <label for="images" class="drop-container" id="dropcontainer">
                     <span class="drop-title">Drop files here</span>
                     or
                     <input type="file" id="images" accept="image/*" formControlName="image" (change)="onFileChange($event)" required>
                 </label>
-                <button (click)="onClickUpdateUser(item._id)" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
+
+                <span class="button-group">
+                    <button type="button" (click)="toggleFields()" class="button-sub" >Edit</button>
+                    <button (click)="onClickUpdateUser(item._id)" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
+                </span>
+                
             </form>
         </div>
     </div>
