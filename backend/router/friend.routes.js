@@ -74,23 +74,27 @@ router.get("/accepted/:userId", async (req, res) => {
 router.get("/pending/:userId1", async (req, res) => {
     const { userId1 } = req.params;
     try {
+        // ดึงข้อมูลเพื่อนที่มีสถานะเป็น pending ซึ่ง userId1 หรือ userId2
         const data = await Friend.find({ 
-            userId1: userId1, 
-            status: "pending" 
+            $or: [
+                { userId1: userId1, status: 'pending' },
+                { userId2: userId1, status: 'pending' }
+            ]
         })
-        .populate('userId2')
+        .populate('userId1', 'name email image institute') // Populate ข้อมูลของ userId1
+        .populate('userId2', 'name email image institute') // Populate ข้อมูลของ userId2
         .exec();
-        // ตรวจสอบว่ามีเพื่อนที่สถานะ accepted หรือไม่
+
         if (!data || data.length === 0) {
-            return res.status(404).json({ message: "No accepted friends found" });
+            return res.status(404).json({ message: "No pending friends found" });
         }
 
-        // ส่งคืนรายการเพื่อนที่มีสถานะ accepted เป็น JSON
         return res.json(data);
     } catch (err) {
-        return res.status(500).json(err);
+        return res.status(500).json({ message: 'Error fetching pending friends', error: err.message });
     }
 });
+
 
 // GET GetAllFriendsByUserId
 router.get("/all/:userId1", async (req, res) => {
@@ -138,6 +142,29 @@ router.put("/updateFriendAccepted", async (req, res) => {
         return res.status(500).json({ message: 'Error updating friend status', error: err.message });
     }
 });
+
+// DELETE Friend by userId1 and userId2 (รองรับการสลับ userId1 และ userId2)
+router.delete("/deleteFriend/:userId1/:userId2", async (req, res) => {
+    const { userId1, userId2 } = req.params;
+    try {
+        // ค้นหาและลบ friend ไม่ว่าจะ userId1, userId2 จะถูกสลับกันหรือไม่
+        const deletedFriend = await Friend.findOneAndDelete({
+            $or: [
+                { userId1: userId1, userId2: userId2 },
+                { userId1: userId2, userId2: userId1 }
+            ]
+        }).exec();
+
+        if (!deletedFriend) {
+            return res.status(404).json({ message: "Friend not found" });
+        }
+
+        return res.json({ message: "Friend deleted successfully", deletedFriend });
+    } catch (err) {
+        return res.status(500).json({ message: 'Error deleting friend', error: err.message });
+    }
+});
+
 
 
 module.exports = router;

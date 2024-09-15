@@ -53,6 +53,7 @@ export class FriendComponent implements OnInit {
       },
       error: error => console.error('Error fetching user:', error)
     });
+    
   }  
   
   
@@ -77,6 +78,21 @@ export class FriendComponent implements OnInit {
   
   getInstitute(item: Friend): string {
     return item.userId1._id === this.objectID_user ? item.userId2.institute : item.userId1.institute;
+  }
+
+  deleteFriend(friend: Friend): void {
+    const userId1 = friend.userId1._id === this.objectID_user ? friend.userId1._id : friend.userId2._id;
+    const userId2 = friend.userId1._id === this.objectID_user ? friend.userId2._id : friend.userId1._id;
+    
+    this.fs.deleteFriend(userId1, userId2).subscribe(
+      (response) => {
+        console.log('Friend deleted successfully:', response);
+        this.fetchFriendData(); // อัพเดทรายการเพื่อนหลังจากลบแล้ว
+      },
+      (error) => {
+        console.error('Error deleting friend:', error);
+      }
+    );
   }
   
 

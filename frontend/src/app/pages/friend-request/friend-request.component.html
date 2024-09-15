@@ -49,10 +49,10 @@
                 <div class="friends-container">
                     <div class="friend-wrapper" *ngFor="let item of filteredFriends">
                         <div class="friend-card">
-                            <img [src]="item.userId2.image" alt="Friend image" class="mb-3">
+                            <img [src]="getImage(item)" alt="Friend image" class="mb-3">
                             <div class="card-body">
-                                <h5 style="color: #082540;">{{item.userId2.name}}</h5>
-                                <p class="text-muted">{{item.userId2.institute}}</p>
+                                <h5 style="color: #082540;">{{getName(item)}}</h5>
+                                <p class="text-muted">{{getInstitute(item)}}</p>
                             </div>
                             <div class="row">
                                 <div class="col-6">
@@ -64,6 +64,7 @@
                                 </div>
                                 <div class="col-6">
                                     <button class="btn btn-secondary btn-sm w-100" 
+                                    (click)="deleteFriend(item)"
                                     style="background: #F6F4F0; border: none; color: #EA2C2C;">
                                 ลบ
                             </button>

@@ -38,13 +38,13 @@ export class FriendService implements OnInit {
     return this.http.get<Friend[]>(`${this.apiURL}/pending/${userId1}`, { headers: this.getAuthHeaders() });
   }
 
+  getInfoUserId(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiURL2}/friend/${userId}`, { headers: this.getAuthHeaders() });
+  }
+
   getAllUser(): Observable<userInterface[]> {
     return this.http.get<userInterface[]>(this.apiURL2, { headers: this.getAuthHeaders() });
   }
-
-  getInfoUserId(userId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiURL2}/friend/${userId}`, { headers: this.getAuthHeaders() });
-  }  
 
   getEventById(eventId: number): Observable<Event> {
     return this.http.get<Event>(`${this.apiURL3}/${eventId}`, { headers: this.getAuthHeaders() });
@@ -60,4 +60,9 @@ export class FriendService implements OnInit {
     console.log('Request Body:', requestBody); // ตรวจสอบข้อมูลที่ส่งไป
     return this.http.post(`${this.apiURL2}/addFriend`, requestBody, { headers: this.getAuthHeaders() });
   }
+
+  deleteFriend(userId1: string, userId2: string): Observable<any> {
+    // ส่ง userId1 และ userId2 ผ่าน URL path
+    return this.http.delete(`${this.apiURL}/deleteFriend/${userId1}/${userId2}`, { headers: this.getAuthHeaders() });
+  }  
 }
