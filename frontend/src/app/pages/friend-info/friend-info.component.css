@@ -2,6 +2,8 @@
     height: 100%;
     border-radius: 15px;
     padding: 20px;
+    animation: floatUp 0.8s ease-out;
+
 }
 
 .profile-card {
@@ -30,6 +32,17 @@
     padding: 15px;
     margin-bottom: 20px;
     transition: .3s;
+    animation: floatUp 0.8s ease-out;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .friend-card:hover {

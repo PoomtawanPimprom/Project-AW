@@ -46,8 +46,8 @@ export class FriendService implements OnInit {
     return this.http.get<userInterface[]>(this.apiURL2, { headers: this.getAuthHeaders() });
   }
 
-  getEventById(eventId: number): Observable<Event []> {
-    return this.http.get<Event []>(`${this.apiURL3}/${eventId}`, { headers: this.getAuthHeaders() });
+  getEventsByCreator(username: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.apiURL3}/creator/${username}`, { headers: this.getAuthHeaders() });
   }
 
   getEvents(): Observable<Event[]> {

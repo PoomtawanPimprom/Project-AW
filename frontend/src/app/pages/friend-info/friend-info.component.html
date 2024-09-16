@@ -1,7 +1,7 @@
 <app-navbar/>
 <div class="container-fluid" style="background: #f4f9fb;">
     <div class="row">
-        <div class="col-sm-12 my-3" style="height: 87vh; overflow-x: auto;">
+        <div class="col-sm-12 my-3">
             <div class="main-content" id="main-content">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2 style="color: #082540; margin-left: 20px;">หาเพื่อน</h2>
@@ -25,10 +25,12 @@
                         <app-sidebar (filterInstitute)="onFilterInstitute($event)"></app-sidebar>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9" style="height: 87vh; overflow-x: auto;">
                     <div class="friends-container">
-                        <div class="friend-wrapper" *ngFor="let item of filteredUser">
-                            <div class="friend-card">
+                        <div class="friend-wrapper" *ngFor="let item of filteredUser; let i = index">
+                            <div class="friend-card" 
+                                [ngStyle]="{'animation-delay': (i * 0.16) + 's'}"
+                            >
                                 <img [src]="item.image" alt="Friend image" class="mb-3">
                                 <div class="card-body">
                                     <h5 style="color: #082540;">{{item.name}}</h5>

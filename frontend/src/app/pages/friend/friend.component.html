@@ -53,8 +53,10 @@
                     </div>
                 </div>
                 <div class="friends-container">
-                    <div class="friend-wrapper" *ngFor="let item of filteredFriends">
-                    <div class="friend-card">
+                    <div class="friend-wrapper" *ngFor="let item of filteredFriends; let i = index">
+                    <div class="friend-card"
+                    [ngStyle]="{'animation-delay': (i * 0.16) + 's'}"
+                    >
                         <img [src]="getImage(item)" alt="Friend image" class="mb-3">
                         <div class="card-body">
                         <h5 style="color: #082540;">{{ getName(item) }}</h5>

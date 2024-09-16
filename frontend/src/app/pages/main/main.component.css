@@ -156,6 +156,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: floatUp 2s ease-out;
+
 }
 
 .destination__details {
@@ -166,8 +168,20 @@
     padding: 1rem;
     background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
     color: white;
+    animation: floatUp 2s ease-out;
+
 }
 
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .destination__details h4 {
     margin: 0;
     font-size: 1.2rem;
