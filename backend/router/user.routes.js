@@ -38,15 +38,16 @@ router.put('/:object_userId', async (req, res) => {
         const updateUser = await User.findByIdAndUpdate(
         _id,
             {
-            name: user.name,
-            email: user.email,
-            institute: user.institute,
-            major: user.major,
-            facebook: user.facebook,
-            instagram: user.instagram,
-            tiktok: user.tiktok,
-            image: user.image,
-            updateAt: Date.now()
+              name: user.name,
+              email: user.email,
+              institute: user.institute,
+              major: user.major,
+              age: user.age,
+              facebook: user.facebook,
+              instagram: user.instagram,
+              tiktok: user.tiktok,
+              image: user.image,
+              updateAt: Date.now()
             },
             { 
                 new: true 

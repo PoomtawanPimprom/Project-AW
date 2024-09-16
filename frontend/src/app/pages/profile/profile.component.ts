@@ -16,21 +16,22 @@ export class ProfileComponent {
   user: userInterface[] = [];
   profileForm: FormGroup;
   imageBase64!: string;
-
   selectUserId!: string;
+
+  isDisabled: boolean = true;
 
   constructor(private http: HttpClient, private fb: FormBuilder) { 
     this.profileForm = this.fb.group({
-      username: [''],
-      name: [''],
-      email: [''],
-      institute: [''],
-      major: [''],
-      age: [''],
-      facebook: [''],
-      instagram: [''],
-      tiktok: [''],
-      image: [''],
+      username: [{ value: '', disabled: true }],
+      name: [{ value: '', disabled: true }],
+      email: [{ value: '', disabled: true }],
+      institute: [{ value: '', disabled: true }],
+      major: [{ value: '', disabled: true }],
+      age: [{ value: '', disabled: true }],
+      facebook: [{ value: '', disabled: true }],
+      instagram: [{ value: '', disabled: true }],
+      tiktok: [{ value: '', disabled: true }],
+      image: [{ value: '', disabled: true }],
     });
    }
 
@@ -65,16 +66,23 @@ export class ProfileComponent {
 
 
   updateUser(_id: string) {
-    const user = { 
-      user:this.profileForm.value 
+
+    if (this.isDisabled === true) {
+
+    } else {
+      const user = { 
+        user:this.profileForm.value 
+      }
+      
+      this.http.put(`http://localhost:3000/user/${_id}`,user )
+        .subscribe(result => {
+  
+          this.fetchUserData();
+        })
+        this.toggleFields();
+        this.profileForm.reset();
     }
     
-    this.http.put(`http://localhost:3000/user/${_id}`,user )
-      .subscribe(result => {
-        // console.log(result)
-        this.fetchUserData();
-      })
-      this.profileForm.reset();
   }
 
   async onClickUpdateUser(_id:string) {
@@ -90,6 +98,16 @@ export class ProfileComponent {
       });
       console.log(this.imageBase64);
     });
+  }  
+
+  toggleFields() {
+    if (this.isDisabled) {
+      this.profileForm.enable();
+    } else {
+      this.profileForm.disable();
+    }
+    this.isDisabled = !this.isDisabled;
   }
+  
 
 }

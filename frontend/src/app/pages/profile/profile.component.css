@@ -50,7 +50,7 @@
 .about form input {
     border: 1px solid #ccc;
     border-radius: 5px; 
-    padding: 0.5rem; 
+    padding: 0.5rem;
 }
 
 
@@ -79,6 +79,16 @@
     margin-top: 1rem;
     align-self: flex-end;
     padding: 10px 20px;
+    margin-left: 1rem;
+}
+
+.button-sub:hover {
+    background: #FFFFFF;
+    color: #508C9B;
+}
+
+.button-group {
+    align-self: flex-end;
 }
 
 
@@ -86,7 +96,7 @@
 .about form {
     display: flex;
     flex-direction: row;
-    max-width: 400px;
+    max-width: 550px;
     margin: 0 auto;
 }
 
@@ -94,6 +104,21 @@
     font-weight: bold;
     margin: 1rem 0 0 0;
 }
+
+input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #508C9B;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #508C9B;
+  }
 
 @media (max-width: 770px) {
 
@@ -123,6 +148,15 @@
     .about form {
         width: 90%; /* ปรับขนาดฟอร์ม */
     }
+
+    .button-group {
+        align-self: center;
+    }
+
+    .button-sub {
+        /* margin-left: 0; */
+        margin: 5 5px;
+    }
 }
 
 
@@ -142,10 +176,10 @@
     transition: background .2s ease-in-out, border .2s ease-in-out;
   }
   
-  .drop-container:hover {
+.drop-container:hover {
     background: #eee;
     border-color: #111;
-  }
+}
   
 .drop-container:hover .drop-title {
     color: #222;
