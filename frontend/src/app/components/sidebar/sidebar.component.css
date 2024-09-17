@@ -19,6 +19,7 @@
     transition: 0.5s;
     background-color: #ffffff95;
     color: #072540 !important;
+    cursor: pointer;
 }
 
 .bi{
@@ -42,3 +43,7 @@
     background-color: #79ACEE;
     transition: 0.5s;
 } */
+
+.text-sidebar {
+    white-space: nowrap;
+}

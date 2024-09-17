@@ -22,27 +22,38 @@
 
         <div class="about mt-2" *ngFor="let item of user">
             <form [formGroup]="profileForm" class="d-flex flex-column col-7" >
-                <label for="">Name</label>
-                <input type="text"  formControlName="name" >
-                <label for="">Age</label>
-                <input type="text"  formControlName="age" >
-                <label for="">Email</label>
-                <input type="text" formControlName="email" >
-                <label for="">Institute</label>
-                <input type="text" formControlName="institute" >
-                <label for="">Major</label>
-                <input type="text" formControlName="major" >
+                <label for="">ชื่อ-นาทสกุล</label>
+                <input type="text" class="input-form" formControlName="name" >
+                <label for="">อายุ</label>
+                <input type="text" class="input-form" formControlName="age" >
+                <label for="">อีเมล</label>
+                <input type="text" class="input-form" formControlName="email" >
+                <label for="">สำนัก</label>
+                <select class="input-form" formControlName="institute">
+                    <option selected>Open this select menu</option>
+                    <option value="Science">Science</option>
+                    <option value="Social Technology">Social Technology</option>
+                    <option value="Food Technology">Food Technology</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Medicine">Medicine</option>
+                    <option value="Nurses">Nurses</option>
+                    <option value="Dentistry">Dentistry</option>
+                    <option value="Public Health">Public Health</option>
+                    <option value="Digital Arts and Science">Digital Arts and Science</option>
+                  </select>
+                <label for="">สาขา</label>
+                <input type="text" class="input-form" formControlName="major" >
                 <label for="">Facebook</label>
-                <input type="text" formControlName="facebook" >
+                <input type="text" class="input-form" formControlName="facebook" >
                 <label for="">Instagram</label>
-                <input type="text" formControlName="instagram">
+                <input type="text" class="input-form" formControlName="instagram">
                 <label for="">Tiktok</label>
-                <input type="text" formControlName="tiktok" >
+                <input type="text" class="input-form" formControlName="tiktok" >
 
                 <label for="images" class="drop-container" id="dropcontainer">
                     <span class="drop-title">Drop files here</span>
                     or
-                    <input type="file" id="images" accept="image/*" formControlName="image" (change)="onFileChange($event)" required>
+                    <input type="file" id="images" class="input-form" accept="image/*" formControlName="image" [disabled]="isDisabled" (change)="onFileChange($event)" required>
                 </label>
 
                 <span class="button-group">

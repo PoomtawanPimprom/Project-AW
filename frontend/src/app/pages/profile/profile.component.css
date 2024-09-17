@@ -1,6 +1,5 @@
 .background-profile {
-    background-color: #508C9B;
-    background: linear-gradient(to top, #508C9B, #EEEEEE);
+    background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);
     padding: 5rem 0;
 }
 
@@ -47,7 +46,7 @@
 }
 
 
-.about form input {
+.about form .input-form {
     border: 1px solid #ccc;
     border-radius: 5px; 
     padding: 0.5rem;
@@ -208,7 +207,7 @@ input[type=file]::file-selector-button {
         width: 100%;
     }
 
-    .about form input {
+    .about form .input-form {
         width: 100%;
     }
 }
