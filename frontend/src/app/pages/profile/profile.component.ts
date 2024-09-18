@@ -19,6 +19,7 @@ export class ProfileComponent {
   selectUserId!: string;
 
   isDisabled: boolean = true;
+  showDropImage: boolean = false;
 
   constructor(private http: HttpClient, private fb: FormBuilder) { 
     this.profileForm = this.fb.group({
@@ -81,6 +82,8 @@ export class ProfileComponent {
         })
         this.toggleFields();
         this.profileForm.reset();
+        this.showDropImage = false;
+        
     }
     
   }
@@ -101,13 +104,16 @@ export class ProfileComponent {
   }  
 
   toggleFields() {
+    this.showDropImage = !this.showDropImage;
     if (this.isDisabled) {
       this.profileForm.enable();
     } else {
       this.profileForm.disable();
     }
     this.isDisabled = !this.isDisabled;
+
   }
   
+
 
 }
