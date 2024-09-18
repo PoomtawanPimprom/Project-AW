@@ -56,7 +56,7 @@ export class LoginComponent {
               this.showAlert = false;
             }, 2000);
           } else {
-            this.alertMessage = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+            this.alertMessage = 'รหัสผ่านไม่ถูกต้อง';
             this.showAlert = true;
             setTimeout(() => {
               this.showAlert = false;

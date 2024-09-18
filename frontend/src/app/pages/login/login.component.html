@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert" [ngClass]="{
         'alert-success': alertMessage === 'เข้าสู่ระบบสำเร็จ',
-        'alert-danger': alertMessage === 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง' || alertMessage === 'ไม่พบข้อมูลผู้ใช้งาน' || alertMessage === 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ'
+        'alert-danger': alertMessage === 'รหัสผ่านไม่ถูกต้อง' || alertMessage === 'ไม่พบข้อมูลผู้ใช้งาน' || alertMessage === 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ'
       }">
         {{ alertMessage }}
     </div>

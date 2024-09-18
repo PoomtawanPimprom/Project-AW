@@ -24,6 +24,7 @@ export class FriendRequestComponent implements OnInit {
   // ตัวแปรสำหรับเก็บข้อความแจ้งเตือน
   alertMessage: string = '';
   showAlert: boolean = false;
+  event: Event[] = [];
 
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
@@ -36,6 +37,7 @@ export class FriendRequestComponent implements OnInit {
 
     this.fetchFriendData()
     this.applyFilter(); 
+
   }
 
   fetchFriendData() {
@@ -61,6 +63,18 @@ export class FriendRequestComponent implements OnInit {
       error: error => console.error('Error fetching user:', error)
     });
     
+    const username = localStorage.getItem('username');
+    
+    if (username) {
+      this.fs.getEventsByCreator(username).subscribe({
+        next: (data) => {
+          this.event = data;
+        },
+        error: (err) => {
+          console.error('Error fetching events by creator:', err);
+        }
+      });
+    }
   }  
   
 
