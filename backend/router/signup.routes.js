@@ -82,6 +82,7 @@ router.post('/', async (req, res) => {
             username: req.body.username,
             password: hashPassword,
             email: req.body.email,
+            image: "https://img5.pic.in.th/file/secure-sv1/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg", // default profile
         }
 
         const result = await insertUser(payload);
