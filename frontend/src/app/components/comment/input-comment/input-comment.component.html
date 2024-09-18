@@ -31,8 +31,8 @@
                     style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column; background-color: #123f66; flex-wrap: unset;">
                     <div class="card-body" style="padding: 10px;">
                         <div style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
-                            <div class="rounded-circle bg-primary"
-                                style="height: 40px; width: 40px; margin-right: 10px;">
+                            <div class="rounded-circle " style="height: 40px; width: 40px; margin-right: 10px;">
+                                <img [src]="comment.userId.image" alt="">
                             </div>
                             <div style="display: flex; width: 20% ; margin-right: 10px; color: white;">
                                 {{ comment.userId.name}}
@@ -87,8 +87,8 @@
                                 <div style="padding: 0px;">
                                     <div
                                         style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
-                                        <div class="rounded-circle bg-primary"
-                                            style="height: 40px; width: 40px; margin-right: 10px;">
+                                        <div style="height: 40px; width: 40px; margin-right: 10px;">
+                                            <img [src]="comment.userId.image" alt="">
                                         </div>
                                         <div style="display: flex; width: 20% ; margin-right: 10px;">
                                             {{ data.userId.name}}
