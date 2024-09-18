@@ -23,6 +23,8 @@ export class FriendComponent implements OnInit {
   alertMessage: string = '';
   showAlert: boolean = false;
   event: Event[] = [];
+
+  isLoading: boolean = false;
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
@@ -99,6 +101,7 @@ export class FriendComponent implements OnInit {
   }
 
   deleteFriend(friend: Friend): void {
+    this.isLoading = true;
     const userId1 = friend.userId1._id === this.objectID_user ? friend.userId1._id : friend.userId2._id;
     const userId2 = friend.userId1._id === this.objectID_user ? friend.userId2._id : friend.userId1._id;
     
@@ -109,10 +112,12 @@ export class FriendComponent implements OnInit {
         this.showAlert = true;
         this.fetchFriendData(); // อัพเดทรายการเพื่อนหลังจากลบแล้ว
         this.applyFilter(); 
-        // Refresh the page after success
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);  // Reloads the page after a 1-second delay
+
+        // ตั้งเวลาให้หน้าโหลดแสดงผลสักพักก่อนรีเฟรชหน้า
+      setTimeout(() => {
+        this.isLoading = false;  // ซ่อนหน้าโหลด
+        window.location.reload(); // รีเฟรชหน้า
+      }, 3000); // แสดงหน้าโหลดเป็นเวลา 2 วินาที
       },
       (error) => {
         console.error('Error deleting friend:', error);

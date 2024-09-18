@@ -25,6 +25,7 @@ export class FriendRequestComponent implements OnInit {
   alertMessage: string = '';
   showAlert: boolean = false;
   event: Event[] = [];
+  isLoading: boolean = false;
 
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
@@ -78,6 +79,8 @@ export class FriendRequestComponent implements OnInit {
   }  
   
   acceptedFriend(user2: any): void {
+    this.isLoading = true;
+
     if (user2 && user2._id) {
       this.userId2 = user2._id;  // ดึงค่า _id ของ user2
     } else {
@@ -99,10 +102,10 @@ export class FriendRequestComponent implements OnInit {
         this.fetchFriendData();
         this.applyFilter(); 
   
-        // Refresh the page after success
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);  // Reloads the page after a 1-second delay
+          this.isLoading = false;  // ซ่อนหน้าโหลด
+          window.location.reload(); // รีเฟรชหน้า
+        }, 3000); // แสดงหน้าโหลดเป็นเวลา 2 วินาที
       },
       error => {
         console.error('Error updating friend status:', error);
@@ -136,6 +139,8 @@ export class FriendRequestComponent implements OnInit {
   }
 
   deleteFriend(friend: Friend): void {
+    this.isLoading = true;
+
     const userId1 = friend.userId1._id === this.objectID_user ? friend.userId1._id : friend.userId2._id;
     const userId2 = friend.userId1._id === this.objectID_user ? friend.userId2._id : friend.userId1._id;
     
@@ -146,10 +151,11 @@ export class FriendRequestComponent implements OnInit {
         this.showAlert = true;
         this.fetchFriendData(); // อัพเดทรายการเพื่อนหลังจากลบแล้ว
         this.applyFilter(); 
-        // Refresh the page after success
+
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);  // Reloads the page after a 1-second delay
+          this.isLoading = false;  // ซ่อนหน้าโหลด
+          window.location.reload(); // รีเฟรชหน้า
+        }, 3000); // แสดงหน้าโหลดเป็นเวลา 2 วินาที
       },
       (error) => {
         console.error('Error deleting friend:', error);

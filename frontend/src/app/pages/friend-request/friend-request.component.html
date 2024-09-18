@@ -1,4 +1,6 @@
+<app-loading *ngIf="isLoading"></app-loading>
 <app-navbar/>
+<div *ngIf="!isLoading">
 <div class="container-fluid" style="background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);">
     <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert"[ngClass]="{
         'alert-success': alertMessage === 'เป็นเพื่อนกันแล้ว' || alertMessage === 'ลบเพื่อนสำเร็จ',
@@ -85,4 +87,5 @@
             </div>                
         </div>
     </div>
+</div>
 </div>

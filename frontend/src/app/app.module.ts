@@ -23,6 +23,7 @@ import { InputCommentComponent } from './components/comment/input-comment/input-
 import { ShowCommentComponent } from './components/comment/show-comment/show-comment.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RegisterComponent } from './pages/register/register.component';
     ShowCommentComponent,
     LoginComponent,
     RegisterComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
