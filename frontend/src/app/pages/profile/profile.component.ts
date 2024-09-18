@@ -4,7 +4,7 @@ import { userInterface } from '../../interfaces/user.model';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { handleFileChange } from '../../customs/imageUtils';
-import { ProfileService } from '../../service/profle/profile.service';
+import { ProfileService } from '../../service/profile/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,15 +14,16 @@ import { ProfileService } from '../../service/profle/profile.service';
 export class ProfileComponent {
   private route = inject(ActivatedRoute);
   id!: string;
-  user: userInterface[] = [];
+  user!: userInterface;
   profileForm: FormGroup;
   imageBase64!: string;
   selectUserId!: string;
 
   isDisabled: boolean = true;
   showDropImage: boolean = false;
+  obj_id!: string;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private eventService: ProfileService,) { 
+  constructor(private http: HttpClient, private fb: FormBuilder, private eventService: ProfileService) { 
     this.profileForm = this.fb.group({
       username: [{ value: '', disabled: true }],
       name: [{ value: '', disabled: true }],
@@ -38,33 +39,30 @@ export class ProfileComponent {
    }
 
   ngOnInit(){
-    this.route.paramMap.subscribe((params) => {
-      this.id = params.get("id")!;
-    })
+    this.obj_id = localStorage.getItem('_id') || '';
     this.fetchUserData();
   }
 
   fetchUserData() {
-    this.eventService.getUserById(this.id)
+    this.eventService.getUserByObjectId(this.obj_id)
       .subscribe(result => {
         this.user = result;
         console.log(result);
         this.profileForm.patchValue({
-          username: this.user[0].username,
-          name: this.user[0].name,
-          email: this.user[0].email,
-          institute: this.user[0].institute,
-          major: this.user[0].major,
-          age: this.user[0].age,
-          facebook: this.user[0].facebook,
-          instagram: this.user[0].instagram,
-          tiktok: this.user[0].tiktok,
-          image: this.user[0].image
+          username: this.user.username,
+          name: this.user.name,
+          email: this.user.email,
+          institute: this.user.institute,
+          major: this.user.major,
+          age: this.user.age,
+          facebook: this.user.facebook,
+          instagram: this.user.instagram,
+          tiktok: this.user.tiktok,
+          image: this.user.image
         });
       }
     )
   }
-
 
   updateUser(_id: string) {
     if (this.isDisabled === true) {
@@ -105,7 +103,5 @@ export class ProfileComponent {
     }
     this.isDisabled = !this.isDisabled;
   }
-  
-
 
 }

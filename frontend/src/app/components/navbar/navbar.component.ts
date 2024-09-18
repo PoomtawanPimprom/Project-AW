@@ -21,9 +21,9 @@ export class NavbarComponent implements OnInit {
   }
 
   onViewProfile(): void {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.router.navigate([`/profile/${userId}`]);
+    const objectId = localStorage.getItem('_id');
+    if (objectId) {
+      this.router.navigate([`/profile/${objectId}`]);
     } else {
       console.log('User ID is not available');
     }

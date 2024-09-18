@@ -8,7 +8,7 @@ import { userInterface } from '../../interfaces/user.model';
 })
 export class ProfileService {
 
-  private apiUrl = 'http://localhost:3000/participant';
+  private apiUrl = 'http://localhost:3000/user';
 
   constructor(private http: HttpClient) { }
 
@@ -20,12 +20,8 @@ export class ProfileService {
     });
   }
 
-  getUserById(id: string ):Observable<userInterface[]> {
-    return this.http.get<userInterface[]>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() })
-
+  getUserByObjectId(object_id: string):Observable<userInterface> {
+    return this.http.get<userInterface>(`${this.apiUrl}/userData/${object_id}`, { headers: this.getAuthHeaders() })
   }
-
-
-
-
+  
 }
