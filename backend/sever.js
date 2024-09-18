@@ -20,9 +20,9 @@ const signUpRouter = require("./router/signup.routes")
 
 // Use Cors Middleware
 app.use(cors({
-    origin: 'http://localhost:4200',  // กำหนด origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // กำหนดวิธีการที่อนุญาต
-    allowedHeaders: ['Content-Type', 'Authorization'],  // กำหนด headers ที่อนุญาต
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Option'],
 }));
 
 app.use(morgan('dev'));
@@ -56,3 +56,15 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
 });
+
+// Gracefully handle MongoDB disconnection when server stops
+process.on('SIGINT', async () => {
+    try {
+        await mongoose.connection.close();
+        console.log('MongoDB connection closed.');
+        process.exit(0);
+    } catch (err) {
+        console.error('Error closing MongoDB connection:', err);
+        process.exit(1);
+    }
+}); // for use command : node .\server.js
