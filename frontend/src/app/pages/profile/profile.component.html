@@ -9,8 +9,9 @@
             <div class="head">
                 <h1 class="h3">{{item.name}}</h1>
                 <p>{{item.email}}</p>
-                <p>Age: {{item.age}}</p>
-                <p>Major: {{item.major}}</p>
+                <p>อายุ: {{item.age}}</p>
+                <p>สำนักวิชา: {{item.institute}}</p>
+                <p>สาขาวิชา: {{item.major}}</p>
             </div>
             <div class="social">
                 <a [href]="item.facebook" target="_blank"><i class="bi bi-facebook mx-3 mt-5"></i></a>
@@ -22,32 +23,45 @@
 
         <div class="about mt-2" *ngFor="let item of user">
             <form [formGroup]="profileForm" class="d-flex flex-column col-7" >
-                <label for="">Name</label>
-                <input type="text"  formControlName="name" >
-                <label for="">Age</label>
-                <input type="text"  formControlName="age" >
-                <label for="">Email</label>
-                <input type="text" formControlName="email" >
-                <label for="">Institute</label>
-                <input type="text" formControlName="institute" >
-                <label for="">Major</label>
-                <input type="text" formControlName="major" >
+                <label for="">ชื่อ-นามสกุล</label>
+                <input type="text" class="input-form" formControlName="name" >
+                <label for="">อายุ</label>
+                <input type="text" class="input-form" formControlName="age" >
+                <label for="">อีเมล</label>
+                <input type="text" class="input-form" formControlName="email" >
+                <label for="">สำนัก</label>
+                <select class="input-form" formControlName="institute">
+                    <option selected>เลือกสำนักวิชา</option>
+                    <option value="สำนักวิชาวิทยาศาสตร์">สำนักวิชาวิทยาศาสตร์</option>
+                    <option value="สำนักวิชาเทคโนโลยีสังคม">สำนักวิชาเทคโนโลยีสังคม</option>
+                    <option value="สำนักวิชาเทคโนโลยีการเกษตร">สำนักวิชาเทคโนโลยีการเกษตร</option>
+                    <option value="สำนักวิชาวิศวกรรมศาสตร์">สำนักวิชาวิศวกรรมศาสตร์</option>
+                    <option value="สำนักวิชาแพทยศาสตร์">สำนักวิชาแพทยศาสตร์</option>
+                    <option value="สำนักวิชาพยาบาลศาสตร์">สำนักวิชาพยาบาลศาสตร์</option>
+                    <option value="สำนักวิชาทันตแพทยศาสตร์">สำนักวิชาทันตแพทยศาสตร์</option>
+                    <option value="สำนักวิชาสาธารณสุขศาสตร์">สำนักวิชาสาธารณสุขศาสตร์</option>
+                    <option value="สำนักวิชาศาสตร์และศิลป์ดิจิทัล">สำนักวิชาศาสตร์และศิลป์ดิจิทัล</option>
+                  </select>
+                <label for="">สาขาวิชา</label>
+                <input type="text" class="input-form" formControlName="major" >
                 <label for="">Facebook</label>
-                <input type="text" formControlName="facebook" >
+                <input type="text" class="input-form" formControlName="facebook" >
                 <label for="">Instagram</label>
-                <input type="text" formControlName="instagram">
+                <input type="text" class="input-form" formControlName="instagram">
                 <label for="">Tiktok</label>
-                <input type="text" formControlName="tiktok" >
+                <input type="text" class="input-form" formControlName="tiktok" >
 
-                <label for="images" class="drop-container" id="dropcontainer">
-                    <span class="drop-title">Drop files here</span>
-                    or
-                    <input type="file" id="images" accept="image/*" formControlName="image" (change)="onFileChange($event)" required>
-                </label>
+                <div *ngIf="showDropImage">
+                    <label for="images" class="drop-container" id="dropcontainer">
+                        <span class="drop-title">Drop files here</span>
+                        or
+                        <input type="file" id="images" class="input-form" accept="image/*" formControlName="image" [disabled]="isDisabled" (change)="onFileChange($event)" required>
+                    </label>
+                </div>
 
                 <span class="button-group">
-                    <button type="button" (click)="toggleFields()" class="button-sub" >Edit</button>
-                    <button (click)="onClickUpdateUser(item._id)" class="button-sub" role="button">Save Change <i class="bi bi-save"></i></button>
+                    <button type="button" (click)="toggleFields()" class="button-sub" >แก้ไข</button>
+                    <button (click)="onClickUpdateUser(item._id)" class="button-sub" role="button">บันทึกข้อมูล <i class="bi bi-save"></i></button>
                 </span>
                 
             </form>
