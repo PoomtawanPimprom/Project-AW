@@ -77,35 +77,41 @@ export class FriendRequestComponent implements OnInit {
     }
   }  
   
-
-acceptedFriend(user2: any): void {
-  if (user2 && user2._id) {
-    this.userId2 = user2._id;  // ดึงค่า _id ของ user2
-  } else {
-    console.error('User2 does not have _id');
-    return;
+  acceptedFriend(user2: any): void {
+    if (user2 && user2._id) {
+      this.userId2 = user2._id;  // ดึงค่า _id ของ user2
+    } else {
+      console.error('User2 does not have _id');
+      return;
+    }
+    
+    if (!this.objectID_user || !this.userId2) {
+      console.error('User IDs are required');
+      return;
+    }
+  
+    this.fs.updateFriendStatusAccepted(this.objectID_user, this.userId2).subscribe(
+      response => {
+        console.log('Friend status updated successfully:', response);
+        this.alertMessage = 'เป็นเพื่อนกันแล้ว'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+        this.showAlert = true;
+  
+        this.fetchFriendData();
+        this.applyFilter(); 
+  
+        // Refresh the page after success
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);  // Reloads the page after a 1-second delay
+      },
+      error => {
+        console.error('Error updating friend status:', error);
+        this.alertMessage = 'เกิดข้อผิดพลาดโปรดลองใหม่'; // ตั้งค่าข้อความเมื่อเกิดข้อผิดพลาด
+        this.showAlert = true;
+      }
+    );
   }
   
-  if (!this.objectID_user || !this.userId2) {
-    console.error('User IDs are required');
-    return;
-  }
-
-  this.fs.updateFriendStatusAccepted(this.objectID_user, this.userId2).subscribe(
-    response => {
-      console.log('Friend status updated successfully:', response);
-      this.alertMessage = 'เป็นเพื่อนกันแล้ว'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
-      this.showAlert = true;
-      this.fetchFriendData();
-      this.applyFilter(); 
-    },
-    error => {
-      console.error('Error updating friend status:', error);
-      this.alertMessage = 'เกิดข้อผิดพลาดโปรดลองใหม่'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
-      this.showAlert = true;
-    }
-  );
-}
   // ฟังก์ชันค้นหาเพื่อน
   onSearchFriend(): void {
     this.applyFilter(); // กรองข้อมูลเพื่อนเมื่อทำการค้นหา

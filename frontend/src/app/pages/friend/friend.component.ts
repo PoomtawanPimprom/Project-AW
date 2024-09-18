@@ -109,6 +109,10 @@ export class FriendComponent implements OnInit {
         this.showAlert = true;
         this.fetchFriendData(); // อัพเดทรายการเพื่อนหลังจากลบแล้ว
         this.applyFilter(); 
+        // Refresh the page after success
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);  // Reloads the page after a 1-second delay
       },
       (error) => {
         console.error('Error deleting friend:', error);
