@@ -20,9 +20,9 @@ const signUpRouter = require("./router/signup.routes")
 
 // Use Cors Middleware
 app.use(cors({
-    origin: 'http://localhost:4200',  // กำหนด origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // กำหนดวิธีการที่อนุญาต
-    allowedHeaders: ['Content-Type', 'Authorization'],  // กำหนด headers ที่อนุญาต
+    origin: 'http://localhost:4200', // กำหนด origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // กำหนดวิธีการที่อนุญาต
+    allowedHeaders: ['Content-Type', 'Authorization', 'Option'], // กำหนด headers ที่อนุญาต
 }));
 
 app.use(morgan('dev'));
