@@ -56,9 +56,9 @@
 
 /* CSS */
 .button-sub {
-    background: #508C9B;
+    background: #072540;
     border-radius: 999px;
-    box-shadow: #508C9B 0 10px 20px -10px;
+    box-shadow: #072540 0 10px 20px -10px;
     box-sizing: border-box;
     color: #FFFFFF;
     cursor: pointer;
@@ -83,7 +83,7 @@
 
 .button-sub:hover {
     background: #FFFFFF;
-    color: #508C9B;
+    color: #072540;
 }
 
 .button-group {
