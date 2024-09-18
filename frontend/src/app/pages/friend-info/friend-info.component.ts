@@ -50,14 +50,22 @@ export class FriendInfoComponent implements OnInit {
 
   pendingFriend(user1: any): void {
     if (user1 && user1._id) {
-      this.userId1 = user1._id;  // ดึงค่า _id ของ user2
+      this.userId1 = user1._id;  // ดึงค่า _id ของ user1
     } else {
       console.error('User1 does not have _id');
       return;
     }
-
+  
     if (!this.userId1 || !this.objectID_user) {
       console.error('User IDs are required');
+      return;
+    }
+  
+    // ตรวจสอบว่า userId1 และ objectID_user เป็นผู้ใช้คนเดียวกันหรือไม่
+    if (this.userId1 === this.objectID_user) {
+      console.error('Cannot add yourself as a friend');
+      this.alertMessage = 'ไม่สามารถเพิ่มตัวเองเป็นเพื่อนได้'; // ข้อความแจ้งเตือน
+      this.showAlert = true;
       return;
     }
   
@@ -71,11 +79,12 @@ export class FriendInfoComponent implements OnInit {
       },
       error => {
         console.error('Error add friend:', error);
-        this.alertMessage = 'เกิดข้อผิดพลาดโปรดลองใหม่'; // ตั้งค่าข้อความเมื่อทำสำเร็จ
+        this.alertMessage = 'เกิดข้อผิดพลาดโปรดลองใหม่'; // ตั้งค่าข้อความเมื่อเกิดข้อผิดพลาด
         this.showAlert = true;
       }
     );
   }
+  
   
 
   // ฟังก์ชันค้นหาเพื่อน
@@ -108,6 +117,9 @@ export class FriendInfoComponent implements OnInit {
   }
 
   closeModal(): void {
-    this.selectedFriend = null; // Close the modal by setting selectedFriend to null
-  }
+  this.selectedFriend = null; // ล้างค่า friend ที่เลือก
+  this.alertMessage = '';     // ล้างข้อความแจ้งเตือน (ถ้ามีการแจ้งเตือนใน modal)
+  this.showAlert = false;     // ซ่อนการแจ้งเตือน
+}
+
 }

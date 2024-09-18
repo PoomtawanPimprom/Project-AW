@@ -40,7 +40,7 @@
                                 <button class="btn btn-secondary btn-sm w-100 main-btn" 
                                     style="border: none; background: #79ACEE;"
                                     (click)="openFriendModal(item)">
-                                    {{ isPendingRequest(item) ? 'รอดำเนินการ' : 'เพิ่มเติม' }}
+                                    เพิ่มเติม
                                 </button>    
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="modal-bg " role="document">
                             <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert"[ngClass]="{
                                 'alert-success': alertMessage === 'เพิ่มเพื่อนสำเร็จ',
-                                'alert-danger': alertMessage === 'เกิดข้อผิดพลาดโปรดลองใหม่'
+                                'alert-danger': alertMessage === 'เกิดข้อผิดพลาดโปรดลองใหม่' || alertMessage === 'ไม่สามารถเพิ่มตัวเองเป็นเพื่อนได้'
                             }">
                                 {{ alertMessage }}
                             </div>
@@ -73,7 +73,8 @@
                                             </div>
                                             <div class="actionBtns">
                                                 <div class="left">
-                                                    <i class="bi bi-heart-fill" style="color: rgb(255, 102, 133);"></i>
+                                                    <i class="bi bi-heart"></i>
+                                                    <!-- <i class="bi bi-heart-fill" style="color: rgb(255, 102, 133);"></i> -->
                                                     <i class="bi bi-chat"></i>
                                                     <i class="bi bi-send"></i>
                                                 </div>
