@@ -57,48 +57,53 @@ router.put('/:object_userId', async (req, res) => {
         return res.status(400).json(err.message);
     }
 });
-
 // POST เพิ่มเพื่อน
 router.post('/addFriend', async (req, res) => {
     const { userId1, userId2 } = req.body;
 
+    // ตรวจสอบว่า User IDs ถูกส่งมาครบ
     if (!userId1 || !userId2) {
-    return res.status(400).json({ message: 'User IDs are required' });
+        return res.status(400).json({ message: 'User IDs are required' });
+    }
+
+    // ตรวจสอบว่า userId1 และ userId2 เป็นผู้ใช้คนเดียวกันหรือไม่
+    if (userId1 === userId2) {
+        return res.status(400).json({ message: 'Cannot add yourself as a friend' });
     }
 
     try {
-    // ตรวจสอบว่าผู้ใช้ทั้งสองคนมีอยู่ในฐานข้อมูล
-    const user1 = await User.findById(userId1);
-    const user2 = await User.findById(userId2);
+        // ตรวจสอบว่าผู้ใช้ทั้งสองคนมีอยู่ในฐานข้อมูล
+        const user1 = await User.findById(userId1);
+        const user2 = await User.findById(userId2);
 
-    if (!user1 || !user2) {
-        return res.status(404).json({ message: 'User not found' });
-    }
+        if (!user1 || !user2) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
-    // ตรวจสอบว่าคำขอเพื่อนมีอยู่แล้วหรือไม่
-    const existingFriend = await Friend.findOne({
-        $or: [
-        { userId1: userId1, userId2: userId2 },
-        { userId1: userId2, userId2: userId1 }
-        ]
-    });
+        // ตรวจสอบว่าคำขอเพื่อนมีอยู่แล้วหรือไม่
+        const existingFriend = await Friend.findOne({
+            $or: [
+                { userId1: userId1, userId2: userId2 },
+                { userId1: userId2, userId2: userId1 }
+            ]
+        });
 
-    if (existingFriend) {
-        return res.status(400).json({ message: 'Friend request already exists' });
-    }
+        if (existingFriend) {
+            return res.status(400).json({ message: 'Friend request already exists' });
+        }
 
-    // สร้างคำขอเพื่อนใหม่
-    const newFriend = new Friend({
-        userId1,
-        userId2,
-        status: 'pending',
-        createAt: new Date()
-    });
+        // สร้างคำขอเพื่อนใหม่
+        const newFriend = new Friend({
+            userId1,
+            userId2,
+            status: 'pending',
+            createAt: new Date()
+        });
 
-    await newFriend.save();
-    return res.status(201).json(newFriend);
+        await newFriend.save();
+        return res.status(201).json(newFriend);
     } catch (err) {
-    return res.status(500).json(err);
+        return res.status(500).json(err);
     }
 });
 
