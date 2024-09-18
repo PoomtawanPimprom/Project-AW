@@ -4,6 +4,7 @@ import { userInterface } from '../../interfaces/user.model';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { handleFileChange } from '../../customs/imageUtils';
+import { ProfileService } from '../../service/profle/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,7 @@ export class ProfileComponent {
   isDisabled: boolean = true;
   showDropImage: boolean = false;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) { 
+  constructor(private http: HttpClient, private fb: FormBuilder, private eventService: ProfileService,) { 
     this.profileForm = this.fb.group({
       username: [{ value: '', disabled: true }],
       name: [{ value: '', disabled: true }],
@@ -44,7 +45,7 @@ export class ProfileComponent {
   }
 
   fetchUserData() {
-    this.http.get<userInterface[]>(`http://localhost:3000/user/${this.id}`)
+    this.eventService.getUserById(this.id)
       .subscribe(result => {
         this.user = result;
         console.log(result);
@@ -60,32 +61,25 @@ export class ProfileComponent {
           tiktok: this.user[0].tiktok,
           image: this.user[0].image
         });
-        // console.log(this.profileForm);
       }
     )
   }
 
 
   updateUser(_id: string) {
-
     if (this.isDisabled === true) {
-
     } else {
       const user = { 
         user:this.profileForm.value 
       }
-      
       this.http.put(`http://localhost:3000/user/${_id}`,user )
         .subscribe(result => {
-  
           this.fetchUserData();
         })
         this.toggleFields();
         this.profileForm.reset();
         this.showDropImage = false;
-        
     }
-    
   }
 
   async onClickUpdateUser(_id:string) {
@@ -99,7 +93,6 @@ export class ProfileComponent {
       this.profileForm.patchValue({
         image: this.imageBase64
       });
-      console.log(this.imageBase64);
     });
   }  
 
@@ -111,7 +104,6 @@ export class ProfileComponent {
       this.profileForm.disable();
     }
     this.isDisabled = !this.isDisabled;
-
   }
   
 
