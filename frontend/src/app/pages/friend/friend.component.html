@@ -1,5 +1,5 @@
 <app-navbar/>
-<div class="container-fluid" style="background: #f7f4fb;">
+<div class="container-fluid" style="background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);">
     <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert"[ngClass]="{
         'alert-success': alertMessage === 'ลบเพื่อนสำเร็จ',
         'alert-danger': alertMessage === 'เกิดข้อผิดพลาดโปรดลองใหม่'
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-6">
                             <p class="mb-0 h5" style="color: #082540;">{{event.length}}</p>
-                            <small class="text-muted">Post</small>
+                            <small class="text-muted">Event</small>
                         </div>
                     </div>
                 </div>

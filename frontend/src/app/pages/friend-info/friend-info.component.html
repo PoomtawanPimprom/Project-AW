@@ -1,10 +1,10 @@
 <app-navbar/>
-<div class="container-fluid" style="background: #f4f9fb;">
+<div class="container-fluid" style="background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);">
     <div class="row">
         <div class="col-sm-12 my-3">
             <div class="main-content" id="main-content">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2 style="color: #082540; margin-left: 20px;">หาเพื่อน</h2>
+                    <h2 style="color: #082540; margin-left: 40px;">หาเพื่อน</h2>
                     <div class="d-flex">
                         <input 
                         type="text" 
@@ -14,9 +14,14 @@
                         [(ngModel)]="search" 
                         (ngModelChange)="onSearchFriend()"
                     >
+                    
                     <a class="btn"
-                        href="/friendRequest"
-                        style="width: 200px; border-radius: 10px; color: #082540; border: none;">คำขอเป็นเพื่อน</a>
+                    href="/friendRequest"
+                    style="width: 200px; border-radius: 10px; color: #082540; border: none;">คำขอเป็นเพื่อน</a>
+                    <a class="btn"
+                        href="/friend"
+                        style="width: 200px; border-radius: 10px; color: #082540; border: none;">เพื่อนของคุณ</a>
+                    
                     </div>
                 </div>
                 <div class="row">
@@ -25,7 +30,7 @@
                         <app-sidebar (filterInstitute)="onFilterInstitute($event)"></app-sidebar>
                     </div>
                 </div>
-                <div class="col-md-9" style="height: 87vh; overflow-x: auto;">
+                <div class="col-md-9" style="height: 87vh; overflow-x: auto; margin-top: 3px;">
                     <div class="friends-container">
                         <div class="friend-wrapper" *ngFor="let item of filteredUser; let i = index">
                             <div class="friend-card" 

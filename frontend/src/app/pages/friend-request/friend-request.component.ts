@@ -78,7 +78,7 @@ export class FriendRequestComponent implements OnInit {
   }  
   
 
-  acceptedFriend(user2: any): void {
+acceptedFriend(user2: any): void {
   if (user2 && user2._id) {
     this.userId2 = user2._id;  // ดึงค่า _id ของ user2
   } else {
@@ -105,7 +105,6 @@ export class FriendRequestComponent implements OnInit {
       this.showAlert = true;
     }
   );
-
 }
   // ฟังก์ชันค้นหาเพื่อน
   onSearchFriend(): void {
