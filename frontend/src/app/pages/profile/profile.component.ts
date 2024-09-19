@@ -70,7 +70,7 @@ export class ProfileComponent {
       const user = { 
         user:this.profileForm.value 
       }
-      this.http.put(`http://localhost:3000/user/${_id}`,user )
+      this.eventService.updateUserByObjectId(_id, user)
         .subscribe(result => {
           this.fetchUserData();
         })
@@ -81,7 +81,7 @@ export class ProfileComponent {
   }
 
   async onClickUpdateUser(_id:string) {
-    console.log("_id",_id)
+    // console.log("_id",_id)
     this.updateUser(_id);
   }
 
