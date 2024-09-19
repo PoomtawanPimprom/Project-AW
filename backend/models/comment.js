@@ -3,7 +3,7 @@ const Event = require("../models/event");
 const User = require("../models/user");
 const commentSchema = new mongoose.Schema({
     comment: String,
-    eventId: Number,
+    eventObjId: String,
     createdAt: Date,
     updateAt: Date,
     userId: {
