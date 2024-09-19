@@ -18,7 +18,7 @@ export class CommentService {
     })
   }
 
-  getCommentByEventId(event_ObjectId: string): Observable<commentInterface[]> {
+  getCommentByEventObjectId(event_ObjectId: string): Observable<commentInterface[]> {
     return this.http.get<commentInterface[]>(`${this.apiURL}/${event_ObjectId}`, { headers: this.getAuthHeader() })
   }
 

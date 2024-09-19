@@ -29,7 +29,9 @@
                     <i class="bi bi-caret-up" *ngIf="dropdownshowstate"></i>
                 </div>
             </button>
-            <button class="btn btn-mean" (click)="onClickCreateCommet()">โพสต์ความคิดเห็น</button>
+            <button 
+                class="btn btn-mean"
+                (click)="onClickCreateCommet()">โพสต์ความคิดเห็น</button>
         </div>
         <div class="collapse" id="commentExample">
             <component-show-comment [comment]="inputCommentFormGroup.get('inputComment')?.value" />

@@ -59,7 +59,7 @@ export class InputCommentComponent implements OnInit {
   }
 
   fetchCommentData() {
-    this.CommentService.getCommentByEventId(this.objectID_event)
+    this.CommentService.getCommentByEventObjectId(this.objectID_event)
       .subscribe(result => {
         this.comments = result;
       })
@@ -99,9 +99,12 @@ export class InputCommentComponent implements OnInit {
   //Onclick 
   onClickCreateCommet() {
     const comment = this.inputCommentFormGroup.get("inputComment")?.value
+    if(comment === undefined || comment === ""){
+       return  ; 
+    }
     const dataComment = {
       comment: comment,
-      eventObjId: this.objectID_event,
+      event_objectId: this.objectID_event,
       object_userId: this.objectID_user
     }
     this.createComment(dataComment)
@@ -109,6 +112,9 @@ export class InputCommentComponent implements OnInit {
 
   onClickCreateReplyComment(objParentComment: string) {
     const comment = this.replyCommentFormGroup.get("replyComment")?.value
+    if(comment === undefined || comment === ""){
+      return  ; 
+   }
     const dataReply = {
       objParentComment: objParentComment,
       comment: comment,
