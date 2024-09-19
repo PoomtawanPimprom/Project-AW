@@ -1,5 +1,5 @@
+<app-navbar *ngIf="isNavbar"/>
 <app-loading *ngIf="isLoading"></app-loading>
-<app-navbar/>
 <div *ngIf="!isLoading">
 <div class="container-fluid" style="background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);">
     <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert"[ngClass]="{

@@ -26,6 +26,7 @@ export class FriendRequestComponent implements OnInit {
   showAlert: boolean = false;
   event: Event[] = [];
   isLoading: boolean = false;
+  isNavbar: boolean = true;
 
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
@@ -80,6 +81,7 @@ export class FriendRequestComponent implements OnInit {
   
   acceptedFriend(user2: any): void {
     this.isLoading = true;
+    this.isNavbar = false;
 
     if (user2 && user2._id) {
       this.userId2 = user2._id;  // ดึงค่า _id ของ user2
@@ -140,6 +142,7 @@ export class FriendRequestComponent implements OnInit {
 
   deleteFriend(friend: Friend): void {
     this.isLoading = true;
+    this.isNavbar = false;
 
     const userId1 = friend.userId1._id === this.objectID_user ? friend.userId1._id : friend.userId2._id;
     const userId2 = friend.userId1._id === this.objectID_user ? friend.userId2._id : friend.userId1._id;
