@@ -23,7 +23,7 @@ export class ProfileComponent {
   showDropImage: boolean = false;
   obj_id!: string;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private eventService: ProfileService) { 
+  constructor(private http: HttpClient, private fb: FormBuilder, private eventService: ProfileService) {
     this.profileForm = this.fb.group({
       username: [{ value: '', disabled: true }],
       name: [{ value: '', disabled: true }],
