@@ -7,29 +7,28 @@
                 [src]="user.image"
                 alt="profile" style="object-fit: cover;" />
             <div class="head">
-                <h1 class="h3">{{user.name}}</h1>
-                <p>{{user.email}}</p>
-                <p>อายุ: {{user.age}}</p>
-                <p>สำนักวิชา: {{user.institute}}</p>
-                <p>สาขาวิชา: {{user.major}}</p>
+                <h1 class="h3" style="display: flex; align-items: center;">{{user.name}} <small class="ml-2" style="font-size: 20px; font-weight: bold;">({{user.username.toUpperCase()}})</small></h1>
+                <p>อายุ {{user.age}} ปี</p>
+                <p>{{user.institute}}</p>
+                <p>สาขาวิชา{{user.major}}</p>
             </div>
             <div class="social">
                 <a [href]="user.facebook" target="_blank"><i class="bi bi-facebook mx-3 mt-5"></i></a>
-                <a [href]="user.tiktok" target="_blank"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
                 <a [href]="user.instagram" target="_blank"><i class="bi bi-instagram mx-3 mt-5"></i></a>
+                <a [href]="user.tiktok" target="_blank"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
             </div>
             
         </div>
 
         <div class="about mt-2">
             <form [formGroup]="profileForm" class="d-flex flex-column col-7" >
-                <label for="">ชื่อ-นามสกุล</label>
+                <label for="">ชื่อเล่น</label>
                 <input type="text" class="input-form" formControlName="name" >
                 <label for="">อายุ</label>
                 <input type="text" class="input-form" formControlName="age" >
                 <label for="">อีเมล</label>
                 <input type="text" class="input-form" formControlName="email" >
-                <label for="">สำนัก</label>
+                <label for="">สำนักวิชา</label>
                 <select class="input-form" formControlName="institute">
                     <option selected>เลือกสำนักวิชา</option>
                     <option value="สำนักวิชาวิทยาศาสตร์">สำนักวิชาวิทยาศาสตร์</option>
@@ -45,11 +44,11 @@
                 <label for="">สาขาวิชา</label>
                 <input type="text" class="input-form" formControlName="major" >
                 <label for="">Facebook</label>
-                <input type="text" class="input-form" formControlName="facebook" >
+                <input type="text" class="input-form" formControlName="facebook" placeholder="แนบลิงก์โปรไฟล์">
                 <label for="">Instagram</label>
-                <input type="text" class="input-form" formControlName="instagram">
+                <input type="text" class="input-form" formControlName="instagram" placeholder="แนบลิงก์โปรไฟล์">
                 <label for="">Tiktok</label>
-                <input type="text" class="input-form" formControlName="tiktok" >
+                <input type="text" class="input-form" formControlName="tiktok" placeholder="แนบลิงก์โปรไฟล์">
 
                 <div *ngIf="showDropImage">
                     <label for="images" class="drop-container" id="dropcontainer">
