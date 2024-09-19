@@ -8,8 +8,8 @@
                 alt="profile" style="object-fit: cover;" />
             <div class="head">
                 <h1 class="h3" style="display: flex; align-items: center;">{{user.name}} <small class="ml-2" style="font-size: 20px; font-weight: bold;">({{user.username.toUpperCase()}})</small></h1>
-                <p>อายุ {{user.age}} ปี</p>
-                <p>{{user.institute}}</p>
+                <p>อายุ {{user.age || 0}} ปี</p>
+                <p>{{user.institute ? user.institute : 'สำนักวิชา'}}</p>
                 <p>สาขาวิชา{{user.major}}</p>
             </div>
             <div class="social">
@@ -25,25 +25,25 @@
                 <label for="">ชื่อเล่น</label>
                 <input type="text" class="input-form" formControlName="name" >
                 <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert alert-danger">
-                    <div *ngIf="name?.errors?.['required']">กรุณาใส่ด้วยค่ะ</div>
-                    <div *ngIf="name?.errors?.['forbiddenWords']">ไม่หยายคายนะคะ!!!</div>
+                    <div *ngIf="name?.errors?.['required']">กรุณาระบุชื่อเล่น</div>
+                    <div *ngIf="name?.errors?.['forbiddenWords']">ไม่ควรมีคำหยาบในชื่อเล่น</div>
                 </div>
                 <label for="">อายุ</label>
                 <input type="text" class="input-form" formControlName="age" >
                 <div *ngIf="age?.invalid && (age?.dirty || age?.touched)" class="alert alert-danger">
-                    <div *ngIf="age?.errors?.['min']">กรุณาใส่ตามความจริง</div>
-                    <div *ngIf="age?.errors?.['max']">กรุณาใส่ตามความจริง</div>
-                    <div *ngIf="age?.errors?.['pattern']">กรุณาใส่อายุของท่าน</div>
+                    <div *ngIf="age?.errors?.['min']">อายุไม่ควรน้อยกว่า 3 ปี</div>
+                    <div *ngIf="age?.errors?.['max']">อายุไม่ควรเกิน 100 ปี</div>
+                    <div *ngIf="age?.errors?.['pattern']">กรุณาระบุอายุ</div>
                 </div>
                 <label for="">อีเมล</label>
                 <input type="email" class="input-form" formControlName="email" >
                 <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
-                    <div *ngIf="email?.errors?.['required']">กรุณาใส่อีเมล</div>
-                    <div *ngIf="email?.errors?.['email']">รูปแบบอีเมลไม่ถูกต้อง!!!</div>
+                    <div *ngIf="email?.errors?.['required']">กรุณาระบุอีเมล</div>
+                    <div *ngIf="email?.errors?.['email']">รูปแบบอีเมลไม่ถูกต้อง</div>
                 </div>
                 <label for="">สำนักวิชา</label>
                 <select class="input-form" formControlName="institute">
-                    <option selected>เลือกสำนักวิชา</option>
+                    <option selected disabled>เลือกสำนักวิชา</option>
                     <option value="สำนักวิชาวิทยาศาสตร์">สำนักวิชาวิทยาศาสตร์</option>
                     <option value="สำนักวิชาเทคโนโลยีสังคม">สำนักวิชาเทคโนโลยีสังคม</option>
                     <option value="สำนักวิชาเทคโนโลยีการเกษตร">สำนักวิชาเทคโนโลยีการเกษตร</option>
