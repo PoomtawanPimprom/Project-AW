@@ -18,12 +18,8 @@ export class CommentService {
     })
   }
 
-  getCommentByEventId(eventId: string): Observable<commentInterface[]> {
-    return this.http.get<commentInterface[]>(`${this.apiURL}/${eventId}`, { headers: this.getAuthHeader() })
-  }
-
-  deleteCommentByObID(_id: string) {
-    return this.http.delete(`${this.apiURL}/${_id}`, { headers: this.getAuthHeader() })
+  getCommentByEventId(event_ObjectId: string): Observable<commentInterface[]> {
+    return this.http.get<commentInterface[]>(`${this.apiURL}/${event_ObjectId}`, { headers: this.getAuthHeader() })
   }
 
   createComment(commentData: any) {
@@ -36,7 +32,11 @@ export class CommentService {
 
   updateComment(coment_id: string, commentData: any) {
     return this.http.put(`http://localhost:3000/comment/edit/${coment_id}`, { comment: commentData }, { headers: this.getAuthHeader() })
-
   }
+
+  deleteCommentByObID(_id: string) {
+    return this.http.delete(`${this.apiURL}/${_id}`, { headers: this.getAuthHeader() })
+  }
+
 
 }

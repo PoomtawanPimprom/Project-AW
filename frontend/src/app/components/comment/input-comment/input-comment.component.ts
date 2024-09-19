@@ -20,7 +20,8 @@ export class InputCommentComponent implements OnInit {
 
   selectUpdateCommentId!: string
   selectdeleteCommentId!: string
-  eventId!: string
+
+  objectID_event!: string
   objectID_user!: string | null
 
   comments: commentInterface[] = [];
@@ -31,17 +32,14 @@ export class InputCommentComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      this.eventId = params.get("id")!;
+      this.objectID_event = params.get("id")!;
     })
     this.objectID_user = localStorage.getItem("_id");
     this.initForms();
-    this.CommentService.getCommentByEventId(this.eventId)
     this.fetchCommentData()
   }
 
-  toggleShowComment(){
-    this.dropdownshowstate = !this.dropdownshowstate;
-  }
+
   private initForms() {
     this.inputCommentFormGroup = this.fb.group({
       inputComment: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(100)]]
@@ -61,11 +59,9 @@ export class InputCommentComponent implements OnInit {
   }
 
   fetchCommentData() {
-    this.CommentService.getCommentByEventId(this.eventId)
+    this.CommentService.getCommentByEventId(this.objectID_event)
       .subscribe(result => {
         this.comments = result;
-        console.log(this.comments);
-        console.log(this.comments)
       })
   }
   deleteCommentByObID(_id: string) {
@@ -97,7 +93,6 @@ export class InputCommentComponent implements OnInit {
       .subscribe(result => {
         this.fetchCommentData();
       })
-
     this.CommentupdateFormGroup.reset();
   }
 
@@ -106,7 +101,7 @@ export class InputCommentComponent implements OnInit {
     const comment = this.inputCommentFormGroup.get("inputComment")?.value
     const dataComment = {
       comment: comment,
-      eventId: Number(this.eventId),
+      eventObjId: this.objectID_event,
       object_userId: this.objectID_user
     }
     this.createComment(dataComment)
@@ -117,12 +112,10 @@ export class InputCommentComponent implements OnInit {
     const dataReply = {
       objParentComment: objParentComment,
       comment: comment,
-      eventId: this.eventId,
       object_userId: this.objectID_user
     }
     this.createReplycomment(dataReply)
   }
-
 
   //delete
   async onClickSelectDeleteComment(_id: string) {
@@ -133,7 +126,7 @@ export class InputCommentComponent implements OnInit {
     this.deleteCommentByObID(this.selectdeleteCommentId);
   }
 
-  //uodate
+  //update
   async onClickUpdateComment(_id: string) {
     this.updateComment();
   }
@@ -147,4 +140,10 @@ export class InputCommentComponent implements OnInit {
       Commentupdate: text
     })
   }
+
+  //show button 
+  onClickToggleShowComment() {
+    this.dropdownshowstate = !this.dropdownshowstate;
+  }
+
 }

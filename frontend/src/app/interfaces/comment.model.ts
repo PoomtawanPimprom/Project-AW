@@ -4,7 +4,7 @@ export interface commentInterface{
     _id: string,
     commentId: number,
     comment: string,
-    eventId: number,
+    eventObjId: string,
     userId: userInterface,
     replies: commentInterface[]
 }

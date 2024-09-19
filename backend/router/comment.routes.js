@@ -8,35 +8,12 @@ const Comment = require('../models/comment');
 const mongoose = require('mongoose');
 
 const ObjectId = mongoose.Types.ObjectId;
-// GET getComment
-router.get('/', async (req, res) => {
-    try {
-        const data = await Comment.find()
-        return res.json(data);
-    } catch (err) {
-        return res.status(500).json(err);
-    }
-});
-
-// GET getOneCommentByEventID
-router.get('/onecomment/:eventId', Authentication, async (req, res) => {
-    const eventID = req.params.eventId;
-    try {
-        const data = await Comment.findOne({ eventId: eventID })
-            .populate("userId")
-            .exec();
-        return res.json(data);
-    } catch (err) {
-        return res.status(500).json(err);
-    }
-});
-
 
 // GET getAllCommentsByEventID
-router.get('/:eventId', Authentication, async (req, res) => {
-    const id = req.params.eventId
+router.get('/:objectId_event', Authentication, async (req, res) => {
+    const _id = req.params.objectId_event
     try {
-        const data = await Comment.find({ eventId: id })
+        const data = await Comment.find({ eventObjId: _id })
             .populate({ path: 'userId', select: "name image" })
             .populate({
                 path: 'replies', populate: {
@@ -57,11 +34,11 @@ router.get('/:eventId', Authentication, async (req, res) => {
 
 // POST createComment
 router.post('/', Authentication, async (req, res) => {
-    const { comment, eventId, object_userId } = req.body;
+    const { comment, event_objectId, object_userId } = req.body;
     try {
         const newComment = new Comment({
             comment,
-            eventId: Number(eventId),
+            eventObjId: event_objectId,
             createdAt: Date.now(),
             userId: new ObjectId(object_userId)
         });
@@ -95,16 +72,6 @@ router.post("/reply", Authentication, async (req, res) => {
 })
 
 //update
-//GET getCommentByObjectId_Comment
-router.get("/edit/:objectId_comment", Authentication, async (req, res) => {
-    const id = req.params.objectId_comment;
-    try {
-        const data = await Comment.findById(id).exec();
-        return res.json(data);
-    } catch (err) {
-        console.log(err)
-    }
-})
 
 // PUT updateCommentByCommentID
 router.put('/edit/:object_commentId', Authentication, async (req, res) => {
