@@ -23,5 +23,9 @@ export class ProfileService {
   getUserByObjectId(object_id: string):Observable<userInterface> {
     return this.http.get<userInterface>(`${this.apiUrl}/userData/${object_id}`, { headers: this.getAuthHeaders() })
   }
+
+  updateUserByObjectId(object_id: string, user: any): Observable<userInterface> {
+    return this.http.put<userInterface>(`${this.apiUrl}/${object_id}`, user, { headers: this.getAuthHeaders() })
+  }
   
 }

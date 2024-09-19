@@ -117,7 +117,7 @@ export class FriendComponent implements OnInit {
       setTimeout(() => {
         this.isLoading = false;  // ซ่อนหน้าโหลด
         window.location.reload(); // รีเฟรชหน้า
-      }, 3000); // แสดงหน้าโหลดเป็นเวลา 2 วินาที
+      }, 2500); // แสดงหน้าโหลดเป็นเวลา 2 วินาที
       },
       (error) => {
         console.error('Error deleting friend:', error);

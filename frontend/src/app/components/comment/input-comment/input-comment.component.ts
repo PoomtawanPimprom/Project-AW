@@ -13,17 +13,19 @@ import { CommentService } from '../../../service/comment/comment.service';
 })
 export class InputCommentComponent implements OnInit {
   private route = inject(ActivatedRoute);
-
+  //form
   inputCommentFormGroup!: FormGroup;
   CommentupdateFormGroup!: FormGroup;
   replyCommentFormGroup!: FormGroup;
 
-  selectCommentId!: string
+  selectUpdateCommentId!: string
+  selectdeleteCommentId!: string
   eventId!: string
   objectID_user!: string | null
 
   comments: commentInterface[] = [];
 
+  dropdownshowstate: boolean = false;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private CommentService: CommentService) { }
 
@@ -37,6 +39,9 @@ export class InputCommentComponent implements OnInit {
     this.fetchCommentData()
   }
 
+  toggleShowComment(){
+    this.dropdownshowstate = !this.dropdownshowstate;
+  }
   private initForms() {
     this.inputCommentFormGroup = this.fb.group({
       inputComment: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(100)]]
@@ -88,7 +93,7 @@ export class InputCommentComponent implements OnInit {
 
   updateComment() {
     const comment = this.CommentupdateFormGroup.get("Commentupdate")?.value
-    this.CommentService.updateComment(this.selectCommentId, comment)
+    this.CommentService.updateComment(this.selectUpdateCommentId, comment)
       .subscribe(result => {
         this.fetchCommentData();
       })
@@ -118,17 +123,23 @@ export class InputCommentComponent implements OnInit {
     this.createReplycomment(dataReply)
   }
 
-  async onClickDeleteComment(_id: string) {
-    this.deleteCommentByObID(_id);
+
+  //delete
+  async onClickSelectDeleteComment(_id: string) {
+    this.selectdeleteCommentId = _id
   }
 
+  async onClickDeleteComment() {
+    this.deleteCommentByObID(this.selectdeleteCommentId);
+  }
+
+  //uodate
   async onClickUpdateComment(_id: string) {
     this.updateComment();
   }
 
-
   async onClikeSelectComment(_id: string) {
-    this.selectCommentId = _id;
+    this.selectUpdateCommentId = _id;
   }
 
   async onClikeSelectUpdateComment(text: string) {

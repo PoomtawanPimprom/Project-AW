@@ -15,9 +15,19 @@
         </div>
 
         <div class="d-flex justify-content-end mt-2 mb-2">
-            <button class="btn btn-primary" style="margin-right: 10px;" type="button" data-toggle="collapse"
-                data-target="#commentExample" aria-expanded="false" aria-controls="commentExample">
-                ตัวอย่าง
+            <button class="btn btn-primary" 
+            style="margin-right: 10px; display: flex;" 
+            type="button"
+                data-toggle="collapse" 
+                data-target="#commentExample" 
+                aria-expanded="false"
+                aria-controls="commentExample"
+                (click)="toggleShowComment()">
+                <div style="margin-right: 4px;">ตัวอย่าง</div>
+                <div style="display: flex; justify-content: center; text-align: center; ">
+                    <i class="bi bi-caret-down" *ngIf="!dropdownshowstate"></i>
+                    <i class="bi bi-caret-up" *ngIf="dropdownshowstate"></i>
+                </div>
             </button>
             <button class="btn btn-mean" (click)="onClickCreateCommet()">โพสต์ความคิดเห็น</button>
         </div>
@@ -52,9 +62,9 @@
                                             data-target="#staticBackdrop"
                                             style="padding-left: 10px; padding-right: 10px;"
                                             (click)="onClikeSelectUpdateComment(comment.comment)">แก้ไข</button>
-                                        <button class="dropdown-item text-danger btn-sm"
-                                            style="padding-left: 10px; padding-right: 10px;"
-                                            (click)="onClickDeleteComment(comment._id)">
+                                        <button class="dropdown-item text-danger btn-sm" data-toggle="modal"
+                                            data-target="#deleteModal" style="padding-left: 10px; padding-right: 10px;"
+                                            (click)="onClickSelectDeleteComment(comment._id)">
                                             ลบ</button>
                                     </div>
                                 </div>
@@ -108,9 +118,10 @@
                                                         data-toggle="modal" data-target="#staticBackdrop"
                                                         style="padding-left: 10px; padding-right: 10px;"
                                                         (click)="onClikeSelectUpdateComment(data.comment)">แก้ไข</button>
-                                                    <button class="dropdown-item text-danger btn-sm"
+                                                    <button class="dropdown-item text-danger btn-sm" data-toggle="modal"
+                                                        data-target="#deleteModal"
                                                         style="padding-left: 10px; padding-right: 10px;"
-                                                        (click)="onClickDeleteComment(data._id)">
+                                                        (click)="onClickSelectDeleteComment(data._id)">
                                                         ลบ</button>
                                                 </div>
                                             </div>
@@ -127,7 +138,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal -->
+                        <!-- Modal edit -->
                         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
                             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -154,6 +165,35 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Modal delete -->
+                        <div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">คุณต้องการลบคอมเมนต์ใช่หรือไม่
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div style="display: flex; flex-direction: row; justify-content: end;">
+                                            <div style="margin-right: 1rem;">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">ปิด</button>
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                                    (click)="onClickDeleteComment()">ตกลง</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

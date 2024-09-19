@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { userInterface } from '../../interfaces/user.model';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { handleFileChange } from '../../customs/imageUtils';
 import { ProfileService } from '../../service/profile/profile.service';
+import { CustomValidators } from '../../customs/customValidators';
 
 @Component({
   selector: 'app-profile',
@@ -26,11 +27,11 @@ export class ProfileComponent {
   constructor(private http: HttpClient, private fb: FormBuilder, private eventService: ProfileService) {
     this.profileForm = this.fb.group({
       username: [{ value: '', disabled: true }],
-      name: [{ value: '', disabled: true }],
-      email: [{ value: '', disabled: true }],
+      name: [{ value: '', disabled: true }, [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย', 'ไอ้', 'เลว', 'cpe', 'C PE']), CustomValidators.maxLength(10)]],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       institute: [{ value: '', disabled: true }],
       major: [{ value: '', disabled: true }],
-      age: [{ value: '', disabled: true }],
+      age: [{ value: '', disabled: true }, [ Validators.min(3), Validators.max(100), Validators.pattern('^\\d+$')]],
       facebook: [{ value: '', disabled: true }],
       instagram: [{ value: '', disabled: true }],
       tiktok: [{ value: '', disabled: true }],
@@ -41,6 +42,19 @@ export class ProfileComponent {
   ngOnInit(){
     this.obj_id = localStorage.getItem('_id') || '';
     this.fetchUserData();
+
+  }
+
+  get email() {
+    return this.profileForm.get('email');
+  }
+
+  get name() {
+    return this.profileForm.get('name');
+  }
+
+  get age() {
+    return this.profileForm.get('age');
   }
 
   fetchUserData() {
@@ -70,7 +84,7 @@ export class ProfileComponent {
       const user = { 
         user:this.profileForm.value 
       }
-      this.http.put(`http://localhost:3000/user/${_id}`,user )
+      this.eventService.updateUserByObjectId(_id, user)
         .subscribe(result => {
           this.fetchUserData();
         })
@@ -81,7 +95,7 @@ export class ProfileComponent {
   }
 
   async onClickUpdateUser(_id:string) {
-    console.log("_id",_id)
+    // console.log("_id",_id)
     this.updateUser(_id);
   }
 
