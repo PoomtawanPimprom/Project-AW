@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
     institute: String,
     major: String,
     age: Number,
-    like: String,
+    interest: String,
     facebook: String,
     instagram: String,
     tiktok: String,

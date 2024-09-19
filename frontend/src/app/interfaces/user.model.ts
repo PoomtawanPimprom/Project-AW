@@ -8,7 +8,7 @@ export interface userInterface{
     institute: string,
     major: string,
     age: number,
-    like: string,
+    interest: string,
     facebook: string,
     instagram: string,
     tiktok: string,
