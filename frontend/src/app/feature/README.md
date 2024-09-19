@@ -9,14 +9,12 @@ lazy loading module in Angular คือ ปกติเวลาเราใช
 step by step
 ---
 1.ทำการสร้าง module แยก  
-มันจะทำการคล้ายๆ app ซ้อน app อีกที  
-ก็จะมีไฟล์ 
-routing
-css
-html
-ts 2 file
-module 
+มันจะทำการคล้ายๆ app ซ้อน app อีกทีก็จะมีไฟล์    
+routing,css,html,ts 2 file,module 
+
+
 ```
+cd src/app/feature
 ng generate module <<name>> --route <<name>> --module app.module
 ```
 
