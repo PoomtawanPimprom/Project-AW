@@ -42,8 +42,8 @@
                     style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column; background-color: #123f66; flex-wrap: unset;">
                     <div class="card-body" style="padding: 10px;">
                         <div style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
-                            <div  style="height: 40px; width: 40px; margin-right: 10px;">
-                                <img [src]="comment.userId.image" style="height: 40px; width: 40px; border-radius: 100%;">
+                            <div class="rounded-circle" style="height: 40px; width: 40px; margin-right: 10px; overflow: hidden; border: 2px solid white;">
+                                <img [src]="comment.userId.image" style="height: 100%; width: 100%; object-fit: cover;">
                             </div>
                             <div style="display: flex; width: 20% ; margin-right: 10px; color: white;">
                                 {{ comment.userId.name}}
@@ -81,7 +81,7 @@
                             <div class="Part-reply-comment">
                                 <div class="Part-reply-comment-input">
                                     <form [formGroup]="replyCommentFormGroup">
-                                        <input type="text" class="reply-input" placeholder="reply..."
+                                        <input type="text" class="reply-input" placeholder="ตอบกลับ..."
                                             formControlName="replyComment">
                                     </form>
                                 </div>
