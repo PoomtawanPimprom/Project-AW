@@ -1,6 +1,5 @@
 <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <div style="margin: 16px;">
-        แสดงความคิดเห็น
         <form [formGroup]="inputCommentFormGroup">
             <textarea id="description" class="form-control" style="padding: 10px;" rows="2"
                 formControlName="inputComment"></textarea>
@@ -8,7 +7,7 @@
         <!-- validate -->
         <div *ngIf="inputCommentFormGroup.get('inputComment')?.touched && inputCommentFormGroup.get('inputComment')?.errors?.['required']"
             class="text-danger" style="margin-top: 5px;">
-            กรุณาระบุกรอกความคิดเห็น
+            กรุณาระบุความคิดเห็น
         </div>
         <div *ngIf="inputCommentFormGroup.get('inputComment')?.hasError('forbiddenWords')" class="text-danger">
             โปรดแสดงความคิดเห็นอย่างสุภาพ

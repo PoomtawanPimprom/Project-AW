@@ -25,6 +25,7 @@ export class FriendComponent implements OnInit {
   event: Event[] = [];
 
   isLoading: boolean = false;
+  isNavbar: boolean = true;
   
   constructor(private http: HttpClient, private fs: FriendService, private route: ActivatedRoute) {}
 
@@ -102,6 +103,7 @@ export class FriendComponent implements OnInit {
 
   deleteFriend(friend: Friend): void {
     this.isLoading = true;
+    this.isNavbar = false;
     const userId1 = friend.userId1._id === this.objectID_user ? friend.userId1._id : friend.userId2._id;
     const userId2 = friend.userId1._id === this.objectID_user ? friend.userId2._id : friend.userId1._id;
     
