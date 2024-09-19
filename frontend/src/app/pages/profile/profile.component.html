@@ -24,10 +24,23 @@
             <form [formGroup]="profileForm" class="d-flex flex-column col-7" >
                 <label for="">ชื่อเล่น</label>
                 <input type="text" class="input-form" formControlName="name" >
+                <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert alert-danger">
+                    <div *ngIf="name?.errors?.['required']">กรุณาใส่ด้วยค่ะ</div>
+                    <div *ngIf="name?.errors?.['forbiddenWords']">ไม่หยายคายนะคะ!!!</div>
+                </div>
                 <label for="">อายุ</label>
                 <input type="text" class="input-form" formControlName="age" >
+                <div *ngIf="age?.invalid && (age?.dirty || age?.touched)" class="alert alert-danger">
+                    <div *ngIf="age?.errors?.['min']">กรุณาใส่ตามความจริง</div>
+                    <div *ngIf="age?.errors?.['max']">กรุณาใส่ตามความจริง</div>
+                    <div *ngIf="age?.errors?.['pattern']">กรุณาใส่อายุของท่าน</div>
+                </div>
                 <label for="">อีเมล</label>
-                <input type="text" class="input-form" formControlName="email" >
+                <input type="email" class="input-form" formControlName="email" >
+                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
+                    <div *ngIf="email?.errors?.['required']">กรุณาใส่อีเมล</div>
+                    <div *ngIf="email?.errors?.['email']">รูปแบบอีเมลไม่ถูกต้อง!!!</div>
+                </div>
                 <label for="">สำนักวิชา</label>
                 <select class="input-form" formControlName="institute">
                     <option selected>เลือกสำนักวิชา</option>
