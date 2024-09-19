@@ -16,7 +16,7 @@ export class EventEditComponent implements OnInit {
   eventForm!: FormGroup;
   imageBase64: string = '';
   creator: string = '';
-  eventId!: number;
+  eventId!: string;
   images: string[] = [
     'https://elearning2.sut.ac.th/pluginfile.php/1/theme_suranaree/night_mainbgimg/1722512027/night_bg_sut_lg.jpg',
     'https://elearning2.sut.ac.th/pluginfile.php/1/theme_suranaree/mainbgimg/1722512027/E_learing%20art_completed.jpg'
@@ -34,8 +34,8 @@ export class EventEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.creator = localStorage.getItem('username') || '';
-    this.eventId = Number(this.route.snapshot.paramMap.get('id')); // Get eventId from URL
+    this.creator = localStorage.getItem('_id') || '';
+    this.eventId = this.route.snapshot.paramMap.get('id') || '';
 
     this.eventForm = this.fb.group({
       name: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย'])]],
@@ -83,7 +83,8 @@ export class EventEditComponent implements OnInit {
   onSubmit(): void {
     if (this.eventForm.valid) {
       const eventData: Event = {
-        eventId: this.eventId, // Use the existing eventId
+        _id: this.eventId,
+        eventId: this.eventId,
         name: this.eventForm.value.name,
         location: this.eventForm.value.location,
         date_time: this.eventForm.value.date_time,

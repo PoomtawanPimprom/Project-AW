@@ -22,25 +22,30 @@ export class EventService {
 
   getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(this.apiUrl, { headers: this.getAuthHeaders() });
-  }
+  } // Success
 
-  getEventsByCreator(username: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.apiUrl}/creator/${username}`, { headers: this.getAuthHeaders() });
-  }
+  getEventsByCreator(creatorId: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.apiUrl}/creator/${creatorId}`, { headers: this.getAuthHeaders() });
+  } // Success
 
-  deleteEventById(eventId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${eventId}`, { headers: this.getAuthHeaders() });
-  }
+  deleteEventById(eventObjId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${eventObjId}`, { headers: this.getAuthHeaders() });
+  } // Success
 
-  getEventById(eventId: number): Observable<Event> {
-    return this.http.get<Event>(`${this.apiUrl}/${eventId}`, { headers: this.getAuthHeaders() });
-  }
+  getEventById(eventObjId: string): Observable<Event> {
+    return this.http.get<Event>(`${this.apiUrl}/${eventObjId}`, { headers: this.getAuthHeaders() });
+  } // Success
 
   createEvent(eventData: Event): Observable<any> {
     return this.http.post(this.apiUrl, eventData, { headers: this.getAuthHeaders() });
-  }
+  } // Success
 
-  updateEvent(eventId: number, eventData: Event): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${eventId}`, eventData, { headers: this.getAuthHeaders() });
-  }
+  updateEvent(eventObjId: string, eventData: Event): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${eventObjId}`, eventData, { headers: this.getAuthHeaders() });
+  } // Success
+
+  getCreatorNameByObjectId(objectId: string): Observable<{ username: string }> {
+    return this.http.get<{ username: string }>(`${this.apiUrl}/username/${objectId}`, { headers: this.getAuthHeaders() });
+  } // Success
+
 }

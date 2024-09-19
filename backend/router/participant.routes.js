@@ -1,23 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const Participant = require("../models/participant");
-const authorization = require("../middleware/authentication")
-
-// GET GetParticipant
-// router.get("/", async (req, res) => {
-//   try {
-//     const data = await Participant.find().sort({ participantId: -1 });
-//     return res.json(data);
-//   } catch (err) {
-//     return res.status(500).json(err);
-//   }
-// });
+const authorization = require("../middleware/authentication");
 
 // GET GetParticipantByMemberAndEventId (used for check button)
 router.get("/", authorization, async (req, res) => {
   const { member, eventId } = req.query;
   try {
-    const data = await Participant.findOne({ member: member, eventId: eventId });
+    const data = await Participant.findOne({ member: member, eventId: eventId }).populate('member').populate('eventId');
     
     if (data) {
       return res.json(data);
@@ -28,17 +18,6 @@ router.get("/", authorization, async (req, res) => {
     return res.status(500).json(err);
   }
 });
-
-// GET GetParticipantByMember
-// router.get("/member/:username", async (req, res) => {
-//   const { username } = req.params;
-//   try {
-//     const data = await Participant.find({ member: username }).sort({ participantId: -1 });
-//     return res.json(data);
-//   } catch (err) {
-//     return res.status(500).json(err);
-//   }
-// });
 
 // POST CreateParticipant (used)
 router.post("/", authorization, async (req, res) => {
@@ -53,8 +32,8 @@ router.post("/", authorization, async (req, res) => {
 
     const newParticipant = new Participant({
       participantId: newParticipantId,
-      member,
-      eventId,
+      member, // This should be ObjectId
+      eventId, // This should be ObjectId
       status,
     });
 
@@ -65,30 +44,6 @@ router.post("/", authorization, async (req, res) => {
     return res.status(400).json(err);
   }
 });
-
-// PUT UpdateParticipantByParticipantID
-// router.put("/:participantId", async (req, res) => {
-//   const { participantId } = req.params;
-//   const updateData = req.body;
-
-//   delete updateData.participantId;
-
-//   try {
-//     const updateParticipant = await Participant.findOneAndUpdate(
-//       { participantId: participantId },
-//       { $set: updateData },
-//       { new: true }
-//     );
-    
-//     if (!updateParticipant) {
-//       return res.status(404).json({ message: "Participant not found" });
-//     }
-
-//     return res.status(200).json(updateParticipant);
-//   } catch (err) {
-//     return res.status(400).json(err);
-//   }
-// });
 
 // DELETE DeleteParticipantByMemberAndEventId (used)
 router.delete("/", authorization, async (req, res) => {
@@ -119,11 +74,11 @@ router.get("/latest/participantId", authorization, async (req, res) => {
 });
 
 // GET CountMemberByEventId (used)
-router.get("/count/:eventId", authorization, async (req, res) => {
-  const { eventId } = req.params;
+router.get("/count/:objectId", authorization, async (req, res) => {
+  const { objectId } = req.params;
 
   try {
-    const participantCount = await Participant.countDocuments({ eventId: eventId });
+    const participantCount = await Participant.countDocuments({ eventId: objectId });
     
     return res.status(200).json({ count: participantCount });
   } catch (err) {

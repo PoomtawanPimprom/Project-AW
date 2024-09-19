@@ -15,7 +15,7 @@ export class EventCreateComponent implements OnInit {
 
   eventForm!: FormGroup;
   imageBase64: string = '';
-  creator: string = '';
+  creatorID: string = '';
   images: string[] = [
     'https://elearning2.sut.ac.th/pluginfile.php/1/theme_suranaree/night_mainbgimg/1722512027/night_bg_sut_lg.jpg',
     'https://elearning2.sut.ac.th/pluginfile.php/1/theme_suranaree/mainbgimg/1722512027/E_learing%20art_completed.jpg'
@@ -32,7 +32,7 @@ export class EventCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.creator = localStorage.getItem('username') || '';
+    this.creatorID = localStorage.getItem('_id') || '';
     this.eventForm = this.fb.group({
       name: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย'])]],
       location: ['', [Validators.required, CustomValidators.maxLength(50)]],
@@ -64,13 +64,14 @@ export class EventCreateComponent implements OnInit {
   onSubmit(): void {
     if (this.eventForm.valid) {
       const eventData: Event = {
-        eventId: 0,
+        _id: '',
+        eventId: "0",
         name: this.eventForm.value.name,
         location: this.eventForm.value.location,
         date_time: this.eventForm.value.date_time,
         description: this.eventForm.value.description,
         image: this.imageBase64,
-        creator: this.creator
+        creator: this.creatorID
       };
 
       this.eventService.createEvent(eventData).subscribe({

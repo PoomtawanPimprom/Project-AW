@@ -23,7 +23,7 @@ export class EventMyeventComponent implements OnInit {
   alertMessage: string = '';
   showConfirm: boolean = false;
   confirmMessage: string = '';
-  eventIdToDelete: number | null = null;
+  eventIdToDelete: string | null = null;
 
   constructor(
     private router: Router, 
@@ -31,11 +31,29 @@ export class EventMyeventComponent implements OnInit {
     private eventService: EventService
   ) { }
 
-  ngOnInit(): void {
-    const username = localStorage.getItem('username');
+  // ngOnInit(): void {
+  //   const username = localStorage.getItem('username');
     
-    if (username) {
-      this.eventService.getEventsByCreator(username).subscribe({
+  //   if (username) {
+  //     this.eventService.getEventsByCreator(username).subscribe({
+  //       next: (data) => {
+  //         this.event = data;
+  //         this.filteredEvents = this.event;
+  //         this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
+  //         this.updatePaginatedEvents();
+  //       },
+  //       error: (err) => {
+  //         console.error('Error fetching events by creator:', err);
+  //       }
+  //     });
+  //   }
+  // }
+
+  ngOnInit(): void {
+    const objectID = localStorage.getItem('_id');
+    
+    if (objectID) {
+      this.eventService.getEventsByCreator(objectID).subscribe({
         next: (data) => {
           this.event = data;
           this.filteredEvents = this.event;
@@ -99,29 +117,29 @@ export class EventMyeventComponent implements OnInit {
     return pages;
   }
 
-  onEventInfo(eventId: string): void {
-    this.router.navigate([`/event/info/${eventId}`]);
+  onEventInfo(eventObjId: string): void {
+    this.router.navigate([`/event/info/${eventObjId}`]);
   }
 
   onAddEvent(): void {
     this.router.navigate(['/event/myevent/create']);
   }
 
-  onEditEvent(eventId: number): void {
-    this.router.navigate([`/event/myevent/edit/${eventId}`]);
+  onEditEvent(eventObjId: string): void {
+    this.router.navigate([`/event/myevent/edit/${eventObjId}`]);
   }
 
-  onDeleteEvent(eventId: number): void {
+  onDeleteEvent(eventObjId: string): void {
     this.confirmMessage = 'คุณต้องการลบกิจกรรมนี้ ?'
     this.showConfirm = true;
-    this.eventIdToDelete = eventId;
+    this.eventIdToDelete = eventObjId;
   }
 
   onConfirmDelete(): void {
     if (this.eventIdToDelete !== null) {
       this.eventService.deleteEventById(this.eventIdToDelete).subscribe({
         next: () => {
-          this.event = this.event.filter(e => e.eventId !== this.eventIdToDelete);
+          this.event = this.event.filter(e => e._id !== this.eventIdToDelete);
           this.filteredEvents = this.event;
           this.totalPages = Math.ceil(this.filteredEvents.length / this.itemsPerPage);
           this.updatePaginatedEvents();

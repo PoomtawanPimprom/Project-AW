@@ -94,8 +94,8 @@ export class EventComponent implements OnInit {
     return pages;
   }
 
-  onEventInfo(eventId: string): void {
-    this.router.navigate([`/event/info/${eventId}`]);
+  onEventInfo(eventObjId: string): void {
+    this.router.navigate([`/event/info/${eventObjId}`]);
   }
 
   onMyEvent(): void {

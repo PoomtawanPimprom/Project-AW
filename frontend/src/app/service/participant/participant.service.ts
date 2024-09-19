@@ -20,19 +20,19 @@ export class ParticipantService {
     });
   }
 
-  getParticipantCount(eventId: number): Observable<{ count: number }> {
-    return this.http.get<{ count: number }>(`${this.apiUrl}/count/${eventId}`, { headers: this.getAuthHeaders() });
+  getParticipantCount(eventObjectId: string): Observable<{ count: number }> {
+    return this.http.get<{ count: number }>(`${this.apiUrl}/count/${eventObjectId}`, { headers: this.getAuthHeaders() });
   }
 
-  getParticipantStatus(member: string, eventId: number): Observable<Participant> {
-    return this.http.get<Participant>(`${this.apiUrl}?member=${member}&eventId=${eventId}`, { headers: this.getAuthHeaders() });
+  getParticipantStatus(member: string, eventObjectId: string): Observable<Participant> {
+    return this.http.get<Participant>(`${this.apiUrl}?member=${member}&eventId=${eventObjectId}`, { headers: this.getAuthHeaders() });
   }
 
   joinEvent(participantData: Participant): Observable<any> {
     return this.http.post(this.apiUrl, participantData, { headers: this.getAuthHeaders() });
   }
 
-  leaveEvent(member: string, eventId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}?member=${member}&eventId=${eventId}`, { headers: this.getAuthHeaders() });
+  leaveEvent(member: string, eventObjectId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}?member=${member}&eventId=${eventObjectId}`, { headers: this.getAuthHeaders() });
   }
 }

@@ -39,15 +39,15 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between">
                                     <button type="button" class="btn btn-mean flex-grow-1 mx-1"
-                                        (click)="onEventInfo(item.eventId.toString())">
+                                        (click)="onEventInfo(item._id)">
                                         ดูข้อมูลเพิ่มเติม
                                     </button>
                                     <button type="button" class="btn btn-dark flex-grow-1 mx-1"
-                                        (click)="onEditEvent(item.eventId)">
+                                        (click)="onEditEvent(item._id)">
                                         แก้ไข
                                     </button>
                                     <button type="button" class="btn btn-danger flex-grow-1 mx-1"
-                                        (click)="onDeleteEvent(item.eventId)">
+                                        (click)="onDeleteEvent(item._id)">
                                         ลบ
                                     </button>
                                 </div>

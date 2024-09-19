@@ -5,6 +5,7 @@ import { Participant } from '../../interfaces/participant.model';
 import { DatePipe } from '@angular/common';
 import { EventService } from '../../service/event/event.service';
 import { ParticipantService } from '../../service/participant/participant.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-event-info',
@@ -18,6 +19,7 @@ export class EventInfoComponent implements OnInit {
   selectedEvent?: Event;
   isJoined: boolean = false;
   member: string = '';
+  creatorName: string = '';
   participantCount: number = 0;
   showAlert: boolean = false;
   alertMessage: string = '';
@@ -32,42 +34,55 @@ export class EventInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const eventId = Number(this.route.snapshot.paramMap.get('id'));
-    
-    if (eventId) {
-      this.eventService.getEventById(eventId).subscribe({
+    const eventObjId = this.route.snapshot.paramMap.get('id') || '';
+  
+    if (eventObjId) {
+      this.eventService.getEventById(eventObjId).subscribe({
         next: (data) => {
           this.selectedEvent = data;
-        },
-        error: (err) => {
-          console.error('Error fetching event:', err);
-        },
-      });
-    }
-
-    this.participantService.getParticipantCount(eventId).subscribe({
-      next: (response) => {
-        this.participantCount = response.count;
-      },
-      error: (err) => {
-        console.error('Error fetching participant count:', err);
-      }
-    });
-
-    this.member = localStorage.getItem('username') || '';
-    if (this.member) {
-      this.participantService.getParticipantStatus(this.member, eventId).subscribe({
-        next: (participant) => {
-          if (participant) {
-            this.isJoined = participant.status === 'เข้าร่วม';
+          this.creatorName = data.creator; // Store creator object_id
+          
+          // Fetch creator name after getting the event
+          this.eventService.getCreatorNameByObjectId(this.creatorName).subscribe({
+            next: (response) => {
+              this.creatorName = response.username; // Update creatorName with the actual name
+            },
+            error: (err) => {
+              console.error('Error fetching creator name:', err);
+            }
+          });
+          
+          // Fetch participant count
+          this.participantService.getParticipantCount(eventObjId).subscribe({
+            next: (response) => {
+              this.participantCount = response.count;
+            },
+            error: (err) => {
+              console.error('Error fetching participant count:', err);
+            }
+          });
+          
+          // Fetch participant status
+          this.member = localStorage.getItem('_id') || '';
+          if (this.member) {
+            this.participantService.getParticipantStatus(this.member, eventObjId).subscribe({
+              next: (participant) => {
+                if (participant) {
+                  this.isJoined = participant.status === 'เข้าร่วม';
+                }
+              },
+              error: (err) => {
+                console.error('Error checking participant status:', err);
+              }
+            });
           }
         },
         error: (err) => {
-          console.error('Error checking participant status:', err);
+          console.error('Error fetching event:', err);
         }
       });
     }
-  }
+  }  
 
   formatDate(date: string): string {
     const dateObj = new Date(date);
@@ -81,8 +96,8 @@ export class EventInfoComponent implements OnInit {
   }
 
   onJoinEvent(): void {
-    const eventId = Number(this.route.snapshot.paramMap.get('id'));
-    if (eventId && this.member) {
+    const eventObjId = this.route.snapshot.paramMap.get('id') || '';
+    if (eventObjId && this.member) {
       if (this.isJoined) {
         this.confirmMessage = "คุณต้องการยกเลิกการเข้าร่วมกิจกรรมนี้ ?";
         this.showConfirm = true;
@@ -90,7 +105,7 @@ export class EventInfoComponent implements OnInit {
         const participantData: Participant = {
           participantId: 0,
           member: this.member,
-          eventId: eventId,
+          eventId: eventObjId,
           status: 'เข้าร่วม',
         };
 
@@ -113,9 +128,9 @@ export class EventInfoComponent implements OnInit {
   }
 
   onConfirmLeave(): void {
-    const eventId = Number(this.route.snapshot.paramMap.get('id'));
-    if (eventId && this.member) {
-      this.participantService.leaveEvent(this.member, eventId).subscribe({
+    const eventObjId = this.route.snapshot.paramMap.get('id') || '';
+    if (eventObjId && this.member) {
+      this.participantService.leaveEvent(this.member, eventObjId).subscribe({
         next: () => {
           this.isJoined = false;
           this.alertMessage = 'ยกเลิกการเข้าร่วมกิจกรรมสำเร็จ';
