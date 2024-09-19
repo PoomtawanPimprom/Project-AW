@@ -15,9 +15,19 @@
         </div>
 
         <div class="d-flex justify-content-end mt-2 mb-2">
-            <button class="btn btn-primary" style="margin-right: 10px;" type="button" data-toggle="collapse"
-                data-target="#commentExample" aria-expanded="false" aria-controls="commentExample">
-                ตัวอย่าง
+            <button class="btn btn-primary" 
+            style="margin-right: 10px; display: flex;" 
+            type="button"
+                data-toggle="collapse" 
+                data-target="#commentExample" 
+                aria-expanded="false"
+                aria-controls="commentExample"
+                (click)="toggleShowComment()">
+                <div style="margin-right: 4px;">ตัวอย่าง</div>
+                <div style="display: flex; justify-content: center; text-align: center; ">
+                    <i class="bi bi-caret-down" *ngIf="!dropdownshowstate"></i>
+                    <i class="bi bi-caret-up" *ngIf="dropdownshowstate"></i>
+                </div>
             </button>
             <button class="btn btn-mean" (click)="onClickCreateCommet()">โพสต์ความคิดเห็น</button>
         </div>

@@ -25,6 +25,7 @@ export class InputCommentComponent implements OnInit {
 
   comments: commentInterface[] = [];
 
+  dropdownshowstate: boolean = false;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private CommentService: CommentService) { }
 
@@ -38,6 +39,9 @@ export class InputCommentComponent implements OnInit {
     this.fetchCommentData()
   }
 
+  toggleShowComment(){
+    this.dropdownshowstate = !this.dropdownshowstate;
+  }
   private initForms() {
     this.inputCommentFormGroup = this.fb.group({
       inputComment: ['', [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย']), CustomValidators.maxLength(100)]]
