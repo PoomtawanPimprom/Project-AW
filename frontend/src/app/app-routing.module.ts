@@ -27,6 +27,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+
+  //example
+  { path: 'examplazyloading', loadChildren: () => import('./feature/examplelazyloading/examplelazyloading.module').then(m => m.ExamplelazyloadingModule)},
 ];
 
 @NgModule({
