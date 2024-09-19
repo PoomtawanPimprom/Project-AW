@@ -42,6 +42,7 @@ export class ProfileComponent {
   ngOnInit(){
     this.obj_id = localStorage.getItem('_id') || '';
     this.fetchUserData();
+
   }
 
   get email() {

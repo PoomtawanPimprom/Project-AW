@@ -13,9 +13,9 @@
                 <p>สาขาวิชา{{user.major}}</p>
             </div>
             <div class="social">
-                <a [href]="user.facebook" target="_blank"><i class="bi bi-facebook mx-3 mt-5"></i></a>
-                <a [href]="user.instagram" target="_blank"><i class="bi bi-instagram mx-3 mt-5"></i></a>
-                <a [href]="user.tiktok" target="_blank"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
+                <a [href]="user.facebook" target="_blank" *ngIf="profileForm.get('facebook')?.value"><i class="bi bi-facebook mx-3 mt-5"></i></a>
+                <a [href]="user.instagram" target="_blank" *ngIf="profileForm.get('instagram')?.value"><i class="bi bi-instagram mx-3 mt-5"></i></a>
+                <a [href]="user.tiktok" target="_blank" *ngIf="profileForm.get('tiktok')?.value"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
             </div>
             
         </div>
