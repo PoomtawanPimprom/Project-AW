@@ -62,6 +62,7 @@ router.put('/:object_userId', async (req, res) => {
               institute: user.institute,
               major: user.major,
               age: user.age,
+              interest: user.interest,
               facebook: user.facebook,
               instagram: user.instagram,
               tiktok: user.tiktok,

@@ -30,6 +30,7 @@ const routes: Routes = [
 
   //example
   { path: 'examplazyloading', loadChildren: () => import('./feature/examplelazyloading/examplelazyloading.module').then(m => m.ExamplelazyloadingModule)},
+  { path: 'lazyloading', loadChildren: () => import('./feature/lazyloading/lazyloading.module').then(m => m.LazyloadingModule) },
 ];
 
 @NgModule({
