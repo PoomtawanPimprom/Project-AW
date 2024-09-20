@@ -90,11 +90,21 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <p><strong>ชื่อเล่น:</strong> {{ selectedFriend.name }}</p>
-                                            <p><strong>อายุ:</strong> {{ selectedFriend.age }}</p>
-                                            <p><strong>สำนัก:</strong> {{ selectedFriend.institute }}</p>
-                                            <p><strong>สาขา:</strong> {{ selectedFriend.major }}</p>
-                                            <p><strong>สิ่งที่ชอบ:</strong> {{ selectedFriend.interest }}</p>
+                                            <div class="content-Info">
+                                                <strong>ชื่อเล่น:</strong><p> {{ selectedFriend.name }}</p>
+                                            </div>
+                                            <div class="content-Info">
+                                                <strong>อายุ:</strong> <p>{{ selectedFriend.age }}</p>
+                                            </div>
+                                            <div class="content-Info">
+                                                <strong>สำนัก:</strong><p> {{ selectedFriend.institute }}</p>
+                                            </div>
+                                            <div class="content-Info">
+                                                <strong>สาขา:</strong><p> {{ selectedFriend.major }}</p>
+                                            </div>
+                                            <div class="content-Info">
+                                                <strong>สิ่งที่ชอบ:</strong><p> {{ selectedFriend.interest }}</p>
+                                            </div>
 
                                             <div class="contact">
                                                 <a target="_blank" [href]="selectedFriend.facebook" class="nav-link">

@@ -169,6 +169,26 @@
     overflow: hidden;
 }
 
+.content-Info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #072540;
+}
+
+.content-Info strong {
+    width: 80px; /* Adjust the width as necessary to align labels */
+}
+
+.content-Info p {
+    padding: 5px;
+    margin: 0;
+    flex: 1; /* This ensures the text will take up the remaining space */
+}
+
+
+
 .imgBx{
     position: relative;
     width: 100%;
