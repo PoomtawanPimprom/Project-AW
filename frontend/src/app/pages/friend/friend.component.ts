@@ -62,7 +62,7 @@ export class FriendComponent implements OnInit {
       error: error => console.error('Error fetching user:', error)
     });
 
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('_id');
     
     if (username) {
       this.fs.getEventsByCreator(username).subscribe({
