@@ -1,0 +1,250 @@
+.carousel-item{
+    width: 100%;
+    height: 92vh;
+}
+
+.carousel-inner img{
+    animation: smoothScale 7s linear forwards;
+}
+
+@keyframes smoothScale {
+0% { transform: scale(1); }
+100% { transform: scale(1.15); }
+}
+
+
+.carousel-item:nth-child(1):after {
+    content: '';
+    width: 100%;
+    height: 30%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-image: linear-gradient(to top, #000000 10%, transparent);
+}
+
+.carousel-item:nth-child(2):after {
+    content: '';
+    width: 100%;
+    height: 30%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-image: linear-gradient(to top, #ffffff 25%, transparent);
+}
+
+.carousel-item h1:nth-child(1),
+.carousel-item p:nth-child(2){
+    transform: translateY(30px) translateZ(0);
+    filter: blur(20px);
+    opacity: 0;
+    animation: showContent 0.7s ease-in-out 1 forwards;
+    transition: .5s;
+}
+
+@keyframes showContent {
+    to {
+        transform: translateY(0) translateZ(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+.content {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+    width: 800px;
+    max-width: 100%;
+    max-height: 300px;
+    z-index: 1;
+    color: #ffffff;
+}
+
+.sidebar {
+    height: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+}
+.nav-link {
+    color: #194d7a !important;
+    padding: 8px 0;
+}
+.nav-link:hover {
+    background-color: #f8f9fa;
+}
+
+.main-content{
+    margin:  -20px -20px -20px -20px;
+}
+
+.friend-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.friend-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.search-bar {
+    border-radius: 20px;
+}
+.btn-friend-request {
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+.friends-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.friend-wrapper {
+    width: 25%;
+    padding: 10px;
+}
+
+.destination__container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.section__title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.section__nav span {
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+}
+
+.destination__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem;
+    height: 600px;
+}
+
+.destination__card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+}
+
+.destination__card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: floatUp 2s ease-out;
+
+}
+
+.destination__details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    animation: floatUp 2s ease-out;
+
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.destination__details h4 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.destination__details p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.destination__rating {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: rgba(255,255,255,0.8);
+    color: #333;
+    padding: 0.25rem 0.5rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Specific card layouts */
+.card-0 {
+    grid-area: 1 / 1 / 3 / 2;
+}
+
+.card-1 {
+    grid-area: 1 / 2 / 2 / 4;
+}
+
+.card-2 {
+    grid-area: 1 / 4 / 2 / 5;
+}
+
+.card-3, .card-4, .card-5 {
+    grid-area: auto;
+}
+
+@media (max-width: 768px) {
+    .destination__grid {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    
+    .card-0, .card-1, .card-2 {
+        grid-area: auto;
+    }
+}
+
+@media (max-width: 900px) {
+    .destination__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    }
+
+    .destination__card {
+    grid-area: unset;
+    }
+}
+
+@media (max-width: 600px) {
+    .destination__grid {
+    grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -15,7 +15,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
+  //{ path: 'main', component: MainComponent, canActivate: [AuthGuard] },
   { path: 'friend', component: FriendComponent, canActivate: [AuthGuard] },
   { path: 'event', component: EventComponent, canActivate: [AuthGuard] },
   { path: 'event/info/:id', component: EventInfoComponent, canActivate: [AuthGuard] },
@@ -35,11 +35,12 @@ const routes: Routes = [
 
   { path: 'login', loadChildren: () => import('./feature/login/login.module').then(m => m.LoginModule) },
   { path: 'register', loadChildren: () => import('./feature/register/register.module').then(m => m.RegisterModule) },
+  { path: 'main', loadChildren: () => import('./feature/main/main.module').then(m => m.MainModule) },
 
 
 
 
-  
+
 ];
 
 @NgModule({
