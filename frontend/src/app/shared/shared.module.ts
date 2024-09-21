@@ -5,6 +5,8 @@ import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { LoadingComponent } from '../components/loading/loading.component';
 import { InputCommentComponent } from '../components/comment/input-comment/input-comment.component';
 import { ShowCommentComponent } from '../components/comment/show-comment/show-comment.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,7 +19,9 @@ import { ShowCommentComponent } from '../components/comment/show-comment/show-co
     ShowCommentComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports:[
     NavbarComponent,

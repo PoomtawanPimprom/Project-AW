@@ -46,7 +46,6 @@ import { SharedModule } from './shared/shared.module';
     FriendInfoComponent,
     FriendRequestComponent,
     ProfileComponent,
-    
     LoginComponent,
     RegisterComponent,
 
