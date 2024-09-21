@@ -38,7 +38,6 @@ const routes: Routes = [
   { path: 'friend', loadChildren: () => import('./feature/friend/friend.module').then(m => m.FriendModule), },
   { path: 'friendInfo', loadChildren: () => import('./feature/friend-info/friend-info.module').then(m => m.FriendInfoModule) },
   { path: 'friendRequest', loadChildren: () => import('./feature/friend-request/friend-request.module').then(m => m.FriendRequestModule) },
-  
 
 ];
 
