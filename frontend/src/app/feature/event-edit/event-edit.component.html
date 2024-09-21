@@ -1,0 +1,114 @@
+<app-navbar />
+<div class="container-fluid" style="background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);">
+    <div *ngIf="showAlert" class="alert alert-success text-center fixed-alert" role="alert">
+        {{ alertMessage }}
+    </div>
+    <div class="row">
+        <div class="col-sm-12 my-3">
+            <div class="main-content">
+                <div class="d-flex justify-content-between align-items-center" style="padding-bottom: 12px;">
+                    <h2 style="margin-bottom: 0">แก้ไขข้อมูลกิจกรรม</h2>
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-primary" (click)="onBackToMyEvent()"
+                            style="width: 100px; border-radius: 100px;">ย้อนกลับ</button>
+                    </div>
+                </div>
+                <div class="show-mean">
+                    <div class="row d-flex align-items-stretch">
+                        <div class="col-sm-6">
+                            <div class="card h-100" style="border-radius: 10px;">
+                                <div class="card-body">
+                                    <h5 class="mb-3">ตัวอย่างรูปภาพกิจกรรม</h5>
+                                    <div class="image-container" style="position: relative; width: 100%; height: auto;">
+                                        <img [src]="currentImage" [style.opacity]="imageOpacity" alt="Event image"
+                                            style="width: 100%; border-radius: 10px; position: absolute; top: 0; left: 0; transition: opacity 1s;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+                                <div class="card h-100" style="border-radius: 10px">
+                                    <div class="card-body">
+
+                                        <div class="form-group">
+                                            <label for="name">ชื่อกิจกรรม</label>
+                                            <input id="name" class="form-control" formControlName="name" required />
+                                            <div *ngIf="eventForm.get('name')?.touched && eventForm.get('name')?.errors?.['required']"
+                                                class="text-danger">
+                                                กรุณาระบุชื่อกิจกรรม
+                                            </div>
+                                            <div *ngIf="eventForm.get('name')?.hasError('forbiddenWords')"
+                                                class="text-danger">
+                                                ชื่อกิจกรรมไม่ควรมีคำหยาบ
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="location">สถานที่</label>
+                                            <input id="location" class="form-control" formControlName="location"
+                                                required />
+                                            <div *ngIf="eventForm.get('location')?.touched && eventForm.get('location')?.errors?.['required']"
+                                                class="text-danger">
+                                                กรุณาระบุชื่อสถานที่
+                                            </div>
+                                            <div *ngIf="eventForm.get('location')?.hasError('maxLength')"
+                                                class="text-danger">
+                                                สถานที่ไม่ควรยาวเกิน 50 ตัวอักษร
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="date_time">วัน/เวลา</label>
+                                            <input id="date_time" type="datetime-local" class="form-control"
+                                                formControlName="date_time" required />
+                                            <div *ngIf="eventForm.get('date_time')?.touched && eventForm.get('date_time')?.errors?.['required']"
+                                                class="text-danger">
+                                                กรุณาระบุวัน/เวลา
+                                            </div>
+                                            <div *ngIf="eventForm.get('date_time')?.touched && eventForm.get('date_time')?.hasError('pastDate')"
+                                                class="text-danger">
+                                                วัน/เวลา ไม่ควรเป็นอดีต
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="description">รายละเอียดกิจกรรม</label>
+                                            <textarea id="description" class="form-control"
+                                                formControlName="description" rows="2" required></textarea>
+                                            <div *ngIf="eventForm.get('description')?.touched && eventForm.get('description')?.errors?.['required']"
+                                                class="text-danger">
+                                                กรุณาระบุรายละเอียด
+                                            </div>
+                                            <div *ngIf="eventForm.get('description')?.hasError('forbiddenWords')"
+                                                class="text-danger">
+                                                รายละเอียดไม่ควรมีคำหยาบ
+                                            </div>
+                                            <div *ngIf="eventForm.get('description')?.hasError('maxLength')"
+                                                class="text-danger">
+                                                รายละเอียดไม่ควรยาวเกิน 200 ตัวอักษร
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="image">รูปภาพกิจกรรม</label>
+                                            <input type="file" class="form-control mean-file" formControlName="image"
+                                                (change)="onFileChange($event)" />
+                                            <div *ngIf="eventForm.get('image')?.errors?.['invalidFileType']"
+                                                class="text-danger">
+                                                กรุณาอัพโหลดไฟล์ที่เป็นรูปภาพ (jpg, jpeg, png, gif)
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary"
+                                            [disabled]="eventForm.invalid">บันทึกข้อมูล</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

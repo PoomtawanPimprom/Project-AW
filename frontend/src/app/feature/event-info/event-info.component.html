@@ -1,0 +1,64 @@
+<app-navbar />
+<div class="container-fluid" style="background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);">
+    <div *ngIf="showConfirm" class="alert alert-dark text-center fixed-confirm text-light" role="alert"
+        style="background-color: #343a40; border: none;">
+        {{ confirmMessage }}
+        <div class="d-flex justify-content-center mt-2">
+            <button type="button" class="btn btn-light mr-2" style="width: 100%;" (click)="onConfirmLeave()">ตกลง</button>
+            <button type="button" class="btn btn-danger" style="width: 100%;" (click)="onCloseConfirm()">ยกเลิก</button>
+        </div>
+    </div>
+    <div *ngIf="showAlert" class="alert alert-success text-center fixed-alert" role="alert">
+        {{ alertMessage }}
+    </div>
+    <div class="row">
+        <div class="col-sm-12 my-3">
+            <div class="main-content">
+                <div class="d-flex justify-content-between align-items-center" *ngIf="selectedEvent">
+                    <h2 style="margin-bottom: 10px;">กิจกรรม{{selectedEvent.name}}</h2>
+                </div>
+                <div class="row" *ngIf="selectedEvent">
+                    <div class="col-sm-6 d-flex align-items-center justify-content-center">
+                        <div class="card d-flex align-items-center justify-content-center"
+                            style="height: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%;">
+                            <div class="card" style="margin: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                <img class="card-img-top" [src]="selectedEvent.image" alt="Event image"
+                                    style="object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 d-flex flex-column">
+                        <div class="card" style="margin-bottom: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <div style="margin: 16px;">
+                                <p class="mb-4"><strong>รายละเอียด :</strong> {{selectedEvent.description}}
+                                </p>
+                                <p class="mb-2"><strong>ผู้จัด :</strong>
+                                    {{creatorName.toUpperCase()}}</p>
+                                <p class="mb-2"><strong>สถานที่ :</strong> {{selectedEvent.location}}</p>
+                                <p class="mb-2">จัดวันที่ {{formatDate(selectedEvent.date_time)}}</p>
+                                <p class="mb-2">จำนวนผู้เข้าร่วม {{participantCount}} คน</p>
+                                <button *ngIf="selectedEvent && participantCount !== undefined && member !== ''"
+                                    type="button" class="btn"
+                                    [ngClass]="{ 'btn-success': !isJoined, 'btn-danger': isJoined }"
+                                    (click)="onJoinEvent()">
+                                    {{ isJoined ? 'ยกเลิกการเข้าร่วมกิจกรรม' : 'เข้าร่วมกิจกรรม' }}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-1">
+                            <component-input-comment />
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-6"></div>
+                    <div class="col-sm-6 my-3">
+                        <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <div style="margin: 16px;">
+                                <component-show-comment/>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
