@@ -35,6 +35,8 @@
                     <div *ngIf="age?.errors?.['max']">อายุไม่ควรเกิน 100 ปี</div>
                     <div *ngIf="age?.errors?.['pattern']">กรุณาระบุอายุ</div>
                 </div>
+                <label for="">สิ่งที่สนใจ</label>
+                <input type="text" class="input-form" formControlName="interest" >
                 <label for="">อีเมล</label>
                 <input type="email" class="input-form" formControlName="email" >
                 <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
