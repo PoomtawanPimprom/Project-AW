@@ -23,6 +23,7 @@ export class ProfileComponent {
   isDisabled: boolean = true;
   showDropImage: boolean = false;
   obj_id!: string;
+  isNavbar: boolean = true;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private eventService: ProfileService) {
     this.profileForm = this.fb.group({

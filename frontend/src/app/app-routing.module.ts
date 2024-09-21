@@ -24,7 +24,7 @@ const routes: Routes = [
   // { path: 'event/myevent/edit/:id', component: EventEditComponent, canActivate: [AuthGuard] },
   // { path: 'friendInfo', component: FriendInfoComponent, canActivate: [AuthGuard] },
   // { path: 'friendRequest', component: FriendRequestComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   // { path: 'login', component: LoginComponent },
   // { path: 'register', component: RegisterComponent },
 
