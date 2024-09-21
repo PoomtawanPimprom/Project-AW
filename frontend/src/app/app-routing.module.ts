@@ -16,14 +16,14 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   //{ path: 'main', component: MainComponent, canActivate: [AuthGuard] },
-  { path: 'friend', component: FriendComponent, canActivate: [AuthGuard] },
+  // { path: 'friend', component: FriendComponent, canActivate: [AuthGuard] },
   { path: 'event', component: EventComponent, canActivate: [AuthGuard] },
   { path: 'event/info/:id', component: EventInfoComponent, canActivate: [AuthGuard] },
   { path: 'event/myevent', component: EventMyeventComponent, canActivate: [AuthGuard] },
   { path: 'event/myevent/create', component: EventCreateComponent, canActivate: [AuthGuard] },
   { path: 'event/myevent/edit/:id', component: EventEditComponent, canActivate: [AuthGuard] },
-  { path: 'friendInfo', component: FriendInfoComponent, canActivate: [AuthGuard] },
-  { path: 'friendRequest', component: FriendRequestComponent, canActivate: [AuthGuard] },
+  // { path: 'friendInfo', component: FriendInfoComponent, canActivate: [AuthGuard] },
+  // { path: 'friendRequest', component: FriendRequestComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   // { path: 'login', component: LoginComponent },
   // { path: 'register', component: RegisterComponent },
@@ -31,12 +31,15 @@ const routes: Routes = [
   //example
   { path: 'examplazyloading', loadChildren: () => import('./feature/examplelazyloading/examplelazyloading.module').then(m => m.ExamplelazyloadingModule)},
   { path: 'profile', loadChildren: () => import('./feature/profile/profile.module').then(m => m.ProfileModule) },
- 
+
 
   { path: 'login', loadChildren: () => import('./feature/login/login.module').then(m => m.LoginModule) },
   { path: 'register', loadChildren: () => import('./feature/register/register.module').then(m => m.RegisterModule) },
   { path: 'main', loadChildren: () => import('./feature/main/main.module').then(m => m.MainModule) },
-
+  { path: 'friend', loadChildren: () => import('./feature/friend/friend.module').then(m => m.FriendModule) },
+  { path: 'friend-info', loadChildren: () => import('./feature/friend-info/friend-info.module').then(m => m.FriendInfoModule) },
+  { path: 'friend-request', loadChildren: () => import('./feature/friend-request/friend-request.module').then(m => m.FriendRequestModule) },
+  
 
 
 

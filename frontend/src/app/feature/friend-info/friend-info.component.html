@@ -1,0 +1,141 @@
+<app-navbar/>
+<div class="container-fluid" style="background: linear-gradient(135deg, #072540, #79ACEE, #81CEDE, #C3E8EB);">
+    <div class="row">
+        <div class="col-sm-12 my-3">
+            <div class="main-content" id="main-content">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 style="color: #082540; margin-left: 40px;">หาเพื่อน</h2>
+                    <div class="d-flex">
+                        <input 
+                        type="text" 
+                        class="form-control search-bar me-2" 
+                        style="color: #082540; border: 1px solid #082540;" 
+                        placeholder="ค้นหาเพื่อนของคุณ" 
+                        [(ngModel)]="search" 
+                        (ngModelChange)="onSearchFriend()"
+                    >
+                    
+                    <a class="btn"
+                    href="/friendRequest"
+                    style="width: 200px; border-radius: 10px; color: #082540; border: none;">คำขอเป็นเพื่อน</a>
+                    <a class="btn"
+                        href="/friend"
+                        style="width: 200px; border-radius: 10px; color: #082540; border: none;">เพื่อนของคุณ</a>
+                    
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-md-3">
+                    <div class="sidebar">
+                        <app-sidebar (filterInstitute)="onFilterInstitute($event)"></app-sidebar>
+                    </div>
+                </div>
+                <div class="col-md-9" style="height: 87vh; overflow-x: auto; margin-top: 3px;">
+                    <div class="friends-container">
+                        <div class="friend-wrapper" *ngFor="let item of filteredUser; let i = index">
+                            <div class="friend-card" 
+                                [ngStyle]="{'animation-delay': (i * 0.16) + 's'}"
+                            >
+                                <img [src]="item.image" alt="Friend image" class="mb-3">
+                                <div class="card-body">
+                                    <h5 style="color: #082540;">{{item.name}}</h5>
+                                    <p class="text-muted" style="font-size: 14px; margin-bottom: 2px">{{item.institute ? item.institute : 'สำนักวิชา'}}</p>
+                                    <p class="text-muted" style="font-size: 14px; margin-bottom: 0px">สาขาวิชา{{item.major}}</p>
+                                </div>
+                                
+                                <button class="btn btn-secondary btn-sm w-100 main-btn" 
+                                    style="border: none; background: #79ACEE;"
+                                    (click)="openFriendModal(item)">
+                                    เพิ่มเติม
+                                </button>    
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal for displaying friend details -->
+                    <div *ngIf="selectedFriend" class="modal" tabindex="-1" role="dialog" aria-labelledby="friendModalLabel" aria-hidden="true">
+                        <div class="modal-bg " role="document">
+                            <div *ngIf="showAlert" class="alert text-center fixed-alert" role="alert"[ngClass]="{
+                                'alert-success': alertMessage === 'เพิ่มเพื่อนสำเร็จ',
+                                'alert-danger': alertMessage === 'เกิดข้อผิดพลาดโปรดลองใหม่' || alertMessage === 'ไม่สามารถเพิ่มตัวเองเป็นเพื่อนได้'
+                            }">
+                                {{ alertMessage }}
+                            </div>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="profile_img">
+                                        <img [src]="selectedFriend.image" alt="Friend image">
+                                    </div>
+                                    <h5 class="modal-title" id="friendModalLabel">{{ selectedFriend.name }}<br><span>{{ selectedFriend.institute }}</span></h5>
+                                    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="imgBx">
+                                                <img [src]="selectedFriend.image" alt="Friend image">
+                                            </div>
+                                            <div class="actionBtns">
+                                                <div class="left">
+                                                    <i class="bi bi-heart"></i>
+                                                    <!-- <i class="bi bi-heart-fill" style="color: rgb(255, 102, 133);"></i> -->
+                                                    <i class="bi bi-chat"></i>
+                                                    <i class="bi bi-send"></i>
+                                                </div>
+                                                <div class="right">
+                                                    <i class="bi bi-bookmark"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="content-Info">
+                                                <strong>ชื่อเล่น:</strong><p> {{ selectedFriend.name }}</p>
+                                            </div>
+                                            <div class="content-Info">
+                                                <strong>อายุ:</strong> <p>{{ selectedFriend.age }}</p>
+                                            </div>
+                                            <div class="content-Info">
+                                                <strong>สำนัก:</strong><p> {{ selectedFriend.institute }}</p>
+                                            </div>
+                                            <div class="content-Info">
+                                                <strong>สาขา:</strong><p> {{ selectedFriend.major }}</p>
+                                            </div>
+                                            <div class="content-Info">
+                                                <strong>สิ่งที่ชอบ:</strong><p> {{ selectedFriend.interest }}</p>
+                                            </div>
+
+                                            <div class="contact">
+                                                <a target="_blank" [href]="selectedFriend.facebook" class="nav-link">
+                                                    <i class="bi bi-facebook"></i>
+                                                </a>
+                                                <a target="_blank"[href]="selectedFriend.instagram" class="nav-link">
+                                                    <i class="bi bi-instagram"></i>
+                                                </a>
+                                                <a target="_blank" [href]="selectedFriend.tiktok" class="nav-link">
+                                                    <i class="bi bi-tiktok"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- <p><strong>Status:</strong> {{ selectedFriend.status === 'pending' ? 'รอดำเนินการ' : 'Accepted' }}</p> -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary main-btn" 
+                                        style="border: none; background: #82CEDE;"
+                                        (click)="pendingFriend(selectedFriend)">
+                                        {{ isPendingRequest(selectedFriend) ? 'รอดำเนินการ' : 'เพิ่มเพื่อน' }}
+                                    </button> 
+                                    <button type="button" class="btn btn-secondary" style="background-color: #F6F4F0; border: none; color: #7a7777;" (click)="closeModal()">ปิด</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                  
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
