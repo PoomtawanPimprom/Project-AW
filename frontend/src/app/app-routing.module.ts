@@ -30,7 +30,7 @@ const routes: Routes = [
 
   //example
   { path: 'examplazyloading', loadChildren: () => import('./feature/examplelazyloading/examplelazyloading.module').then(m => m.ExamplelazyloadingModule)},
-  { path: 'lazyloading', loadChildren: () => import('./feature/lazyloading/lazyloading.module').then(m => m.LazyloadingModule) },
+  { path: 'profile', loadChildren: () => import('./feature/profile/profile.module').then(m => m.ProfileModule) },
  
 
   { path: 'login', loadChildren: () => import('./feature/login/login.module').then(m => m.LoginModule) },
