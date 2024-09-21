@@ -25,11 +25,13 @@ const routes: Routes = [
   { path: 'friendInfo', component: FriendInfoComponent, canActivate: [AuthGuard] },
   { path: 'friendRequest', component: FriendRequestComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  // { path: 'login', component: LoginComponent },
+  // { path: 'register', component: RegisterComponent },
 
   //example
   { path: 'examplazyloading', loadChildren: () => import('./feature/examplelazyloading/examplelazyloading.module').then(m => m.ExamplelazyloadingModule)},
+  { path: 'login', loadChildren: () => import('./feature/login/login.module').then(m => m.LoginModule) },
+  { path: 'register', loadChildren: () => import('./feature/register/register.module').then(m => m.RegisterModule) },
 ];
 
 @NgModule({
