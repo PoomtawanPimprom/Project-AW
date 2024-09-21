@@ -24,12 +24,18 @@ import { ShowCommentComponent } from './components/comment/show-comment/show-com
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,
-    NavbarComponent,
+    
+    // SidebarComponent,
+    // NavbarComponent,
+    // LoadingComponent,
+    // InputCommentComponent,
+    // ShowCommentComponent,
+
     MainComponent,
     EventComponent,
     FriendComponent,
@@ -40,11 +46,10 @@ import { LoadingComponent } from './components/loading/loading.component';
     FriendInfoComponent,
     FriendRequestComponent,
     ProfileComponent,
-    InputCommentComponent,
-    ShowCommentComponent,
+    
     LoginComponent,
     RegisterComponent,
-    LoadingComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -52,12 +57,15 @@ import { LoadingComponent } from './components/loading/loading.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-
+    SharedModule
     
   ],
   providers: [
     // provideClientHydration()
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports:[
+
+  ]
 })
 export class AppModule { }
