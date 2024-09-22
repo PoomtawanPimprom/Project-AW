@@ -1,1 +1,84 @@
-<p>Profile works!</p>
+<app-navbar *ngIf="isNavbar"/>
+<div class="background-profile d-flex justify-content-center align-items-center">
+
+    <div class="bg-white container overflow-hidden shadow">
+        <div class="profile w-100 d-flex justify-content-center align-items-center">
+            <img 
+                [src]="user.image"
+                alt="profile" style="object-fit: cover;" />
+            <div class="head">
+                <h1 class="h3" style="display: flex; align-items: center;">{{user.name}} <small class="ml-2" style="font-size: 20px; font-weight: bold;">({{user.username.toUpperCase()}})</small></h1>
+                <p>อายุ {{user.age || 0}} ปี</p>
+                <p>{{user.institute ? user.institute : 'สำนักวิชา'}}</p>
+                <p>สาขาวิชา{{user.major}}</p>
+            </div>
+            <div class="social">
+                <a [href]="user.facebook" target="_blank" *ngIf="profileForm.get('facebook')?.value"><i class="bi bi-facebook mx-3 mt-5"></i></a>
+                <a [href]="user.instagram" target="_blank" *ngIf="profileForm.get('instagram')?.value"><i class="bi bi-instagram mx-3 mt-5"></i></a>
+                <a [href]="user.tiktok" target="_blank" *ngIf="profileForm.get('tiktok')?.value"><i class="bi bi-tiktok mx-3 mt-5"></i></a>
+            </div>
+            
+        </div>
+
+        <div class="about mt-2">
+            <form [formGroup]="profileForm" class="d-flex flex-column col-7" >
+                <label for="">ชื่อเล่น</label>
+                <input type="text" class="input-form" formControlName="name" >
+                <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert alert-danger">
+                    <div *ngIf="name?.errors?.['required']">กรุณาระบุชื่อเล่น</div>
+                    <div *ngIf="name?.errors?.['forbiddenWords']">ไม่ควรมีคำหยาบในชื่อเล่น</div>
+                </div>
+                <label for="">อายุ</label>
+                <input type="text" class="input-form" formControlName="age" >
+                <div *ngIf="age?.invalid && (age?.dirty || age?.touched)" class="alert alert-danger">
+                    <div *ngIf="age?.errors?.['min']">อายุไม่ควรน้อยกว่า 3 ปี</div>
+                    <div *ngIf="age?.errors?.['max']">อายุไม่ควรเกิน 100 ปี</div>
+                    <div *ngIf="age?.errors?.['pattern']">กรุณาระบุอายุ</div>
+                </div>
+                <label for="">สิ่งที่สนใจ</label>
+                <input type="text" class="input-form" formControlName="interest" >
+                <label for="">อีเมล</label>
+                <input type="email" class="input-form" formControlName="email" >
+                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
+                    <div *ngIf="email?.errors?.['required']">กรุณาระบุอีเมล</div>
+                    <div *ngIf="email?.errors?.['email']">รูปแบบอีเมลไม่ถูกต้อง</div>
+                </div>
+                <label for="">สำนักวิชา</label>
+                <select class="input-form" formControlName="institute">
+                    <option selected disabled>เลือกสำนักวิชา</option>
+                    <option value="สำนักวิชาวิทยาศาสตร์">สำนักวิชาวิทยาศาสตร์</option>
+                    <option value="สำนักวิชาเทคโนโลยีสังคม">สำนักวิชาเทคโนโลยีสังคม</option>
+                    <option value="สำนักวิชาเทคโนโลยีการเกษตร">สำนักวิชาเทคโนโลยีการเกษตร</option>
+                    <option value="สำนักวิชาวิศวกรรมศาสตร์">สำนักวิชาวิศวกรรมศาสตร์</option>
+                    <option value="สำนักวิชาแพทยศาสตร์">สำนักวิชาแพทยศาสตร์</option>
+                    <option value="สำนักวิชาพยาบาลศาสตร์">สำนักวิชาพยาบาลศาสตร์</option>
+                    <option value="สำนักวิชาทันตแพทยศาสตร์">สำนักวิชาทันตแพทยศาสตร์</option>
+                    <option value="สำนักวิชาสาธารณสุขศาสตร์">สำนักวิชาสาธารณสุขศาสตร์</option>
+                    <option value="สำนักวิชาศาสตร์และศิลป์ดิจิทัล">สำนักวิชาศาสตร์และศิลป์ดิจิทัล</option>
+                  </select>
+                <label for="">สาขาวิชา</label>
+                <input type="text" class="input-form" formControlName="major" >
+                <label for="">Facebook</label>
+                <input type="text" class="input-form" formControlName="facebook" placeholder="แนบลิงก์โปรไฟล์">
+                <label for="">Instagram</label>
+                <input type="text" class="input-form" formControlName="instagram" placeholder="แนบลิงก์โปรไฟล์">
+                <label for="">Tiktok</label>
+                <input type="text" class="input-form" formControlName="tiktok" placeholder="แนบลิงก์โปรไฟล์">
+
+                <div *ngIf="showDropImage">
+                    <label for="images" class="drop-container" id="dropcontainer">
+                        <span class="drop-title">Drop files here</span>
+                        or
+                        <input type="file" id="images" class="input-form" accept="image/*" formControlName="image" [disabled]="isDisabled" (change)="onFileChange($event)" required>
+                    </label>
+                </div>
+
+                <span class="button-group">
+                    <button type="button" (click)="toggleFields()" class="button-sub" >แก้ไข</button>
+                    <button (click)="onClickUpdateUser(user._id)" class="button-sub" role="button">บันทึกข้อมูล <i class="bi bi-save"></i></button>
+                </span>
+                
+            </form>
+        </div>
+    </div>
+</div>

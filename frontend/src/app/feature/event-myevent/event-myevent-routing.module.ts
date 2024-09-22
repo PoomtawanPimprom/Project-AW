@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileComponent } from './profile.component';
+import { EventMyeventComponent } from './event-myevent.component';
 import { AuthGuard } from '../../guards/auth.guard';
 
-const routes: Routes = [{ path: '', component: ProfileComponent, canActivate: [AuthGuard] }];
+const routes: Routes = [{ path: '', component: EventMyeventComponent, canActivate: [AuthGuard] }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProfileRoutingModule { }
+export class EventMyeventRoutingModule { }

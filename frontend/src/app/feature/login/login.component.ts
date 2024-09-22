@@ -52,7 +52,7 @@ export class LoginComponent {
             localStorage.setItem('username', payload.username);
 
             setTimeout(() => {
-              this.router.navigate(['/main']);
+              this.router.navigate(['main']);
               this.showAlert = false;
             }, 2000);
           } else {

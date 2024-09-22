@@ -17,14 +17,14 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   //{ path: 'main', component: MainComponent, canActivate: [AuthGuard] },
   // { path: 'friend', component: FriendComponent, canActivate: [AuthGuard] },
-  { path: 'event', component: EventComponent, canActivate: [AuthGuard] },
-  { path: 'event/info/:id', component: EventInfoComponent, canActivate: [AuthGuard] },
-  { path: 'event/myevent', component: EventMyeventComponent, canActivate: [AuthGuard] },
-  { path: 'event/myevent/create', component: EventCreateComponent, canActivate: [AuthGuard] },
-  { path: 'event/myevent/edit/:id', component: EventEditComponent, canActivate: [AuthGuard] },
+  // { path: 'event', component: EventComponent, canActivate: [AuthGuard] },
+  // { path: 'event/info/:id', component: EventInfoComponent, canActivate: [AuthGuard] },
+  // { path: 'event/myevent', component: EventMyeventComponent, canActivate: [AuthGuard] },
+  // { path: 'event/myevent/create', component: EventCreateComponent, canActivate: [AuthGuard] },
+  // { path: 'event/myevent/edit/:id', component: EventEditComponent, canActivate: [AuthGuard] },
   // { path: 'friendInfo', component: FriendInfoComponent, canActivate: [AuthGuard] },
   // { path: 'friendRequest', component: FriendRequestComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   // { path: 'login', component: LoginComponent },
   // { path: 'register', component: RegisterComponent },
 
@@ -38,7 +38,11 @@ const routes: Routes = [
   { path: 'friend', loadChildren: () => import('./feature/friend/friend.module').then(m => m.FriendModule), },
   { path: 'friendInfo', loadChildren: () => import('./feature/friend-info/friend-info.module').then(m => m.FriendInfoModule) },
   { path: 'friendRequest', loadChildren: () => import('./feature/friend-request/friend-request.module').then(m => m.FriendRequestModule) },
-  
+  { path: 'event', loadChildren: () => import('./feature/event/event.module').then(m => m.EventModule) },
+  { path: 'event/myevent/create', loadChildren: () => import('./feature/event-create/event-create.module').then(m => m.EventCreateModule) },
+  { path: 'event/myevent/edit/:id', loadChildren: () => import('./feature/event-edit/event-edit.module').then(m => m.EventEditModule) },
+  { path: 'event/info/:id', loadChildren: () => import('./feature/event-info/event-info.module').then(m => m.EventInfoModule) },
+  { path: 'event/myevent', loadChildren: () => import('./feature/event-myevent/event-myevent.module').then(m => m.EventMyeventModule) },
 
 ];
 
