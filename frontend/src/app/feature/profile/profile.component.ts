@@ -31,9 +31,9 @@ export class ProfileComponent {
       name: [{ value: '', disabled: true }, [Validators.required, CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย', 'ไอ้', 'เลว', 'cpe', 'C PE']), CustomValidators.maxLength(10)]],
       email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       institute: [{ value: '', disabled: true }],
-      major: [{ value: '', disabled: true }],
+      major: [{ value: '', disabled: true }, [Validators.required]],
       age: [{ value: '', disabled: true }, [ Validators.min(3), Validators.max(100), Validators.pattern('^\\d+$')]],
-      interest: [{ value: '', disabled: true }],
+      interest: [{ value: '', disabled: true }, [CustomValidators.forbiddenWords(['กู', 'มึง', 'สัส', 'ควย', 'ไอ้', 'เลว', 'cpe', 'C PE'])] ], 
       facebook: [{ value: '', disabled: true }],
       instagram: [{ value: '', disabled: true }],
       tiktok: [{ value: '', disabled: true }],
@@ -49,6 +49,12 @@ export class ProfileComponent {
 
   get email() {
     return this.profileForm.get('email');
+  }
+  get interest() {
+    return this.profileForm.get('interest');
+  }
+  get major() {
+    return this.profileForm.get('major');
   }
 
   get name() {
