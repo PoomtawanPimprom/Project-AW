@@ -81,7 +81,7 @@
 
                 <span class="button-group">
                     <button type="button" (click)="toggleFields()" class="button-sub" >แก้ไข</button>
-                    <button (click)="onClickUpdateUser(user._id)" class="button-sub" role="button">บันทึกข้อมูล <i class="bi bi-save"></i></button>
+                    <button (click)="onClickUpdateUser(user._id)" [disabled]="profileForm.invalid" class="button-sub" role="button">บันทึกข้อมูล <i class="bi bi-save"></i></button>
                 </span>
                 
             </form>
