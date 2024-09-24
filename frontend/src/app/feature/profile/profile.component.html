@@ -60,7 +60,7 @@
                     <option value="สำนักวิชาศาสตร์และศิลป์ดิจิทัล">สำนักวิชาศาสตร์และศิลป์ดิจิทัล</option>
                   </select>
                 <label for="">สาขาวิชา</label>
-                <input type="text" class="input-form" formControlName="major" >
+                <input type="text" class="input-form" formControlName="major" placeholder="หากไม่มีสาขาให้ใส่ -">
                 <div *ngIf="major?.invalid && (major?.dirty || major?.touched)" class="alert alert-danger">
                     <div *ngIf="major?.errors?.['required']">กรุณาระบุสาขาวิชา</div>
                 </div>
