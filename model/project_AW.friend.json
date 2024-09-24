@@ -1,0 +1,75 @@
+[{
+  "_id": {
+    "$oid": "66f2cb6d427331bd8fcd2517"
+  },
+  "userId1": {
+    "$oid": "66f258ed81419b72101b11a6"
+  },
+  "userId2": {
+    "$oid": "66f258d181419b72101b119f"
+  },
+  "status": "accepted",
+  "createAt": {
+    "$date": "2024-09-24T14:23:41.859Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f2cb71427331bd8fcd251d"
+  },
+  "userId1": {
+    "$oid": "66f258fb81419b72101b11aa"
+  },
+  "userId2": {
+    "$oid": "66f258d181419b72101b119f"
+  },
+  "status": "accepted",
+  "createAt": {
+    "$date": "2024-09-24T14:23:45.407Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f2cb73427331bd8fcd2523"
+  },
+  "userId1": {
+    "$oid": "66f2591a81419b72101b11ae"
+  },
+  "userId2": {
+    "$oid": "66f258d181419b72101b119f"
+  },
+  "status": "accepted",
+  "createAt": {
+    "$date": "2024-09-24T14:23:47.768Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f2cbec427331bd8fcd2569"
+  },
+  "userId1": {
+    "$oid": "66f258d181419b72101b119f"
+  },
+  "userId2": {
+    "$oid": "66f2698981419b72101b12b2"
+  },
+  "status": "pending",
+  "createAt": {
+    "$date": "2024-09-24T14:25:48.562Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f2cc04427331bd8fcd2573"
+  },
+  "userId1": {
+    "$oid": "66f258d181419b72101b119f"
+  },
+  "userId2": {
+    "$oid": "66f26a1c81419b72101b12bc"
+  },
+  "status": "pending",
+  "createAt": {
+    "$date": "2024-09-24T14:26:12.930Z"
+  }
+}]
