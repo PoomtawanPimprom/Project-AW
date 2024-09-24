@@ -10,7 +10,7 @@
                 <h1 class="h3" style="display: flex; align-items: center;">{{user.name}} <small class="ml-2" style="font-size: 20px; font-weight: bold;">({{user.username.toUpperCase()}})</small></h1>
                 <p>อายุ {{user.age || 0}} ปี</p>
                 <p>{{user.institute ? user.institute : 'สำนักวิชา'}}</p>
-                <p>สาขาวิชา{{user.major}}</p>
+                <p>สาขาวิชา{{ user.major === '-' ? ' -' : user.major }}</p>
             </div>
             <div class="social">
                 <a [href]="user.facebook" target="_blank" *ngIf="profileForm.get('facebook')?.value"><i class="bi bi-facebook mx-3 mt-5"></i></a>
