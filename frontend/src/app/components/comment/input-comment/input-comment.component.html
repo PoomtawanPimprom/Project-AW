@@ -3,6 +3,8 @@
         <form [formGroup]="inputCommentFormGroup">
             <textarea id="description" class="form-control" style="padding: 10px;" rows="2"
                 formControlName="inputComment"></textarea>
+
+
         </form>
         <!-- validate -->
         <div *ngIf="inputCommentFormGroup.get('inputComment')?.touched && inputCommentFormGroup.get('inputComment')?.errors?.['required']"
@@ -14,13 +16,10 @@
         </div>
 
         <div class="d-flex justify-content-end mt-2 mb-2">
-            <button class="btn btn-primary" 
-            style="margin-right: 10px; display: flex;" 
-            type="button"
-                data-toggle="collapse" 
-                data-target="#commentExample" 
-                aria-expanded="false"
+            <button class="btn btn-primary" style="margin-right: 10px; display: flex;" type="button"
+                data-toggle="collapse" data-target="#commentExample" aria-expanded="false"
                 aria-controls="commentExample"
+                
                 (click)="onClickToggleShowComment()">
                 <div style="margin-right: 4px;">ตัวอย่าง</div>
                 <div style="display: flex; justify-content: center; text-align: center; ">
@@ -28,9 +27,9 @@
                     <i class="bi bi-caret-up" *ngIf="dropdownshowstate"></i>
                 </div>
             </button>
-            <button 
-                class="btn btn-mean"
-                (click)="onClickCreateCommet()">โพสต์ความคิดเห็น</button>
+            <button class="btn btn-mean" 
+            [disabled]="inputCommentFormGroup.invalid"
+            (click)="onClickCreateCommet()">โพสต์ความคิดเห็น</button>
         </div>
         <div class="collapse" id="commentExample">
             <component-show-comment [comment]="inputCommentFormGroup.get('inputComment')?.value" />
@@ -42,7 +41,8 @@
                     style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; display: flex; flex-direction: column; background-color: #123f66; flex-wrap: unset;">
                     <div class="card-body" style="padding: 10px;">
                         <div style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
-                            <div class="rounded-circle" style="height: 40px; width: 40px; margin-right: 10px; overflow: hidden; border: 2px solid white;">
+                            <div class="rounded-circle"
+                                style="height: 40px; width: 40px; margin-right: 10px; overflow: hidden; border: 2px solid white;">
                                 <img [src]="comment.userId.image" style="height: 100%; width: 100%; object-fit: cover;">
                             </div>
                             <div style="display: flex; width: 20% ; margin-right: 10px; color: white;">
@@ -87,6 +87,7 @@
                                 </div>
                                 <div class="Part-reply-comment-button">
                                     <button class="btn btn-primary reply-button"
+                                        [disabled]="replyCommentFormGroup.invalid"
                                         (click)="onClickCreateReplyComment(comment._id)">ตอบกลับ</button>
                                 </div>
                             </div>
@@ -98,8 +99,10 @@
                                 <div style="padding: 0px;">
                                     <div
                                         style="display: flex; margin-bottom: 0.5rem; align-items: center; text-align: center;">
-                                        <div class="rounded-circle" style="height: 40px; width: 40px; margin-right: 10px; overflow: hidden;">
-                                            <img [src]="data.userId.image" alt="" style="height: 100%; width: 100%; object-fit: cover;">
+                                        <div class="rounded-circle"
+                                            style="height: 40px; width: 40px; margin-right: 10px; overflow: hidden;">
+                                            <img [src]="data.userId.image" alt=""
+                                                style="height: 100%; width: 100%; object-fit: cover;">
                                         </div>
                                         <div style="display: flex; width: 20% ; margin-right: 10px;">
                                             {{ data.userId.name}}
@@ -161,6 +164,7 @@
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">ปิด</button>
                                         <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                            [disabled]="CommentupdateFormGroup.invalid"
                                             (click)="onClickUpdateComment(comment._id)">ตกลง</button>
                                     </div>
                                 </div>

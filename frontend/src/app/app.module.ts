@@ -19,23 +19,13 @@ import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { FriendInfoComponent } from './pages/friend-info/friend-info.component';
 import { FriendRequestComponent } from './pages/friend-request/friend-request.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { InputCommentComponent } from './components/comment/input-comment/input-comment.component';
-import { ShowCommentComponent } from './components/comment/show-comment/show-comment.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { LoadingComponent } from './components/loading/loading.component';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    
-    // SidebarComponent,
-    // NavbarComponent,
-    // LoadingComponent,
-    // InputCommentComponent,
-    // ShowCommentComponent,
-
     MainComponent,
     EventComponent,
     FriendComponent,
@@ -48,7 +38,6 @@ import { SharedModule } from './shared/shared.module';
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -56,6 +45,7 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+
     SharedModule
     
   ],
