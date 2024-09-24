@@ -40,7 +40,7 @@
                                 <div class="card-body">
                                     <h5 style="color: #082540;">{{item.name}}</h5>
                                     <p class="text-muted" style="font-size: 14px; margin-bottom: 2px">{{item.institute ? item.institute : 'สำนักวิชา'}}</p>
-                                    <p class="text-muted" style="font-size: 14px; margin-bottom: 0px">สาขาวิชา{{item.major}}</p>
+                                    <p class="text-muted" style="font-size: 14px; margin-bottom: 0px">สาขาวิชา{{ item.major ? item.major : ' -' }}</p>
                                 </div>
                                 
                                 <button class="btn btn-secondary btn-sm w-100 main-btn" 
@@ -94,13 +94,13 @@
                                                 <strong>ชื่อเล่น:</strong><p> {{ selectedFriend.name }}</p>
                                             </div>
                                             <div class="content-Info">
-                                                <strong>อายุ:</strong> <p>{{ selectedFriend.age }} ปี</p>
+                                                <strong>อายุ:</strong> <p>{{ selectedFriend.age ? selectedFriend.age : "0" }} ปี</p>
                                             </div>
                                             <div class="content-Info">
                                                 <strong>สำนัก:</strong><p> {{ selectedFriend.institute }}</p>
                                             </div>
                                             <div class="content-Info">
-                                                <strong>สาขา:</strong><p> {{ selectedFriend.major }}</p>
+                                                <strong>สาขาวิชา:</strong><p> {{ selectedFriend.major ? selectedFriend.major : "-" }}</p>
                                             </div>
                                             <div class="content-Info">
                                                 <strong>สิ่งที่สนใจ:</strong><p> {{ selectedFriend.interest }}</p>
