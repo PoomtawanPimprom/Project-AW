@@ -28,13 +28,10 @@ const routes: Routes = [
   // { path: 'login', component: LoginComponent },
   // { path: 'register', component: RegisterComponent },
 
-  //example
-  { path: 'examplazyloading', loadChildren: () => import('./feature/examplelazyloading/examplelazyloading.module').then(m => m.ExamplelazyloadingModule)},
-  { path: 'profile', loadChildren: () => import('./feature/profile/profile.module').then(m => m.ProfileModule) },
-
   { path: 'login', loadChildren: () => import('./feature/login/login.module').then(m => m.LoginModule) },
   { path: 'register', loadChildren: () => import('./feature/register/register.module').then(m => m.RegisterModule) },
   { path: 'main', loadChildren: () => import('./feature/main/main.module').then(m => m.MainModule) },
+  { path: 'profile', loadChildren: () => import('./feature/profile/profile.module').then(m => m.ProfileModule) },
   { path: 'friend', loadChildren: () => import('./feature/friend/friend.module').then(m => m.FriendModule), },
   { path: 'friendInfo', loadChildren: () => import('./feature/friend-info/friend-info.module').then(m => m.FriendInfoModule) },
   { path: 'friendRequest', loadChildren: () => import('./feature/friend-request/friend-request.module').then(m => m.FriendRequestModule) },
